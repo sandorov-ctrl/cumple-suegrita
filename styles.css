@@ -6,8 +6,8 @@
 }
 
 body {
-    background-image: url('assets/fondo1.png');
-    /* Actualizado a PNG */
+    background-image: url('assets/fondo1.jpg');
+    /* Tu imagen de fondo */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -15,7 +15,6 @@ body {
     font-family: 'Poppins', sans-serif;
     height: 100vh;
     overflow: hidden;
-    color: #4a4a4a;
 }
 
 #universo-fondo {
@@ -56,15 +55,15 @@ body {
 .seccion {
     height: 100vh;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     position: absolute;
     top: 0;
     left: 0;
     transition: opacity 1s ease-out;
-    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
 }
 
 .oculta {
@@ -85,6 +84,7 @@ body {
     margin-bottom: 40px;
     text-align: center;
     text-shadow: 2px 2px 15px rgba(181, 124, 124, 0.9);
+    z-index: 20;
 }
 
 #btn-activar {
@@ -92,6 +92,7 @@ body {
     cursor: pointer;
     animation: pulsoSuave 2.5s infinite;
     filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+    z-index: 20;
 }
 
 @keyframes pulsoSuave {
@@ -108,144 +109,135 @@ body {
     }
 }
 
-.escenario-central {
-    position: relative;
-    width: 380px;
-    height: 500px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-
-#papel-ramo {
+.instruccion-arte {
     position: absolute;
-    width: 90%;
-    bottom: 10px;
-    z-index: 50;
-    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4));
-}
-
-.interior-nubes {
-    position: absolute;
-    width: 100%;
-    height: 400px;
-    bottom: 150px;
-    z-index: 10;
-    background-color: rgba(255, 255, 255, 0.85);
-    border-radius: 45% 55% 60% 40% / 50% 60% 40% 50%;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), inset 0 0 20px rgba(181, 124, 124, 0.1);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    transition: all 0.5s ease-out;
-}
-
-.flor-acuarela {
-    position: absolute;
-    height: 160px;
-    cursor: pointer;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 10;
-    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
-}
-
-.respira-1 {
-    animation: respirarA 4s infinite alternate ease-in-out;
-}
-
-.respira-2 {
-    animation: respirarB 5s infinite alternate ease-in-out;
-}
-
-@keyframes respirarA {
-    from {
-        transform: translateY(0);
-    }
-
-    to {
-        transform: translateY(-12px) rotate(3deg);
-    }
-}
-
-@keyframes respirarB {
-    from {
-        transform: translateY(0);
-    }
-
-    to {
-        transform: translateY(-8px) rotate(-3deg);
-    }
-}
-
-#f1 {
-    transform: rotate(-35deg);
-    top: 15%;
-    left: 10px;
-    animation-delay: 0s;
-}
-
-#f2 {
-    transform: rotate(-20deg);
     top: 5%;
-    left: 70px;
-    animation-delay: 0.5s;
-    z-index: 11;
-}
-
-#f3 {
-    transform: rotate(0deg);
-    top: 10%;
-    left: 130px;
-    animation-delay: 1s;
-    z-index: 12;
-    height: 180px;
-}
-
-#f4 {
-    transform: rotate(15deg);
-    top: 5%;
-    right: 70px;
-    animation-delay: 1.5s;
-    z-index: 11;
-}
-
-#f5 {
-    transform: rotate(30deg);
-    top: 15%;
-    right: 10px;
-    animation-delay: 2s;
-}
-
-#f6 {
-    transform: rotate(-10deg);
-    top: 35%;
-    left: 100px;
-    animation-delay: 2.5s;
-    z-index: 5;
-}
-
-.flor-acuarela:active {
-    transform: scale(1.1) translateY(-20px) !important;
-    z-index: 100 !important;
-    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
-}
-
-.consejo-instruccion {
-    margin-top: 30px;
     font-family: 'Great Vibes', cursive;
     font-size: 2.5rem;
     color: #fff;
     text-shadow: 1px 1px 10px rgba(181, 124, 124, 0.9);
+    z-index: 5;
+    text-align: center;
+    width: 100%;
 }
 
+.oculta-inicio {
+    opacity: 0;
+    transition: opacity 2s ease 1s;
+}
+
+.mostrar-titulo {
+    opacity: 1 !important;
+}
+
+/* =========================================
+   FLORES LIBRES POR TODA LA PANTALLA
+   ========================================= */
+.flor-libre {
+    position: absolute;
+    width: 130px;
+    /* Tamaño perfecto para pulsar en móvil */
+    height: auto;
+    cursor: pointer;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 20;
+    filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3));
+}
+
+/* Distribuimos las flores en las esquinas y los laterales */
+#f1 {
+    top: 15%;
+    left: 5%;
+    animation: flotar1 6s infinite alternate ease-in-out;
+}
+
+#f2 {
+    top: 20%;
+    right: 5%;
+    animation: flotar2 7s infinite alternate ease-in-out;
+}
+
+#f3 {
+    top: 45%;
+    left: 10%;
+    animation: flotar3 5s infinite alternate ease-in-out;
+}
+
+#f4 {
+    top: 55%;
+    right: 10%;
+    animation: flotar1 8s infinite alternate ease-in-out;
+}
+
+#f5 {
+    bottom: 12%;
+    left: 15%;
+    animation: flotar2 6.5s infinite alternate ease-in-out;
+}
+
+#f6 {
+    bottom: 8%;
+    right: 15%;
+    animation: flotar3 7.5s infinite alternate ease-in-out;
+}
+
+/* Animaciones para que se muevan libremente en su área */
+@keyframes flotar1 {
+    from {
+        transform: translate(0, 0) rotate(-5deg);
+    }
+
+    to {
+        transform: translate(20px, 20px) rotate(5deg);
+    }
+}
+
+@keyframes flotar2 {
+    from {
+        transform: translate(0, 0) rotate(5deg);
+    }
+
+    to {
+        transform: translate(-20px, 25px) rotate(-5deg);
+    }
+}
+
+@keyframes flotar3 {
+    from {
+        transform: translate(0, 0) rotate(-3deg);
+    }
+
+    to {
+        transform: translate(15px, -20px) rotate(3deg);
+    }
+}
+
+/* Cuando tocas una flor, viaja al CENTRO exacto y se hace grande */
+.flor-libre.enfocada {
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(2) !important;
+    animation: none !important;
+    /* Paramos su movimiento para poder verla bien */
+    z-index: 100 !important;
+}
+
+/* Para oscurecer las flores que NO tocaste */
+.flor-libre.opaca {
+    opacity: 0.1;
+}
+
+/* =========================================
+   LA HOJA Y LOS MENSAJES
+   ========================================= */
 .overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -274,7 +266,7 @@ body {
 }
 
 .vuelo-espectacular {
-    animation: entrada3D 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation: entrada3D 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 @keyframes entrada3D {
@@ -304,7 +296,7 @@ body {
     flex-direction: column;
     align-items: center;
     opacity: 0;
-    transition: opacity 0.8s ease 1s;
+    transition: opacity 0.8s ease 0.8s;
 }
 
 .modal-activo .bloque-texto {
@@ -317,6 +309,7 @@ body {
     color: #3b2f2f;
     line-height: 1.5;
     margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.6);
 }
 
 .botones-accion {
@@ -334,7 +327,7 @@ body {
     padding: 10px 20px;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     border: none;
     transition: transform 0.2s;
 }

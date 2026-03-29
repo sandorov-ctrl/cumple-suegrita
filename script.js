@@ -1,4 +1,4 @@
-// TUS FRASES EXACTAS
+// Tus frases perfectas
 const frasesUnicas = [
     "Más allá de los detalles o la comida, lo que más disfruto es tu compañía. Gracias por abrazarme como a un hijo más.",
     "Agradezco de corazón cada consejo que me das. Me gusta escucharte porque tu energía me transmite una paz que no se encuentra en cualquier lado.",
@@ -11,17 +11,17 @@ const frasesUnicas = [
 // Nodos del Hardware
 const btnActivar = document.getElementById('btn-activar');
 const pInicio = document.getElementById('pantalla-inicio');
-const pRamo = document.getElementById('pantalla-ramo'); // Ahora sí coinciden
+const pRamo = document.getElementById('pantalla-jardin');
+const tituloJardin = document.getElementById('titulo-jardin');
 const musica = document.getElementById('musica-fondo');
 
-const flores = document.querySelectorAll('.flor-acuarela');
+const flores = document.querySelectorAll('.flor-libre');
 const overlay = document.getElementById('pantalla-mensaje');
 const contenedorHoja = document.querySelector('.hoja-inmersiva-contenedor');
 const textoRegalo = document.getElementById('texto-regalo');
 const btnVolver = document.getElementById('btn-volver');
 const btnVerFlor = document.getElementById('btn-ver-flor');
-const btnCerrarZoom = document.getElementById('btn-cerrar-zoom'); // Restaurado
-const nubes = document.querySelector('.interior-nubes');
+const btnCerrarZoom = document.getElementById('btn-cerrar-zoom');
 const capaMagia = document.getElementById('universo-fondo');
 
 // SISTEMA DE PARTÍCULAS
@@ -49,59 +49,57 @@ btnActivar.addEventListener('click', () => {
     confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 }, colors: ['#ff9a9e', '#fecfef', '#a1c4fd'] });
     pInicio.classList.replace('activa', 'oculta');
     pRamo.classList.replace('oculta', 'activa');
+
+    setTimeout(() => {
+        tituloJardin.classList.add('mostrar-titulo');
+    }, 500);
 });
 
 // INTERACCIÓN CON FLORES
 flores.forEach(flor => {
     flor.addEventListener('click', () => {
-        const computedStyle = window.getComputedStyle(flor);
-        const originalTransform = computedStyle.transform;
+        // Oscurecemos las demás flores
+        flores.forEach(f => f.classList.add('opaca'));
 
-        nubes.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
-        flores.forEach(f => f.style.opacity = "0.1");
-
-        flor.style.opacity = "1";
-        flor.style.transform = `${originalTransform} translateY(-100px) scale(1.1)`;
-        flor.style.zIndex = "100";
+        // La flor que tocaste viaja al centro gigante
+        flor.classList.remove('opaca');
+        flor.classList.add('enfocada');
 
         const id = flor.getAttribute('data-id');
         textoRegalo.textContent = frasesUnicas[id];
 
+        // Aparece la hoja después de medio segundo
         setTimeout(() => {
             overlay.classList.replace('modal-oculto', 'modal-activo');
             contenedorHoja.classList.add('vuelo-espectacular');
-        }, 500);
+        }, 600);
     });
 });
 
-// VOLVER AL JARDÍN
+// VOLVER AL JARDÍN (Desde la Hoja)
 btnVolver.addEventListener('click', () => {
     overlay.classList.replace('modal-activo', 'modal-oculto');
     contenedorHoja.classList.remove('vuelo-espectacular');
 
-    nubes.style.backgroundColor = "rgba(255, 255, 255, 0.85)";
     flores.forEach(flor => {
-        flor.style.transform = '';
-        flor.style.zIndex = '';
-        flor.style.opacity = '';
+        flor.classList.remove('opaca');
+        flor.classList.remove('enfocada');
     });
 });
 
-// VER LA FLOR 
+// VER LA FLOR (Desde la Hoja)
 btnVerFlor.addEventListener('click', () => {
     overlay.classList.replace('modal-activo', 'modal-oculto');
     contenedorHoja.classList.remove('vuelo-espectacular');
     btnCerrarZoom.classList.replace('oculto', 'activo');
 });
 
-// REGRESAR DESDE LA FLOR
+// REGRESAR DESDE LA FLOR GIGANTE
 btnCerrarZoom.addEventListener('click', () => {
     btnCerrarZoom.classList.replace('activo', 'oculto');
 
-    nubes.style.backgroundColor = "rgba(255, 255, 255, 0.85)";
     flores.forEach(flor => {
-        flor.style.transform = '';
-        flor.style.zIndex = '';
-        flor.style.opacity = '';
+        flor.classList.remove('opaca');
+        flor.classList.remove('enfocada');
     });
 });

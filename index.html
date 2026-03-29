@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para ti, con todo mi amor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Poppins:wght@400;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -20,21 +21,15 @@
         <img src="assets/boton-flor.png" id="btn-activar" alt="Regalo">
     </div>
 
-    <div id="pantalla-ramo" class="seccion oculta">
+    <div id="pantalla-jardin" class="seccion oculta">
+        <h2 class="instruccion-arte oculta-inicio" id="titulo-jardin">Toca cada flor flotante</h2>
 
-        <div class="escenario-central">
-            <div class="interior-nubes">
-                <img src="assets/flor1.png" class="flor-acuarela respira-1" id="f1" data-id="0">
-                <img src="assets/flor2.png" class="flor-acuarela respira-2" id="f2" data-id="1">
-                <img src="assets/flor3.png" class="flor-acuarela respira-1" id="f3" data-id="2">
-                <img src="assets/flor4.png" class="flor-acuarela respira-2" id="f4" data-id="3">
-                <img src="assets/flor5.png" class="flor-acuarela respira-1" id="f5" data-id="4">
-                <img src="assets/flor6.png" class="flor-acuarela respira-2" id="f6" data-id="5">
-            </div>
-            <img src="assets/ramo.png" id="papel-ramo" alt="Cono">
-        </div>
-
-        <p class="consejo-instruccion">Toca cada flor para leer su pensamiento</p>
+        <img src="assets/flor1.png" class="flor-libre" id="f1" data-id="0">
+        <img src="assets/flor2.png" class="flor-libre" id="f2" data-id="1">
+        <img src="assets/flor3.png" class="flor-libre" id="f3" data-id="2">
+        <img src="assets/flor4.png" class="flor-libre" id="f4" data-id="3">
+        <img src="assets/flor5.png" class="flor-libre" id="f5" data-id="4">
+        <img src="assets/flor6.png" class="flor-libre" id="f6" data-id="5">
 
         <button id="btn-cerrar-zoom" class="oculto">Volver al jardín</button>
     </div>
@@ -45,7 +40,6 @@
 
             <div class="bloque-texto">
                 <p id="texto-regalo"></p>
-
                 <div class="botones-accion">
                     <button id="btn-volver">Volver</button>
                     <button id="btn-ver-flor">Ver flor</button>
@@ -55,7 +49,6 @@
     </div>
 
     <audio id="musica-fondo" src="assets/musica.m4a" loop></audio>
-
     <script src="script.js"></script>
 </body>
 
