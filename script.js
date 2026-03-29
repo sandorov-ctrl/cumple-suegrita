@@ -1,11 +1,11 @@
 // Base de Datos: Frases y Nombres de Plantas
 const datosFlores = [
-    { nombre: "Rosa Té", frase: "Gracias por tu paciencia infinita y por abrazarme como a un hijo más." },
-    { nombre: "Lirio de Agua", frase: "Por ser una madre excepcional, mi mayor ejemplo de vida y superación." },
-    { nombre: "Orquídea Silvestre", frase: "No solo eres familia, eres una amiga incondicional. ¡Te adoro!" },
-    { nombre: "Tulipán Rosa", frase: "Por esos domingos de comida y risas que nos recargan el alma a todos." },
-    { nombre: "Girasol Suave", frase: "Este 30 de marzo es para celebrar tu luz. ¡Que seas inmensamente feliz!" },
-    { nombre: "Peonía Acuarela", frase: "¡Feliz cumpleaños, mamá! Te queremos muchísimo hoy y siempre." }
+    { nombre: "Rosa Té", frase: "Más allá de los detalles o la comida, lo que más disfruto es tu compañía. Gracias por abrazarme como a un hijo más." },
+    { nombre: "Lirio de Agua", frase: "Agradezco de corazón cada consejo que me das. Me gusta escucharte porque tu energía me transmite una paz que no se encuentra en cualquier lado." },
+    { nombre: "Orquídea Silvestre", frase: "Hay personas que te hacen sentir en casa sin importar dónde estés, y tú eres una de ellas. Gracias por ese cariño tan auténtico que me regalas siempre." },
+    { nombre: "Tulipán Rosa", frase: "Valoro muchísimo tu alegría y esa forma tan tuya de cuidar a los demás." },
+    { nombre: "Girasol Suave", frase: "Espero que pases un día genial, rodeada de amor y de las cosas que te hacen feliz. Te lo mereces muchísimo." },
+    { nombre: "Peonía Acuarela", frase: "Gracias por ser esa persona tan especial que siempre tiene un abrazo listo y una sonrisa sincera. Te quiero mucho." }
 ];
 
 // Hardware Virtual

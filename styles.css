@@ -7,7 +7,7 @@
 
 body {
     /* FONDO GLOBAL: Tu imagen colorful calibrada para móvil */
-    background-image: url('assets/fondo1.jpg');
+    background-image: url('assets/fondo1.png');
     background-size: cover;
     /* Ocupa todo el espacio sin deformar */
     background-position: center;
