@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Para mi suegra, con amor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap"
+    <title>Feliz Cumpleaños</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -17,25 +18,22 @@
         <img src="assets/boton-flor.png" id="btn-activar" alt="Regalo">
     </div>
 
-    <div id="pantalla-ramo" class="seccion oculta">
+    <div id="pantalla-jardin" class="seccion oculta">
+        <h2 class="subtitulo-jardin">Cada flor guarda un pensamiento para ti</h2>
 
-        <div class="lienzo-arte">
-            <img src="assets/ramo.png" id="papel-ramo" alt="Ramo">
-
-            <img src="assets/flor1.png" class="flor-acuarela" id="f1" data-id="0">
-            <img src="assets/flor2.png" class="flor-acuarela" id="f2" data-id="1">
-            <img src="assets/flor3.png" class="flor-acuarela" id="f3" data-id="2">
-            <img src="assets/flor4.png" class="flor-acuarela" id="f4" data-id="3">
-            <img src="assets/flor5.png" class="flor-acuarela" id="f5" data-id="4">
-            <img src="assets/flor6.png" class="flor-acuarela" id="f6" data-id="5">
+        <div class="cuadrícula-flores">
+            <div class="tarjeta-flor" data-id="0"><img src="assets/flor1.png" alt="Flor 1"></div>
+            <div class="tarjeta-flor" data-id="1"><img src="assets/flor2.png" alt="Flor 2"></div>
+            <div class="tarjeta-flor" data-id="2"><img src="assets/flor3.png" alt="Flor 3"></div>
+            <div class="tarjeta-flor" data-id="3"><img src="assets/flor4.png" alt="Flor 4"></div>
+            <div class="tarjeta-flor" data-id="4"><img src="assets/flor5.png" alt="Flor 5"></div>
+            <div class="tarjeta-flor" data-id="5"><img src="assets/flor6.png" alt="Flor 6"></div>
         </div>
-
-        <p class="consejo-instruccion">Descubre lo que cada flor guarda para ti</p>
     </div>
 
     <div id="pantalla-mensaje" class="overlay modal-oculto">
-        <div class="tarjeta-regalo">
-            <img src="assets/hoja.png" class="hoja-decorativa" alt="Hoja">
+        <div class="hoja-voladora-contenedor">
+            <img src="assets/hoja.png" class="hoja-fondo" alt="Hoja">
 
             <div class="bloque-texto">
                 <p id="texto-regalo"></p>
