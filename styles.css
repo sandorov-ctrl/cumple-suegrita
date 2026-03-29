@@ -144,12 +144,36 @@ body {
     z-index: 50;
     cursor: pointer;
     transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+
+    /* --- TÉCNICA PREMIUM: LA BURBUJA TRASLÚCIDA "LINDA" --- */
+    /* Crea un círculo suave detrás de tu acuarela */
+    background: rgba(255, 255, 255, 0.3);
+    /* Blanco muy traslúcido */
+    padding: 15px;
+    /* Espacio para que respire la flor */
+    border-radius: 50%;
+    /* Circular perfecto */
+
+    /* Efecto Glassmorphism sutil para que el fondo se difumine detrás */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    /* Borde sutil y sombra para dar profundidad 3D */
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), inset 0 0 15px rgba(255, 255, 255, 0.5);
 }
 
 .flor-img {
     width: 120px;
+    /* Tamaño de la acuarela */
+    display: block;
+    /* Evita espacios extraños abajo */
+
+    /* Animación de flotar suavemente DENTRO de la burbuja */
     animation: flotarAire 4s infinite alternate ease-in-out;
-    filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.2));
+
+    /* Mantenemos el drop-shadow sutil en la imagen PNG */
+    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.2));
 }
 
 @keyframes flotarAire {
@@ -158,8 +182,10 @@ body {
     }
 
     100% {
-        transform: translateY(-15px) rotate(3deg);
+        transform: translateY(-10px) rotate(3deg);
     }
+
+    /* Reducimos el movimiento para que no se salga de la burbuja */
 }
 
 /* Coordenadas de expansión */
