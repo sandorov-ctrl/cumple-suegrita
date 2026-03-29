@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador Oficial</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div id="pantalla-busqueda" class="pantalla activa">
+        <h1>
+            <span class="azul">S</span><span class="rojo">u</span><span class="amarillo">e</span><span
+                class="azul">g</span><span class="verde">r</span><span class="rojo">a</span><span
+                class="amarillo">l</span><span class="azul">e</span>
+        </h1>
+        <div class="caja-busqueda">
+            <input type="text" value="¿Por qué mi suegra es la mejor del mundo?" readonly>
+        </div>
+        <div class="botones">
+            <button id="btn-buscar">Buscar con suerte</button>
+        </div>
+    </div>
+
+    <div id="pantalla-resultados" class="pantalla oculta">
+        <h2>Se encontraron infinitos resultados (0.01 segundos)</h2>
+        <div id="contenedor-tarjetas">
+        </div>
+    </div>
+
+    <audio id="musica-fondo" src="assets/musica.mp3"></audio>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

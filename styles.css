@@ -1,0 +1,130 @@
+/* Reseteo básico para estandarizar márgenes en todos los móviles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #202124;
+    /* Modo oscuro elegante */
+    color: white;
+    overflow-x: hidden;
+    /* Evita el scroll horizontal indeseado */
+}
+
+/* Clases para cambiar entre pantallas usando display */
+.pantalla {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: opacity 0.5s ease;
+}
+
+.oculta {
+    display: none !important;
+    opacity: 0;
+}
+
+.activa {
+    opacity: 1;
+}
+
+/* Colores estilo buscador */
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+}
+
+.azul {
+    color: #4285F4;
+}
+
+.rojo {
+    color: #EA4335;
+}
+
+.amarillo {
+    color: #FBBC05;
+}
+
+.verde {
+    color: #34A853;
+}
+
+/* Barra de búsqueda */
+.caja-busqueda input {
+    width: 100%;
+    max-width: 400px;
+    padding: 15px 20px;
+    border-radius: 24px;
+    border: 1px solid #5f6368;
+    background-color: #303134;
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+    outline: none;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, .28);
+}
+
+/* Botón interactivo */
+.botones {
+    margin-top: 25px;
+}
+
+button {
+    background-color: #303134;
+    border: 1px solid #303134;
+    color: #e8eaed;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+button:hover {
+    border: 1px solid #5f6368;
+}
+
+/* Estilo de las tarjetas de resultados */
+#pantalla-resultados {
+    justify-content: flex-start;
+    /* Alineamos arriba, no al centro */
+    padding-top: 40px;
+}
+
+h2 {
+    color: #9aa0a6;
+    font-size: 0.9rem;
+    font-weight: normal;
+    margin-bottom: 30px;
+    align-self: flex-start;
+}
+
+.tarjeta {
+    background-color: #303134;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 500px;
+    border-left: 5px solid #4285F4;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: aparecer 0.6s forwards;
+    /* Animación de entrada */
+}
+
+/* Física de la animación: de abajo hacia arriba desvaneciéndose */
+@keyframes aparecer {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
