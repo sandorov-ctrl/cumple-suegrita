@@ -14,29 +14,30 @@
 
 <body>
 
-    <div id="fondo-animado"></div>
+    <div id="universo-fondo"></div>
 
     <div id="pantalla-inicio" class="seccion activa">
-        <h1 class="titulo-bienvenida">Toca la flor mágica</h1>
-        <img src="assets/boton-flor.png" id="btn-activar" alt="Regalo">
+        <h1 class="titulo-bienvenida">Toca la botonflor mágica</h1>
+        <img src="assets/boton-flor.jpg" id="btn-activar" alt="Inicio">
     </div>
 
     <div id="pantalla-jardin" class="seccion oculta">
-        <h2 class="instruccion-arte oculta-inicio" id="titulo-jardin">Elige un pensamiento flotante</h2>
+        <h2 class="instruccion-arte oculta-inicio" id="titulo-jardin">Elige una florecita flotante</h2>
 
-        <div class="flor-nave" id="nave-1" data-id="0"><img src="assets/flor1.png" class="flor-img"></div>
-        <div class="flor-nave" id="nave-2" data-id="1"><img src="assets/flor2.png" class="flor-img"></div>
-        <div class="flor-nave" id="nave-3" data-id="2"><img src="assets/flor3.png" class="flor-img"></div>
-        <div class="flor-nave" id="nave-4" data-id="3"><img src="assets/flor4.png" class="flor-img"></div>
-        <div class="flor-nave" id="nave-5" data-id="4"><img src="assets/flor5.png" class="flor-img"></div>
-        <div class="flor-nave" id="nave-6" data-id="5"><img src="assets/flor6.png" class="flor-img"></div>
+        <div class="flor-nave" id="nave-1" data-id="0"><img src="assets/flor1.jpg" class="flor-img"></div>
+        <div class="flor-nave" id="nave-2" data-id="1"><img src="assets/flor2.jpg" class="flor-img"></div>
+        <div class="flor-nave" id="nave-3" data-id="2"><img src="assets/flor3.jpg" class="flor-img"></div>
+        <div class="flor-nave" id="nave-4" data-id="3"><img src="assets/flor4.jpg" class="flor-img"></div>
+        <div class="flor-nave" id="nave-5" data-id="4"><img src="assets/flor5.jpg" class="flor-img"></div>
+        <div class="flor-nave" id="nave-6" data-id="5"><img src="assets/flor6.jpg" class="flor-img"></div>
 
+        <p id="nombre-planta" class="oculto"></p>
         <button id="btn-cerrar-zoom" class="oculto">Volver al jardín</button>
     </div>
 
     <div id="pantalla-mensaje" class="overlay modal-oculto">
         <div class="hoja-pergamino">
-            <img src="assets/hoja.png" class="hoja-dibujo" alt="Hoja">
+            <img src="assets/hoja.jpg" class="hoja-dibujo" alt="Hoja">
 
             <div class="bloque-texto">
                 <p id="texto-regalo"></p>
@@ -49,7 +50,11 @@
         </div>
     </div>
 
-    <audio id="musica-fondo" src="assets/musica.mp3" loop></audio>
+    <audio id="musica-fondo" loop>
+        <source src="assets/musica.m4a" type="audio/x-m4a">
+        <source src="assets/musica.mp3" type="audio/mpeg">
+    </audio>
+
     <script src="script.js"></script>
 </body>
 

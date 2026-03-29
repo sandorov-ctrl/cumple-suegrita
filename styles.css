@@ -6,43 +6,59 @@
 }
 
 body {
-    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    /* FONDO GLOBAL: Tu imagen colorful calibrada para móvil */
+    background-image: url('assets/fondo1.jpg');
+    background-size: cover;
+    /* Ocupa todo el espacio sin deformar */
+    background-position: center;
+    /* Centrada */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* Parallax sutil */
+
     font-family: 'Poppins', sans-serif;
     height: 100vh;
     overflow: hidden;
     color: #4a4a4a;
 }
 
-/* Fondo Aleatorio */
-#fondo-animado {
+/* Polvo Mágico (Luciérnagas constantes) */
+#universo-fondo {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
+    z-index: 1;
     pointer-events: none;
     overflow: hidden;
 }
 
-.flor-ambiente {
+.luciernaga {
     position: absolute;
-    opacity: 0.2;
-    filter: blur(1px);
-    animation: deriva 20s linear infinite;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8);
+    animation: flotarLuz linear infinite;
 }
 
-@keyframes deriva {
+@keyframes flotarLuz {
     0% {
-        transform: translateY(110vh) rotate(0deg) scale(0.8);
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
     }
 
     100% {
-        transform: translateY(-20vh) rotate(360deg) scale(1.2);
+        transform: translateY(-10vh) scale(1.5);
+        opacity: 0;
     }
 }
 
-/* Pantallas */
+/* Control de pantallas (Hacemos el fondo transparente para que se vea el global) */
 .seccion {
     height: 100vh;
     width: 100%;
@@ -54,16 +70,19 @@ body {
     top: 0;
     left: 0;
     z-index: 10;
-    transition: opacity 0.5s;
+    transition: opacity 0.8s ease-out;
+    background: transparent;
 }
 
 .oculta {
     opacity: 0;
+    z-index: -1;
     pointer-events: none;
 }
 
 .activa {
     opacity: 1;
+    z-index: 10;
 }
 
 .oculta-inicio {
@@ -100,7 +119,7 @@ body {
     }
 
     50% {
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
 }
 
@@ -115,7 +134,7 @@ body {
     width: 100%;
 }
 
-/* Naves Espaciales (Flores) */
+/* Flores Flotantes */
 .flor-nave {
     position: fixed;
     top: 50%;
@@ -143,7 +162,7 @@ body {
     }
 }
 
-/* Trayectorias de explosión */
+/* Coordenadas de expansión */
 .flor-nave.desplegada#nave-1 {
     top: 25%;
     left: 20%;
@@ -188,7 +207,7 @@ body {
 
 /* La flor enfocada viaja al centro y crece */
 .flor-nave.enfocada {
-    top: 50% !important;
+    top: 45% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) scale(2.2) !important;
     z-index: 150 !important;
@@ -201,8 +220,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -259,7 +278,7 @@ body {
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
 }
 
-/* LOS NUEVOS BOTONES DE ACCIÓN */
+/* Botones */
 .botones-accion {
     display: flex;
     gap: 15px;
@@ -267,52 +286,61 @@ body {
 }
 
 #btn-volver,
-#btn-ver-flor {
+#btn-ver-flor,
+#btn-cerrar-zoom {
     font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
     font-weight: bold;
     padding: 10px 20px;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(181, 124, 124, 0.3);
-    transition: transform 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+    border: none;
 }
 
 #btn-volver {
     background: #b57c7c;
     color: white;
-    border: none;
 }
 
-#btn-ver-flor {
+#btn-ver-flor,
+#btn-cerrar-zoom {
     background: white;
     color: #b57c7c;
     border: 2px solid #b57c7c;
 }
 
-#btn-volver:active,
-#btn-ver-flor:active {
-    transform: scale(0.95);
+/* DISEÑO PREMIUM DEL NOMBRE DE LA PLANTA */
+#nombre-planta {
+    position: fixed;
+    top: 15%;
+    /* Por encima de la flor gigante */
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.8rem;
+    color: white;
+    /* Blanco sobre el fondo colorful */
+    text-shadow: 2px 2px 15px rgba(181, 124, 124, 0.8);
+    z-index: 160;
+    transition: opacity 0.5s ease;
 }
 
-/* Botón flotante para cuando está admirando la flor sin la hoja */
 #btn-cerrar-zoom {
     position: fixed;
     bottom: 8%;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.9);
-    color: #b57c7c;
-    border: 2px solid #b57c7c;
-    font-family: 'Poppins', sans-serif;
-    font-weight: bold;
-    padding: 10px 25px;
-    border-radius: 50px;
     z-index: 160;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-#btn-cerrar-zoom.oculto {
-    display: none;
+.oculto {
+    display: none !important;
+    opacity: 0;
+}
+
+.activo {
+    display: block !important;
+    opacity: 1 !important;
 }

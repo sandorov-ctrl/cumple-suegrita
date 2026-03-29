@@ -1,14 +1,14 @@
-// Frases
-const frasesUnicas = [
-    "Gracias por tu paciencia infinita y por abrazarme como a un hijo más.",
-    "Eres una madre excepcional, mi mayor ejemplo de vida y superación.",
-    "No solo eres familia, eres una amiga incondicional. ¡Te adoro!",
-    "Por esos domingos de comida y risas que nos recargan el alma a todos.",
-    "Este 30 de marzo es para celebrar tu luz. ¡Que seas inmensamente feliz!",
-    "¡Feliz cumpleaños! Que la vida te devuelva toda la belleza que nos das."
+// Base de Datos: Frases y Nombres de Plantas
+const datosFlores = [
+    { nombre: "Rosa Té", frase: "Gracias por tu paciencia infinita y por abrazarme como a un hijo más." },
+    { nombre: "Lirio de Agua", frase: "Por ser una madre excepcional, mi mayor ejemplo de vida y superación." },
+    { nombre: "Orquídea Silvestre", frase: "No solo eres familia, eres una amiga incondicional. ¡Te adoro!" },
+    { nombre: "Tulipán Rosa", frase: "Por esos domingos de comida y risas que nos recargan el alma a todos." },
+    { nombre: "Girasol Suave", frase: "Este 30 de marzo es para celebrar tu luz. ¡Que seas inmensamente feliz!" },
+    { nombre: "Peonía Acuarela", frase: "¡Feliz cumpleaños, mamá! Te queremos muchísimo hoy y siempre." }
 ];
 
-// Nodos del Hardware
+// Hardware Virtual
 const btnActivar = document.getElementById('btn-activar');
 const pInicio = document.getElementById('pantalla-inicio');
 const pJardin = document.getElementById('pantalla-jardin');
@@ -21,37 +21,36 @@ const textoRegalo = document.getElementById('texto-regalo');
 const btnVolver = document.getElementById('btn-volver');
 const btnVerFlor = document.getElementById('btn-ver-flor');
 const btnCerrarZoom = document.getElementById('btn-cerrar-zoom');
-const fondoUniverso = document.getElementById('fondo-animado');
+const nombrePlanta = document.getElementById('nombre-planta');
+const capaMagia = document.getElementById('universo-fondo');
 
-// MOTOR DE UNIVERSO (Fondo animado)
-const arteFondo = ['flor1.png', 'flor2.png', 'flor3.png', 'flor4.png', 'flor5.png', 'flor6.png', 'boton-flor.png'];
+// SISTEMA DE PARTÍCULAS (Mata el "vacío")
+function generarPolvoMagico() {
+    for (let i = 0; i < 30; i++) {
+        let luz = document.createElement('div');
+        luz.classList.add('luciernaga');
 
-function encenderUniverso() {
-    for (let i = 0; i < 20; i++) {
-        let imgAleatoria = arteFondo[Math.floor(Math.random() * arteFondo.length)];
-        let florFondo = document.createElement('img');
-        florFondo.src = `assets/${imgAleatoria}`;
-        florFondo.classList.add('flor-ambiente');
-
-        let size = Math.random() * 40 + 20;
+        let size = Math.random() * 4 + 2;
         let posX = Math.random() * 100;
-        let duracion = Math.random() * 20 + 15;
-        let retraso = Math.random() * 10;
+        let duration = Math.random() * 10 + 5;
+        let delay = Math.random() * 5;
 
-        florFondo.style.width = `${size}px`;
-        florFondo.style.left = `${posX}vw`;
-        florFondo.style.animationDuration = `${duracion}s`;
-        florFondo.style.animationDelay = `-${retraso}s`;
+        luz.style.width = `${size}px`;
+        luz.style.height = `${size}px`;
+        luz.style.left = `${posX}vw`;
+        luz.style.animationDuration = `${duration}s`;
+        luz.style.animationDelay = `${delay}s`;
 
-        fondoUniverso.appendChild(florFondo);
+        capaMagia.appendChild(luz);
     }
 }
-encenderUniverso();
+generarPolvoMagico();
 
-// IGNICIÓN
+// IGNICIÓN Y TRANSICIÓN
 btnActivar.addEventListener('click', () => {
+    musica.play(); // El navegador ya acepta M4A
     confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 }, colors: ['#ff9a9e', '#fecfef', '#a1c4fd'] });
-    musica.play();
+
     pInicio.classList.replace('activa', 'oculta');
     pJardin.classList.replace('oculta', 'activa');
 
@@ -61,17 +60,19 @@ btnActivar.addEventListener('click', () => {
     }, 500);
 });
 
-// EVENTO PRINCIPAL: CLICK EN LA FLOR
-naves.forEach(nave => {
-    nave.addEventListener('click', () => {
+// INTERACCIÓN CON FLORES
+naves.forEach(flor => {
+    flor.addEventListener('click', () => {
+        const id = flor.getAttribute('data-id');
+
         // La flor viaja al centro y se hace grande
-        nave.classList.add('enfocada');
+        flor.classList.add('enfocada');
 
-        // Cargamos el mensaje
-        const id = nave.getAttribute('data-id');
-        textoRegalo.textContent = frasesUnicas[id];
+        // Cargamos los datos biográficos
+        textoRegalo.textContent = datosFlores[id].frase;
+        nombrePlanta.textContent = datosFlores[id].nombre;
 
-        // Mostramos la hoja inmediatamente (como querías)
+        // Mostramos la hoja inmediatamente
         setTimeout(() => {
             overlay.classList.replace('modal-oculto', 'modal-activo');
         }, 500);
@@ -84,19 +85,22 @@ btnVolver.addEventListener('click', () => {
     naves.forEach(nave => nave.classList.remove('enfocada'));
 });
 
-// ACCIÓN: VER LA FLOR
+// ACCIÓN: VER LA FLOR (Aparece el nombre)
 btnVerFlor.addEventListener('click', () => {
     // 1. Ocultamos el mensaje (la hoja)
     overlay.classList.replace('modal-activo', 'modal-oculto');
-    // 2. Mostramos el botón de seguridad para volver
+
+    // 2. Mostramos los elementos biográficos Detailed View
     btnCerrarZoom.classList.replace('oculto', 'activo');
-    // (La flor se queda gigante en el centro porque mantiene su clase 'enfocada')
+    nombrePlanta.classList.replace('oculto', 'activo'); // Mostramos el nombre de la planta
 });
 
 // ACCIÓN: REGRESAR DESDE LA VISTA DE LA FLOR
 btnCerrarZoom.addEventListener('click', () => {
-    // Ocultamos el botón de seguridad
+    // Ocultamos elementos detallados
     btnCerrarZoom.classList.replace('activo', 'oculto');
+    nombrePlanta.classList.replace('activo', 'oculto'); // Ocultamos el nombre
+
     // Soltamos la flor
     naves.forEach(nave => nave.classList.remove('enfocada'));
 });
