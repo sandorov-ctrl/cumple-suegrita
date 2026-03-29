@@ -1,43 +1,318 @@
-/* --- ZOOM EXTREMO: La flor que tocas se hace GIGANTE para poder admirarla --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    color: #4a4a4a;
+}
+
+/* Fondo Aleatorio */
+#fondo-animado {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.flor-ambiente {
+    position: absolute;
+    opacity: 0.2;
+    filter: blur(1px);
+    animation: deriva 20s linear infinite;
+}
+
+@keyframes deriva {
+    0% {
+        transform: translateY(110vh) rotate(0deg) scale(0.8);
+    }
+
+    100% {
+        transform: translateY(-20vh) rotate(360deg) scale(1.2);
+    }
+}
+
+/* Pantallas */
+.seccion {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    transition: opacity 0.5s;
+}
+
+.oculta {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.activa {
+    opacity: 1;
+}
+
+.oculta-inicio {
+    opacity: 0;
+    transition: opacity 2s ease 1.5s;
+}
+
+.mostrar-titulo {
+    opacity: 1 !important;
+}
+
+/* Inicio */
+.titulo-bienvenida {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.5rem;
+    color: #b57c7c;
+    margin-bottom: 40px;
+    text-align: center;
+    text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
+}
+
+#btn-activar {
+    width: 180px;
+    cursor: pointer;
+    animation: pulsoSuave 2.5s infinite;
+    filter: drop-shadow(0 10px 20px rgba(181, 124, 124, 0.4));
+}
+
+@keyframes pulsoSuave {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.instruccion-arte {
+    position: absolute;
+    top: 10%;
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.2rem;
+    color: #b57c7c;
+    z-index: 20;
+    text-align: center;
+    width: 100%;
+}
+
+/* Naves Espaciales (Flores) */
+.flor-nave {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    z-index: 50;
+    cursor: pointer;
+    transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.flor-img {
+    width: 120px;
+    animation: flotarAire 4s infinite alternate ease-in-out;
+    filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes flotarAire {
+    0% {
+        transform: translateY(0) rotate(-3deg);
+    }
+
+    100% {
+        transform: translateY(-15px) rotate(3deg);
+    }
+}
+
+/* Trayectorias de explosión */
+.flor-nave.desplegada#nave-1 {
+    top: 25%;
+    left: 20%;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.flor-nave.desplegada#nave-2 {
+    top: 30%;
+    left: 80%;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.flor-nave.desplegada#nave-3 {
+    top: 50%;
+    left: 15%;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.flor-nave.desplegada#nave-4 {
+    top: 60%;
+    left: 85%;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.flor-nave.desplegada#nave-5 {
+    top: 75%;
+    left: 35%;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.flor-nave.desplegada#nave-6 {
+    top: 80%;
+    left: 70%;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+/* La flor enfocada viaja al centro y crece */
 .flor-nave.enfocada {
-    top: 45% !important;
-    /* Un poco más arriba del centro para dejar espacio al botón */
+    top: 50% !important;
     left: 50% !important;
-    transform: translate(-50%, -50%) scale(2.8) !important;
-    /* CASI EL TRIPLE DE GRANDE */
+    transform: translate(-50%, -50%) scale(2.2) !important;
     z-index: 150 !important;
 }
 
-/* --- EL BOTÓN DE CONTROL MANUAL --- */
-#btn-admirar-mensaje {
+/* Mensaje (Hoja) */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.modal-oculto {
+    display: none;
+    opacity: 0;
+}
+
+.modal-activo {
+    display: flex;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+.hoja-pergamino {
+    position: relative;
+    width: 95vw;
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0);
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s;
+}
+
+.modal-activo .hoja-pergamino {
+    transform: scale(1);
+}
+
+.hoja-dibujo {
+    width: 100%;
+    opacity: 0.95;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+}
+
+.bloque-texto {
     position: absolute;
-    bottom: 15%;
-    /* Se coloca abajo de la flor gigante */
-    left: 50%;
-    transform: translateX(-50%);
+    width: 65%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#texto-regalo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: #3b2f2f;
+    line-height: 1.4;
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* LOS NUEVOS BOTONES DE ACCIÓN */
+.botones-accion {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+#btn-volver,
+#btn-ver-flor {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(181, 124, 124, 0.3);
+    transition: transform 0.2s;
+}
+
+#btn-volver {
+    background: #b57c7c;
+    color: white;
+    border: none;
+}
+
+#btn-ver-flor {
     background: white;
     color: #b57c7c;
     border: 2px solid #b57c7c;
+}
+
+#btn-volver:active,
+#btn-ver-flor:active {
+    transform: scale(0.95);
+}
+
+/* Botón flotante para cuando está admirando la flor sin la hoja */
+#btn-cerrar-zoom {
+    position: fixed;
+    bottom: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    color: #b57c7c;
+    border: 2px solid #b57c7c;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.1rem;
     font-weight: bold;
-    padding: 12px 30px;
+    padding: 10px 25px;
     border-radius: 50px;
     z-index: 160;
-    /* Por encima de todo */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     cursor: pointer;
-    transition: all 0.4s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-#btn-admirar-mensaje.oculto {
-    opacity: 0;
-    pointer-events: none;
-    transform: translate(-50%, 20px);
-}
-
-#btn-admirar-mensaje.activo {
-    opacity: 1;
-    pointer-events: all;
-    transform: translate(-50%, 0);
+#btn-cerrar-zoom.oculto {
+    display: none;
 }

@@ -1,4 +1,4 @@
-// TUS FRASES 
+// Frases
 const frasesUnicas = [
     "Gracias por tu paciencia infinita y por abrazarme como a un hijo más.",
     "Eres una madre excepcional, mi mayor ejemplo de vida y superación.",
@@ -19,11 +19,9 @@ const naves = document.querySelectorAll('.flor-nave');
 const overlay = document.getElementById('pantalla-mensaje');
 const textoRegalo = document.getElementById('texto-regalo');
 const btnVolver = document.getElementById('btn-volver');
+const btnVerFlor = document.getElementById('btn-ver-flor');
+const btnCerrarZoom = document.getElementById('btn-cerrar-zoom');
 const fondoUniverso = document.getElementById('fondo-animado');
-
-// El nuevo botón de control manual
-const btnAdmirar = document.getElementById('btn-admirar-mensaje');
-let florSeleccionadaId = null; // Memoria del sistema
 
 // MOTOR DE UNIVERSO (Fondo animado)
 const arteFondo = ['flor1.png', 'flor2.png', 'flor3.png', 'flor4.png', 'flor5.png', 'flor6.png', 'boton-flor.png'];
@@ -63,39 +61,42 @@ btnActivar.addEventListener('click', () => {
     }, 500);
 });
 
-// INTERACCIÓN 1: ZOOM A LA FLOR
+// EVENTO PRINCIPAL: CLICK EN LA FLOR
 naves.forEach(nave => {
     nave.addEventListener('click', () => {
-        // Soltamos cualquier otra flor que estuviera enfocada
-        naves.forEach(n => n.classList.remove('enfocada'));
-
-        // Enfocamos la flor tocada (Zoom Extremo)
+        // La flor viaja al centro y se hace grande
         nave.classList.add('enfocada');
 
-        // Guardamos su ID en la memoria
-        florSeleccionadaId = nave.getAttribute('data-id');
+        // Cargamos el mensaje
+        const id = nave.getAttribute('data-id');
+        textoRegalo.textContent = frasesUnicas[id];
 
-        // Mostramos el botón para permitirle leer el mensaje cuando ella decida
-        btnAdmirar.classList.replace('oculto', 'activo');
+        // Mostramos la hoja inmediatamente (como querías)
+        setTimeout(() => {
+            overlay.classList.replace('modal-oculto', 'modal-activo');
+        }, 500);
     });
 });
 
-// INTERACCIÓN 2: LEER EL MENSAJE
-btnAdmirar.addEventListener('click', () => {
-    // Cargamos el texto
-    textoRegalo.textContent = frasesUnicas[florSeleccionadaId];
-
-    // Mostramos la hoja pergamino
-    overlay.classList.replace('modal-oculto', 'modal-activo');
-
-    // Escondemos el botón de leer mensaje
-    btnAdmirar.classList.replace('activo', 'oculto');
-});
-
-// VOLVER A LA GRAVEDAD CERO
+// ACCIÓN: VOLVER AL JARDÍN DIRECTAMENTE
 btnVolver.addEventListener('click', () => {
     overlay.classList.replace('modal-activo', 'modal-oculto');
     naves.forEach(nave => nave.classList.remove('enfocada'));
-    btnAdmirar.classList.replace('activo', 'oculto'); // Por seguridad
-    florSeleccionadaId = null; // Limpiamos la memoria
+});
+
+// ACCIÓN: VER LA FLOR
+btnVerFlor.addEventListener('click', () => {
+    // 1. Ocultamos el mensaje (la hoja)
+    overlay.classList.replace('modal-activo', 'modal-oculto');
+    // 2. Mostramos el botón de seguridad para volver
+    btnCerrarZoom.classList.replace('oculto', 'activo');
+    // (La flor se queda gigante en el centro porque mantiene su clase 'enfocada')
+});
+
+// ACCIÓN: REGRESAR DESDE LA VISTA DE LA FLOR
+btnCerrarZoom.addEventListener('click', () => {
+    // Ocultamos el botón de seguridad
+    btnCerrarZoom.classList.replace('activo', 'oculto');
+    // Soltamos la flor
+    naves.forEach(nave => nave.classList.remove('enfocada'));
 });
