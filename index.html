@@ -13,7 +13,7 @@
 
     <style>
         /* =========================================
-           SISTEMA BASE
+           SISTEMA BASE Y OPTIMIZACIÓN GPU
            ========================================= */
         * {
             margin: 0;
@@ -31,6 +31,8 @@
             height: 100vh;
             overflow: hidden;
             animation: derivaCosmica 45s ease-in-out infinite alternate;
+            will-change: background-position;
+            /* Optimización de hardware */
         }
 
         @keyframes derivaCosmica {
@@ -67,6 +69,7 @@
             opacity: 0.7;
             filter: drop-shadow(0 5px 15px rgba(255, 255, 255, 0.4));
             animation: derivaAtm linear infinite;
+            will-change: transform;
         }
 
         @keyframes derivaAtm {
@@ -85,6 +88,7 @@
             border-radius: 50%;
             box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8);
             animation: flotarLuz linear infinite;
+            will-change: transform, opacity;
         }
 
         @keyframes flotarLuz {
@@ -141,6 +145,7 @@
             align-items: center;
             animation: flotarPlataforma 5s ease-in-out infinite alternate;
             z-index: 20;
+            will-change: transform;
         }
 
         @keyframes flotarPlataforma {
@@ -189,6 +194,7 @@
             animation: pulsoBoton 2s infinite;
             margin: 10px 0;
             border-radius: 50%;
+            will-change: transform, filter;
         }
 
         @keyframes pulsoBoton {
@@ -280,6 +286,7 @@
             cursor: pointer;
             transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             z-index: 20;
+            will-change: transform;
         }
 
         .nube-fondo {
@@ -301,7 +308,7 @@
             transform: scale(1.1) rotate(5deg);
         }
 
-        /* Posiciones en Escritorio (Landscape) */
+        /* Posiciones en Escritorio */
         #f1 {
             top: 15%;
             left: 5%;
@@ -379,6 +386,8 @@
         .flor-contenedor.zoom-extremo {
             transform: translate(-50%, -50%) scale(2.0) !important;
             z-index: 150 !important;
+            animation: none !important;
+            /* Estabilidad total al hacer zoom */
         }
 
         @keyframes pulsoFlorFondo {
@@ -399,7 +408,7 @@
         }
 
         /* =========================================
-           INTERFAZ DE MENSAJES (LA HOJA)
+           INTERFAZ DE MENSAJES (CONTENCIÓN ESTRUCTURAL)
            ========================================= */
         .overlay {
             position: fixed;
@@ -430,7 +439,8 @@
             position: relative;
             width: 95vw;
             max-width: 500px;
-            height: 70vh;
+            height: 75vh;
+            /* Altura controlada para evitar desbordes verticales en móvil */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -467,22 +477,39 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+            /* Mantiene la hoja proporcionada sin deformarse */
             filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
         }
 
+        /* INGENIERÍA: Caja de contención rígida para el texto */
         .bloque-texto {
             position: absolute;
-            width: 80%;
-            text-align: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* Restringimos estrictamente al 65% del contenedor para que nunca toque los bordes */
+            width: 65%;
+            max-width: 320px;
+            height: 65%;
+            max-height: 400px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: flex-start;
+            /* Evita que se corte por arriba si es muy largo */
             opacity: 0;
             transition: opacity 1s ease 1s;
             z-index: 10;
-            background: transparent;
-            padding: 40px 25px 30px;
-            border-radius: 50%;
+            /* Si el texto es muy largo, permite hacer scroll internamente sin romper la hoja */
+            overflow-y: auto;
+            padding: 10px 5px;
+            /* Ocultar barra de scroll para mantener la estética limpia */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .bloque-texto::-webkit-scrollbar {
+            display: none;
         }
 
         .modal-activo .bloque-texto {
@@ -491,11 +518,13 @@
 
         #texto-regalo {
             font-family: 'Caveat', cursive;
-            font-size: 1.95rem;
+            font-size: 1.85rem;
             font-weight: 700;
             color: #2b1d1d;
-            line-height: 1.5;
-            margin-bottom: 25px;
+            line-height: 1.4;
+            margin-top: auto;
+            /* Ayuda a centrar verticalmente si el texto es corto */
+            margin-bottom: 20px;
             letter-spacing: 0.5px;
             text-shadow:
                 0 0 10px rgba(255, 255, 255, 1),
@@ -506,19 +535,23 @@
 
         .firma-carta {
             font-family: 'Caveat', cursive;
-            font-size: 1.7rem;
+            font-size: 1.6rem;
             color: #b57c7c;
             align-self: flex-end;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             margin-right: 10px;
             font-weight: 700;
         }
 
         .botones-accion {
             display: flex;
-            gap: 15px;
+            flex-direction: column;
+            /* Apilados por defecto para que quepan bien siempre */
+            gap: 12px;
             justify-content: center;
             width: 100%;
+            margin-bottom: auto;
+            /* Contrapeso del margin-top de texto-regalo */
         }
 
         #btn-volver,
@@ -533,12 +566,14 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             border: none;
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            width: 100%;
+            /* Ocupan todo el ancho disponible del contenedor restringido */
         }
 
         #btn-volver:hover,
         #btn-ver-flor:hover,
         #btn-cerrar-zoom:hover {
-            transform: translateY(-3px) scale(1.05);
+            transform: translateY(-3px) scale(1.02);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
@@ -555,7 +590,7 @@
 
         #btn-cerrar-zoom {
             position: fixed;
-            bottom: 8%;
+            bottom: 6%;
             left: 50%;
             transform: translateX(-50%);
             z-index: 160;
@@ -563,46 +598,44 @@
             color: #b57c7c;
             border: 2px solid #b57c7c;
             display: none;
+            width: auto;
+            padding: 12px 25px;
         }
 
         #btn-cerrar-zoom:hover {
-            transform: translateX(-50%) translateY(-3px) scale(1.05);
+            transform: translateX(-50%) translateY(-3px) scale(1.02);
         }
 
         /* =========================================
-           INGENIERÍA RESPONSIVA (RECALIBRACIÓN PARA MÓVILES)
+           INGENIERÍA RESPONSIVA ESTRICTA (MÓVILES)
            ========================================= */
         @media (max-width: 768px) {
-
-            /* 1. Ajuste de Tipografías en Cofia */
             .titulo-bienvenida {
-                font-size: 2.2rem;
+                font-size: 2.1rem;
                 padding: 0 10px;
             }
 
             .firma-diego {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
 
             .nube-fondo-inicio {
-                transform: scale(1.2);
+                transform: scale(1.3);
             }
 
             .contenido-nube {
                 width: 95%;
             }
 
-            /* 2. Ajuste de Instrucción */
             .instruccion-arte {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
                 top: 8%;
-                padding: 8px 20px;
+                padding: 10px 20px;
                 white-space: normal;
                 text-align: center;
-                width: 90%;
+                width: 85%;
             }
 
-            /* 3. Reordenamiento Espacial de Flores (Patrón de Zigzag Vertical) */
             .flor-contenedor {
                 width: 100px;
                 height: 100px;
@@ -614,22 +647,22 @@
             }
 
             #f2 {
-                top: 30%;
+                top: 28%;
                 right: 5%;
             }
 
             #f3 {
-                top: 45%;
+                top: 43%;
                 left: 5%;
             }
 
             #f4 {
-                top: 58%;
+                top: 56%;
                 right: 5%;
             }
 
             #f5 {
-                top: 72%;
+                top: 70%;
                 left: 5%;
             }
 
@@ -638,52 +671,45 @@
                 right: 5%;
             }
 
-            /* Al reducir la masa base a 100px, necesitamos aumentar el multiplicador de enfoque */
             .flor-contenedor.enfocada {
                 transform: translate(-50%, -50%) scale(1.8) !important;
             }
 
             .flor-contenedor.zoom-extremo {
-                transform: translate(-50%, -50%) scale(2.6) !important;
+                transform: translate(-50%, -50%) scale(2.8) !important;
             }
 
-            /* 4. Compresión de la Hoja de Mensaje */
             .hoja-inmersiva-contenedor {
-                width: 98vw;
-                height: 60vh;
+                width: 95vw;
+                height: 70vh;
+                /* Altura controlada */
             }
 
+            /* En móvil aprovechamos un poquitito más de porcentaje porque la imagen se ve más chica */
             .bloque-texto {
-                width: 85%;
-                padding: 10px;
+                width: 72%;
+                height: 70%;
+                padding: 5px;
             }
 
             #texto-regalo {
                 font-size: 1.25rem;
-                line-height: 1.3;
-                margin-bottom: 10px;
+                margin-bottom: 15px;
             }
 
             .firma-carta {
-                font-size: 1.2rem;
-                margin-bottom: 5px;
-            }
-
-            /* 5. Reorganización de Panel de Control (Apilar botones) */
-            .botones-accion {
-                flex-direction: column;
-                gap: 10px;
+                font-size: 1.15rem;
+                margin-bottom: 15px;
             }
 
             #btn-volver,
             #btn-ver-flor {
-                width: 100%;
                 font-size: 0.9rem;
-                padding: 10px;
+                padding: 12px;
             }
 
             #btn-cerrar-zoom {
-                padding: 10px 20px;
+                padding: 12px 24px;
                 font-size: 0.9rem;
                 bottom: 4%;
             }
@@ -692,11 +718,9 @@
 </head>
 
 <body>
-    <!-- Capas de fondo -->
     <div id="universo-fondo"></div>
     <div id="atmosfera-nubes"></div>
 
-    <!-- PANTALLA INICIO -->
     <div id="pantalla-inicio" class="seccion activa">
         <div class="plataforma-nube">
             <img src="assets/nube.png" class="nube-fondo-inicio" alt="Nube base">
@@ -709,7 +733,6 @@
         </div>
     </div>
 
-    <!-- PANTALLA JARDÍN -->
     <div id="pantalla-jardin" class="seccion oculta">
         <h2 class="instruccion-arte oculta-inicio" id="titulo-jardin">Toca cada flor flotante</h2>
 
@@ -746,11 +769,11 @@
         <button id="btn-cerrar-zoom">Volver al jardín</button>
     </div>
 
-    <!-- PANTALLA MENSAJE -->
     <div id="pantalla-mensaje" class="overlay modal-oculto">
         <div class="hoja-inmersiva-contenedor">
             <img src="assets/hoja.png" class="arte-hoja" alt="Hoja">
 
+            <!-- CAJA ESTRUCTURAL ESTRICTA -->
             <div class="bloque-texto">
                 <p id="texto-regalo"></p>
                 <span class="firma-carta">- Diego</span>
@@ -762,7 +785,6 @@
         </div>
     </div>
 
-    <!-- Sistema de Audio -->
     <audio id="musica-fondo" src="assets/musica.m4a" loop></audio>
 
     <script>
@@ -793,9 +815,6 @@
         const capaMagia = document.getElementById('universo-fondo');
         const capaNubes = document.getElementById('atmosfera-nubes');
 
-        // ==========================================
-        // FUNCIONES DE ENTORNO
-        // ==========================================
         function generarPolvoMagico() {
             for (let i = 0; i < 30; i++) {
                 let luz = document.createElement('div');
@@ -830,8 +849,11 @@
             }
         }
 
-        generarPolvoMagico();
-        generarNubesAtmosfera();
+        // Retrasamos un instante la generación gráfica pesada para priorizar la carga de la pantalla inicial
+        setTimeout(() => {
+            generarPolvoMagico();
+            generarNubesAtmosfera();
+        }, 100);
 
         btnActivar.addEventListener('click', () => {
             musica.volume = 1.0;
