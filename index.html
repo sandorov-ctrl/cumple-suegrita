@@ -3,33 +3,28 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- Meta tag crucial para que la web sea responsiva (adaptable a móviles), como el fuselaje adaptable de una nave. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para ti, con todo mi amor</title>
 
-    <!-- Importación de tipografías desde Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Poppins:wght@400;600&display=swap"
         rel="stylesheet">
-
-    <!-- Librería externa para la pirotecnia (confeti) -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
         /* =========================================
-           SISTEMA BASE (RESETEO Y FONDO)
+           SISTEMA BASE
            ========================================= */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            /* Evita el parpadeo azul en móviles al tocar */
         }
 
         body {
-            /* Usamos la imagen de fondo que subiste */
-            background-image: url('fondo1.jpg');
+            /* Asegúrate de que la ruta sea correcta. Si está en 'assets', pon 'assets/fondo1.png' */
+            background-image: url('assets/fondo1.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -37,10 +32,8 @@
             font-family: 'Poppins', sans-serif;
             height: 100vh;
             overflow: hidden;
-            /* Evita barras de desplazamiento; nuestro universo está contenido aquí */
         }
 
-        /* Capa para las partículas (luciérnagas mágicas) */
         #universo-fondo {
             position: absolute;
             top: 0;
@@ -49,11 +42,9 @@
             height: 100%;
             z-index: 1;
             pointer-events: none;
-            /* Las interacciones pasan a través de esta capa hacia las flores */
             overflow: hidden;
         }
 
-        /* Diseño de cada luciérnaga individual */
         .luciernaga {
             position: absolute;
             background: white;
@@ -78,9 +69,6 @@
             }
         }
 
-        /* =========================================
-           CONTROL DE PANTALLAS (FASES DE LA MISIÓN)
-           ========================================= */
         .seccion {
             height: 100vh;
             width: 100%;
@@ -99,7 +87,6 @@
             opacity: 0;
             z-index: -1;
             pointer-events: none;
-            /* Desactiva la interacción si la pantalla no es visible */
         }
 
         .activa {
@@ -124,9 +111,8 @@
             width: 200px;
             cursor: pointer;
             animation: pulsoSuave 2.5s infinite;
-            /* Aplicamos screen al botón si tiene fondo negro, igual que a las flores */
-            mix-blend-mode: screen;
             z-index: 20;
+            /* SE ELIMINÓ MIX-BLEND-MODE PORQUE ES PNG */
         }
 
         @keyframes pulsoSuave {
@@ -140,6 +126,7 @@
             50% {
                 transform: scale(1.05);
                 opacity: 1;
+                filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
             }
         }
 
@@ -165,7 +152,7 @@
         }
 
         /* =========================================
-           MÓDULOS DEL JARDÍN (CONTENEDOR NUBE + FLOR)
+           MÓDULOS DEL JARDÍN
            ========================================= */
         .flor-contenedor {
             position: absolute;
@@ -179,30 +166,21 @@
             z-index: 20;
         }
 
-        /* LA NUBE: Capa inferior del módulo */
         .nube-fondo {
             position: absolute;
             width: 160%;
-            /* Más grande para que envuelva la flor */
             z-index: 1;
-            /* EXPLICACIÓN ÓPTICA: mix-blend-mode: screen elimina el fondo negro del JPG, 
-               dejando pasar solo la luz (los colores claros de la nube). */
-            mix-blend-mode: screen;
             opacity: 0.85;
-            /* Un poco transparente para fundirse con el universo */
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+            /* SE ELIMINÓ MIX-BLEND-MODE PORQUE ES PNG */
         }
 
-        /* LA FLOR: Capa superior del módulo */
         .flor-img {
             position: relative;
             width: 100%;
             z-index: 2;
-            /* Eliminamos también el fondo negro de la flor JPG */
-            mix-blend-mode: screen;
+            /* SE ELIMINÓ MIX-BLEND-MODE PORQUE ES PNG */
         }
 
-        /* Posicionamiento orbital de cada flor */
         #f1 {
             top: 15%;
             left: 5%;
@@ -269,25 +247,35 @@
             }
         }
 
-        /* Estado: Flor centrada e inspeccionada */
+        /* MEJORA 1: Aura de Resonancia cuando se enfoca la flor */
         .flor-contenedor.enfocada {
             top: 50% !important;
             left: 50% !important;
             transform: translate(-50%, -50%) scale(2) !important;
-            animation: none !important;
-            /* Suspendemos el vuelo */
+            animation: pulsoMagico 2s infinite !important;
+            /* Nuevo efecto */
             z-index: 100 !important;
         }
 
-        /* Estado: Atenuamos las demás flores para centrar la atención */
+        @keyframes pulsoMagico {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+            }
+
+            50% {
+                filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.9));
+            }
+        }
+
         .flor-contenedor.opaca {
             opacity: 0.15;
             filter: blur(2px);
-            /* Efecto de profundidad de campo */
         }
 
         /* =========================================
-           INTERFAZ DE MENSAJES (LA HOJA Y BOTONES)
+           INTERFAZ DE MENSAJES
            ========================================= */
         .overlay {
             position: fixed;
@@ -344,8 +332,8 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            /* La hoja también tiene fondo negro, usamos el filtro para limpiarlo */
-            mix-blend-mode: screen;
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4));
+            /* SE ELIMINÓ MIX-BLEND-MODE PORQUE ES PNG */
         }
 
         .bloque-texto {
@@ -356,8 +344,8 @@
             flex-direction: column;
             align-items: center;
             opacity: 0;
-            transition: opacity 0.8s ease 0.8s;
-            /* Retraso para que aparezca tras la animación 3D */
+            /* MEJORA 2: Retraso de 1.2s para que el texto aparezca mágicamente después de la hoja */
+            transition: opacity 1s ease 1.2s;
             z-index: 10;
         }
 
@@ -368,11 +356,10 @@
         #texto-regalo {
             font-family: 'Playfair Display', serif;
             font-size: 1.25rem;
-            color: #ffd7d7;
-            /* Ajustado a un color claro para que resalte sobre el fondo oscuro de la hoja modificada */
+            color: #3b2f2f;
+            /* Oscuro, asumiendo que tu hoja PNG es clara */
             line-height: 1.5;
             margin-bottom: 30px;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
         }
 
         .botones-accion {
@@ -390,7 +377,7 @@
             padding: 10px 20px;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             border: none;
             transition: transform 0.2s, background 0.3s;
         }
@@ -407,10 +394,9 @@
         }
 
         #btn-ver-flor {
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
+            background: white;
+            color: #b57c7c;
             border: 2px solid #b57c7c;
-            backdrop-filter: blur(5px);
         }
 
         #btn-cerrar-zoom {
@@ -419,7 +405,7 @@
             left: 50%;
             transform: translateX(-50%);
             z-index: 160;
-            background: rgba(255, 255, 255, 0.8);
+            background: white;
             color: #b57c7c;
             border: 2px solid #b57c7c;
         }
@@ -437,58 +423,53 @@
 </head>
 
 <body>
-    <!-- Capa generadora de luz de fondo -->
     <div id="universo-fondo"></div>
 
-    <!-- FASE 1: INICIO -->
     <div id="pantalla-inicio" class="seccion activa">
         <h1 class="titulo-bienvenida">Toca la flor para tu regalo</h1>
-        <img src="boton-flor.jpg" id="btn-activar" alt="Regalo">
+        <img src="assets/boton-flor.png" id="btn-activar" alt="Regalo">
     </div>
 
-    <!-- FASE 2: JARDÍN ESPACIAL -->
     <div id="pantalla-jardin" class="seccion oculta">
         <h2 class="instruccion-arte oculta-inicio" id="titulo-jardin">Toca cada flor flotante</h2>
 
-        <!-- Hemos modularizado cada flor. Ahora son contenedores con la nube de fondo y la flor encima -->
+        <!-- TODOS LOS SRC AHORA SON .PNG Y APUNTAN A ASSETS/ -->
         <div class="flor-contenedor" id="f1" data-id="0">
-            <img src="nube.jpg" class="nube-fondo" alt="nube decorativa">
-            <img src="flor1.jpg" class="flor-img" alt="flor">
+            <img src="assets/nube.png" class="nube-fondo" alt="nube">
+            <img src="assets/flor1.png" class="flor-img" alt="flor">
         </div>
 
         <div class="flor-contenedor" id="f2" data-id="1">
-            <img src="nube.jpg" class="nube-fondo" alt="nube decorativa">
-            <!-- Asumo que tienes flor2.jpg (el lirio) localmente, si no, renombra esto -->
-            <img src="flor3.jpg" class="flor-img" alt="flor">
+            <img src="assets/nube.png" class="nube-fondo" alt="nube">
+            <img src="assets/flor2.png" class="flor-img" alt="flor">
         </div>
 
         <div class="flor-contenedor" id="f3" data-id="2">
-            <img src="nube.jpg" class="nube-fondo" alt="nube decorativa">
-            <img src="flor3.jpg" class="flor-img" alt="flor">
+            <img src="assets/nube.png" class="nube-fondo" alt="nube">
+            <img src="assets/flor3.png" class="flor-img" alt="flor">
         </div>
 
         <div class="flor-contenedor" id="f4" data-id="3">
-            <img src="nube.jpg" class="nube-fondo" alt="nube decorativa">
-            <img src="flor4.jpg" class="flor-img" alt="flor">
+            <img src="assets/nube.png" class="nube-fondo" alt="nube">
+            <img src="assets/flor4.png" class="flor-img" alt="flor">
         </div>
 
         <div class="flor-contenedor" id="f5" data-id="4">
-            <img src="nube.jpg" class="nube-fondo" alt="nube decorativa">
-            <img src="flor5.jpg" class="flor-img" alt="flor">
+            <img src="assets/nube.png" class="nube-fondo" alt="nube">
+            <img src="assets/flor5.png" class="flor-img" alt="flor">
         </div>
 
         <div class="flor-contenedor" id="f6" data-id="5">
-            <img src="nube.jpg" class="nube-fondo" alt="nube decorativa">
-            <img src="flor6.jpg" class="flor-img" alt="flor">
+            <img src="assets/nube.png" class="nube-fondo" alt="nube">
+            <img src="assets/flor6.png" class="flor-img" alt="flor">
         </div>
 
         <button id="btn-cerrar-zoom" class="oculto">Volver al jardín</button>
     </div>
 
-    <!-- FASE 3: LECTURA (HOJA MODAL) -->
     <div id="pantalla-mensaje" class="overlay modal-oculto">
         <div class="hoja-inmersiva-contenedor">
-            <img src="hoja.jpg" class="arte-hoja" alt="Hoja de mensaje">
+            <img src="assets/hoja.png" class="arte-hoja" alt="Hoja">
 
             <div class="bloque-texto">
                 <p id="texto-regalo"></p>
@@ -500,15 +481,10 @@
         </div>
     </div>
 
-    <!-- Módulo de Audio -->
-    <audio id="musica-fondo" src="musica.m4a" loop></audio>
+    <!-- Módulo de Audio asegurado -->
+    <audio id="musica-fondo" src="assets/musica.m4a" loop></audio>
 
     <script>
-        // =========================================
-        // LÓGICA DEL SISTEMA (JAVASCRIPT)
-        // =========================================
-
-        // Base de datos local de mensajes
         const frasesUnicas = [
             "Más allá de los detalles o la comida, lo que más disfruto es tu compañía. Gracias por abrazarme como a un hijo más.",
             "Agradezco de corazón cada consejo que me das. Me gusta escucharte porque tu energía me transmite una paz que no se encuentra en cualquier lado.",
@@ -518,14 +494,12 @@
             "Gracias por ser esa persona tan especial que siempre tiene un abrazo listo y una sonrisa sincera. Te quiero mucho."
         ];
 
-        // Mapeo del Hardware (Nodos del DOM)
         const btnActivar = document.getElementById('btn-activar');
         const pInicio = document.getElementById('pantalla-inicio');
         const pRamo = document.getElementById('pantalla-jardin');
         const tituloJardin = document.getElementById('titulo-jardin');
         const musica = document.getElementById('musica-fondo');
 
-        // Seleccionamos los 'contenedores', no solo las imágenes
         const flores = document.querySelectorAll('.flor-contenedor');
         const overlay = document.getElementById('pantalla-mensaje');
         const contenedorHoja = document.querySelector('.hoja-inmersiva-contenedor');
@@ -535,38 +509,43 @@
         const btnCerrarZoom = document.getElementById('btn-cerrar-zoom');
         const capaMagia = document.getElementById('universo-fondo');
 
-        // RUTINA 1: GENERADOR DE PARTÍCULAS (Mecánica de fluidos espaciales)
         function generarPolvoMagico() {
             for (let i = 0; i < 30; i++) {
                 let luz = document.createElement('div');
                 luz.classList.add('luciernaga');
-
-                // Aleatoriedad para un efecto orgánico (como la distribución de estrellas)
                 let size = Math.random() * 4 + 2;
                 let posX = Math.random() * 100;
                 let duration = Math.random() * 10 + 5;
                 let delay = Math.random() * 5;
-
                 luz.style.width = `${size}px`;
                 luz.style.height = `${size}px`;
                 luz.style.left = `${posX}vw`;
                 luz.style.animationDuration = `${duration}s`;
                 luz.style.animationDelay = `${delay}s`;
-
                 capaMagia.appendChild(luz);
             }
         }
         generarPolvoMagico();
 
-        // RUTINA 2: SECUENCIA DE IGNICIÓN (Click en Iniciar)
+        // INGENIERÍA DE AUDIO: Manejo robusto de la promesa de reproducción
         btnActivar.addEventListener('click', () => {
-            // Manejo de promesa de audio (buena práctica de ingeniería web)
-            musica.play().catch(error => console.log("El navegador requiere interacción previa para audio."));
 
-            // Disparo del payload (Confeti)
+            // Forzamos la configuración del canal de audio antes de transmitir
+            musica.volume = 1.0;
+            musica.currentTime = 0;
+
+            let promesaAudio = musica.play();
+            if (promesaAudio !== undefined) {
+                promesaAudio.then(_ => {
+                    console.log("Transmisión de audio exitosa.");
+                }).catch(error => {
+                    console.warn("Navegador bloqueó el audio automáticamente:", error);
+                    // Si falla, podrías añadir un botón en el HTML que diga "Encender sonido"
+                });
+            }
+
             confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 }, colors: ['#ff9a9e', '#fecfef', '#a1c4fd'] });
 
-            // Transición de estados
             pInicio.classList.replace('activa', 'oculta');
             pRamo.classList.replace('oculta', 'activa');
 
@@ -575,21 +554,16 @@
             }, 500);
         });
 
-        // RUTINA 3: INTERACCIÓN CON EL ENTORNO (Click en las flores)
         flores.forEach(flor => {
             flor.addEventListener('click', () => {
-                // 1. Atenuamos todas las señales (flores) para reducir ruido visual
                 flores.forEach(f => f.classList.add('opaca'));
 
-                // 2. Amplificamos la señal seleccionada (centramos la flor clickeada)
                 flor.classList.remove('opaca');
                 flor.classList.add('enfocada');
 
-                // 3. Extraemos los datos útiles (el ID para el mensaje)
                 const id = flor.getAttribute('data-id');
                 textoRegalo.textContent = frasesUnicas[id];
 
-                // 4. Desplegamos el panel de lectura (Hoja)
                 setTimeout(() => {
                     overlay.classList.replace('modal-oculto', 'modal-activo');
                     contenedorHoja.classList.add('vuelo-espectacular');
@@ -597,27 +571,22 @@
             });
         });
 
-        // RUTINA 4A: ABORTAR LECTURA Y VOLVER A ÓRBITA NORMAL
         btnVolver.addEventListener('click', () => {
             overlay.classList.replace('modal-activo', 'modal-oculto');
             contenedorHoja.classList.remove('vuelo-espectacular');
 
-            // Restauramos el estado base de todas las flores
             flores.forEach(flor => {
                 flor.classList.remove('opaca');
                 flor.classList.remove('enfocada');
             });
         });
 
-        // RUTINA 4B: MANTENER ACERCAMIENTO VISUAL (Ver la flor)
         btnVerFlor.addEventListener('click', () => {
             overlay.classList.replace('modal-activo', 'modal-oculto');
             contenedorHoja.classList.remove('vuelo-espectacular');
-            // Activamos el control manual para salir del zoom
             btnCerrarZoom.classList.replace('oculto', 'activo');
         });
 
-        // RUTINA 5: RETORNO MANUAL DESDE EL ZOOM
         btnCerrarZoom.addEventListener('click', () => {
             btnCerrarZoom.classList.replace('activo', 'oculto');
 
