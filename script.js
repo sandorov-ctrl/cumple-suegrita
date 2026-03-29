@@ -1,11 +1,11 @@
 // TUS FRASES (Edita lo que está entre comillas)
 const frasesUnicas = [
-    "Gracias por tu paciencia infinita y por abrazarme como a un hijo más.",
-    "Eres una madre excepcional, mi mayor ejemplo de vida y superación.",
-    "No solo eres familia, eres una amiga incondicional. ¡Te adoro!",
-    "Por esos domingos de comida y risas que nos recargan el alma a todos.",
-    "Este 30 de marzo es para celebrar tu luz. ¡Que seas inmensamente feliz!",
-    "¡Feliz cumpleaños! Que la vida te devuelva toda la belleza que nos das."
+    "Más allá de los detalles o la comida, lo que más disfruto es tu compañía. Gracias por abrazarme como a un hijo más.",
+    "Agradezco de corazón cada consejo que me das. Me gusta escucharte porque tu energía me transmite una paz que no se encuentra en cualquier lado.",
+    "Hay personas que te hacen sentir en casa sin importar dónde estés, y tú eres una de ellas. Gracias por ese cariño tan auténtico que me regalas siempre.",
+    "Valoro muchísimo tu alegría y esa forma tan tuya de cuidar a los demás.",
+    "Espero que pases un día genial, rodeada de amor y de las cosas que te hacen feliz. Te lo mereces muchísimo.",
+    "Gracias por ser esa persona tan especial que siempre tiene un abrazo listo y una sonrisa sincera. Te quiero mucho."
 ];
 
 // Nodos del Hardware
