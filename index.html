@@ -106,6 +106,8 @@
 
         .seccion {
             height: 100vh;
+            height: 100dvh;
+            /* Altura dinámica para esquivar la barra de navegación del móvil */
             width: 100%;
             position: absolute;
             top: 0;
@@ -116,6 +118,9 @@
             justify-content: center;
             align-items: center;
             z-index: 10;
+            overflow-y: auto;
+            /* Habilita el scroll vertical en el jardín */
+            overflow-x: hidden;
         }
 
         .oculta {
@@ -369,6 +374,8 @@
         }
 
         .flor-contenedor.enfocada {
+            position: fixed !important;
+            /* Desacopla la flor del scroll y la centra en la pantalla visible */
             top: 50% !important;
             left: 50% !important;
             transform: translate(-50%, -50%) scale(1.3) !important;
@@ -377,6 +384,8 @@
         }
 
         .flor-contenedor.zoom-extremo {
+            position: fixed !important;
+            /* Mantiene la flor centrada aunque el usuario haya bajado */
             transform: translate(-50%, -50%) scale(2.0) !important;
             z-index: 150 !important;
         }
@@ -638,41 +647,56 @@
                 height: 100px;
             }
 
+            /* Expandimos la órbita de las flores para crear un jardín vertical explorable en el móvil */
             #f1 {
-                top: 18%;
+                top: 15%;
                 left: 5%;
             }
 
             #f2 {
-                top: 28%;
+                top: 35%;
                 right: 5%;
             }
 
             #f3 {
-                top: 43%;
+                top: 55%;
                 left: 5%;
             }
 
             #f4 {
-                top: 56%;
+                top: 75%;
                 right: 5%;
             }
 
             #f5 {
-                top: 70%;
+                top: 95%;
                 left: 5%;
             }
 
             #f6 {
-                top: 82%;
+                top: 115%;
                 right: 5%;
             }
 
+            /* Obliga al usuario a hacer scroll para descubrirla */
+
+            /* Espaciador fantasma para asegurar que se pueda scrollear cómodamente debajo de la última flor */
+            #pantalla-jardin::after {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 130%;
+                height: 50px;
+                width: 100%;
+            }
+
             .flor-contenedor.enfocada {
+                position: fixed !important;
                 transform: translate(-50%, -50%) scale(1.8) !important;
             }
 
             .flor-contenedor.zoom-extremo {
+                position: fixed !important;
                 transform: translate(-50%, -50%) scale(2.8) !important;
             }
 
