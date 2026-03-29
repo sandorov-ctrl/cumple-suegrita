@@ -252,9 +252,18 @@
            ========================================= */
         .instruccion-arte {
             position: absolute;
-            top: 50%;
+            top: 8%;
+            /* CORRECCIÓN: Órbita alta, situado en la parte superior */
             left: 50%;
-            transform: translate(-50%, -50%);
+            /* CORRECCIÓN: Solo lo centramos en el eje X para que respete el top: 8% */
+            transform: translateX(-50%);
+
+            /* CORRECCIÓN DE CONTENCIÓN: El texto ahora está perfectamente centrado dentro del cuadro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
             font-family: 'Dancing Script', cursive;
             font-size: 2.5rem;
             color: #5a3d3d;
@@ -266,7 +275,8 @@
             white-space: nowrap;
             z-index: 5;
             opacity: 0;
-            transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1) 0.5s;
+            transition: opacity 1.5s ease 0.5s;
+            /* Transición limpia para que aparezca suavemente */
             border: 2px solid rgba(255, 255, 255, 0.6);
         }
 
@@ -275,13 +285,14 @@
             animation: latidoCariñoso 3s ease-in-out infinite alternate;
         }
 
+        /* CORRECCIÓN: La animación ahora respeta la posición en el eje Y */
         @keyframes latidoCariñoso {
             from {
-                transform: translate(-50%, -50%) scale(1);
+                transform: translateX(-50%) scale(1);
             }
 
             to {
-                transform: translate(-50%, -50%) scale(1.05);
+                transform: translateX(-50%) scale(1.05);
             }
         }
 
@@ -565,6 +576,13 @@
             width: 100%;
         }
 
+        #btn-volver:hover,
+        #btn-ver-flor:hover,
+        #btn-cerrar-zoom:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
         #btn-volver {
             background: #b57c7c;
             color: white;
@@ -624,7 +642,8 @@
 
             .instruccion-arte {
                 font-size: 1.6rem;
-                top: 50%;
+                top: 8%;
+                /* CORRECCIÓN MÓVIL: Aseguramos que también esté arriba en el celular */
                 width: 90%;
                 padding: 12px 25px;
             }
@@ -713,7 +732,7 @@
         </div>
     </div>
 
-    <!-- PANTALLA JARDÍN CON INSTRUCCIÓN CENTRADA Y CARIÑOSA -->
+    <!-- PANTALLA JARDÍN CON INSTRUCCIÓN CORREGIDA EN LA PARTE SUPERIOR -->
     <div id="pantalla-jardin" class="seccion oculta">
         <h2 class="instruccion-arte oculta-inicio" id="titulo-jardin">Toca cada flor</h2>
         <div class="flor-contenedor" id="f1" data-id="0">
@@ -826,12 +845,10 @@
                 flores.forEach(f => f.classList.add('opaca'));
                 flor.classList.remove('opaca'); flor.classList.add('enfocada');
                 textoRegalo.textContent = frasesUnicas[flor.getAttribute('data-id')];
-                // Desplazamos el scroll del texto al inicio al abrir una nueva flor
                 document.querySelector('.bloque-texto').scrollTop = 0;
                 setTimeout(() => {
                     overlay.classList.replace('modal-oculto', 'modal-activo');
                     contenedorHoja.classList.add('vuelo-espectacular');
-                    // Ocultamos el título central cuando hay una flor enfocada
                     tituloJardin.classList.remove('mostrar-titulo');
                 }, 600);
             });
@@ -841,7 +858,6 @@
             overlay.classList.replace('modal-activo', 'modal-oculto');
             contenedorHoja.classList.remove('vuelo-espectacular');
             flores.forEach(flor => { flor.classList.remove('opaca', 'enfocada', 'zoom-extremo'); });
-            // Devolvemos el título central al volver al jardín
             tituloJardin.classList.add('mostrar-titulo');
         });
 
