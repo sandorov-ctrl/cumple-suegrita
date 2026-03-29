@@ -13,7 +13,7 @@
 
     <style>
         /* =========================================
-           SISTEMA BASE
+           SISTEMA BASE Y FONDO NO-ELÁSTICO
            ========================================= */
         * {
             margin: 0;
@@ -23,23 +23,43 @@
         }
 
         body {
-            background-image: url('assets/fondo1.png');
-            background-size: 120% 120%;
-            background-position: center;
-            background-repeat: no-repeat;
             font-family: 'Poppins', sans-serif;
             height: 100vh;
             overflow: hidden;
-            animation: derivaCosmica 45s ease-in-out infinite alternate;
+            background: #000;
+            /* Fondo de seguridad negro */
+        }
+
+        /* INGENIERÍA DE FONDO: Capa dedicada para evitar estiramiento */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            background-image: url('assets/fondo1.png');
+            /* 'cover' asegura que la imagen mantenga su proporción original */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+            /* Usamos transform para un movimiento suave sin lag */
+            animation: derivaCosmica 40s ease-in-out infinite alternate;
+            will-change: transform;
         }
 
         @keyframes derivaCosmica {
             0% {
-                background-position: 0% 0%;
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(-2%, -2%) scale(1.05);
             }
 
             100% {
-                background-position: 100% 100%;
+                transform: translate(2%, 2%) scale(1);
             }
         }
 
@@ -107,7 +127,6 @@
         .seccion {
             height: 100vh;
             height: 100dvh;
-            /* Altura dinámica para esquivar la barra de navegación del móvil */
             width: 100%;
             position: absolute;
             top: 0;
@@ -119,7 +138,6 @@
             align-items: center;
             z-index: 10;
             overflow-y: auto;
-            /* Habilita el scroll vertical en el jardín */
             overflow-x: hidden;
         }
 
@@ -302,11 +320,6 @@
             transition: transform 0.3s ease;
         }
 
-        .flor-contenedor:hover .flor-img {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        /* Posiciones en Escritorio */
         #f1 {
             top: 15%;
             left: 5%;
@@ -375,7 +388,6 @@
 
         .flor-contenedor.enfocada {
             position: fixed !important;
-            /* Desacopla la flor del scroll y la centra en la pantalla visible */
             top: 50% !important;
             left: 50% !important;
             transform: translate(-50%, -50%) scale(1.3) !important;
@@ -385,7 +397,6 @@
 
         .flor-contenedor.zoom-extremo {
             position: fixed !important;
-            /* Mantiene la flor centrada aunque el usuario haya bajado */
             transform: translate(-50%, -50%) scale(2.0) !important;
             z-index: 150 !important;
         }
@@ -408,7 +419,7 @@
         }
 
         /* =========================================
-           INTERFAZ DE MENSAJES (LA HOJA)
+           INTERFAZ DE MENSAJES (CONTENCIÓN ESTRUCTURAL)
            ========================================= */
         .overlay {
             position: fixed;
@@ -592,53 +603,40 @@
         }
 
         /* =========================================
-           INGENIERÍA RESPONSIVA ESTRICTA (MÓVILES)
+           INGENIERÍA RESPONSIVA (MÓVILES)
            ========================================= */
         @media (max-width: 768px) {
-
-            /* --- CORRECCIÓN DE LA COFIA DE INICIO (LA NUBE) --- */
             .plataforma-nube {
                 width: 100vw;
-                /* Toma todo el ancho disponible */
             }
 
             .nube-fondo-inicio {
                 transform: scale(2.6);
-                /* EXPANSIÓN MASIVA: Da toda la altura vertical necesaria */
             }
 
             .contenido-nube {
                 width: 90%;
-                /* Ajuste perfecto para el centro de la nube expandida */
             }
 
             .titulo-bienvenida {
                 font-size: 1.8rem;
-                /* Tamaño de título controlado */
                 margin-bottom: 5px;
                 padding: 0 5px;
-                line-height: 1.2;
             }
 
             #btn-activar {
                 width: 110px;
-                /* Miniaturización de la flor botón */
                 margin: 5px 0;
             }
 
             .firma-diego {
                 font-size: 1.4rem;
-                /* Firma compacta */
                 margin-top: 5px;
             }
 
-            /* --- MÓDULOS DE FLORES EN EL JARDÍN --- */
             .instruccion-arte {
                 font-size: 1.4rem;
                 top: 8%;
-                padding: 10px 20px;
-                white-space: normal;
-                text-align: center;
                 width: 85%;
             }
 
@@ -647,7 +645,6 @@
                 height: 100px;
             }
 
-            /* Expandimos la órbita de las flores para crear un jardín vertical explorable en el móvil */
             #f1 {
                 top: 15%;
                 left: 5%;
@@ -678,9 +675,6 @@
                 right: 5%;
             }
 
-            /* Obliga al usuario a hacer scroll para descubrirla */
-
-            /* Espaciador fantasma para asegurar que se pueda scrollear cómodamente debajo de la última flor */
             #pantalla-jardin::after {
                 content: '';
                 display: block;
@@ -691,47 +685,24 @@
             }
 
             .flor-contenedor.enfocada {
-                position: fixed !important;
                 transform: translate(-50%, -50%) scale(1.8) !important;
             }
 
             .flor-contenedor.zoom-extremo {
-                position: fixed !important;
                 transform: translate(-50%, -50%) scale(2.8) !important;
-            }
-
-            /* --- CONTENCIÓN DE LA CARTA (LA HOJA) --- */
-            .hoja-inmersiva-contenedor {
-                width: 95vw;
-                height: 70vh;
             }
 
             .bloque-texto {
                 width: 72%;
                 height: 70%;
-                padding: 5px;
             }
 
             #texto-regalo {
                 font-size: 1.25rem;
-                margin-bottom: 15px;
             }
 
             .firma-carta {
                 font-size: 1.15rem;
-                margin-bottom: 15px;
-            }
-
-            #btn-volver,
-            #btn-ver-flor {
-                font-size: 0.9rem;
-                padding: 12px;
-            }
-
-            #btn-cerrar-zoom {
-                padding: 12px 24px;
-                font-size: 0.9rem;
-                bottom: 4%;
             }
         }
     </style>
@@ -744,7 +715,6 @@
     <div id="pantalla-inicio" class="seccion activa">
         <div class="plataforma-nube">
             <img src="assets/nube.png" class="nube-fondo-inicio" alt="Nube base">
-
             <div class="contenido-nube">
                 <h1 class="titulo-bienvenida">Toca la flor para tu regalo</h1>
                 <img src="assets/boton-flor.png" id="btn-activar" alt="Regalo">
@@ -755,44 +725,36 @@
 
     <div id="pantalla-jardin" class="seccion oculta">
         <h2 class="instruccion-arte oculta-inicio" id="titulo-jardin">Toca cada flor flotante</h2>
-
         <div class="flor-contenedor" id="f1" data-id="0">
-            <img src="assets/nube.png" class="nube-fondo" alt="nube">
-            <img src="assets/flor1.png" class="flor-img" alt="flor">
+            <img src="assets/nube.png" class="nube-fondo" alt="nube"><img src="assets/flor1.png" class="flor-img"
+                alt="flor">
         </div>
-
         <div class="flor-contenedor" id="f2" data-id="1">
-            <img src="assets/nube.png" class="nube-fondo" alt="nube">
-            <img src="assets/flor2.png" class="flor-img" alt="flor">
+            <img src="assets/nube.png" class="nube-fondo" alt="nube"><img src="assets/flor2.png" class="flor-img"
+                alt="flor">
         </div>
-
         <div class="flor-contenedor" id="f3" data-id="2">
-            <img src="assets/nube.png" class="nube-fondo" alt="nube">
-            <img src="assets/flor3.png" class="flor-img" alt="flor">
+            <img src="assets/nube.png" class="nube-fondo" alt="nube"><img src="assets/flor3.png" class="flor-img"
+                alt="flor">
         </div>
-
         <div class="flor-contenedor" id="f4" data-id="3">
-            <img src="assets/nube.png" class="nube-fondo" alt="nube">
-            <img src="assets/flor4.png" class="flor-img" alt="flor">
+            <img src="assets/nube.png" class="nube-fondo" alt="nube"><img src="assets/flor4.png" class="flor-img"
+                alt="flor">
         </div>
-
         <div class="flor-contenedor" id="f5" data-id="4">
-            <img src="assets/nube.png" class="nube-fondo" alt="nube">
-            <img src="assets/flor5.png" class="flor-img" alt="flor">
+            <img src="assets/nube.png" class="nube-fondo" alt="nube"><img src="assets/flor5.png" class="flor-img"
+                alt="flor">
         </div>
-
         <div class="flor-contenedor" id="f6" data-id="5">
-            <img src="assets/nube.png" class="nube-fondo" alt="nube">
-            <img src="assets/flor6.png" class="flor-img" alt="flor">
+            <img src="assets/nube.png" class="nube-fondo" alt="nube"><img src="assets/flor6.png" class="flor-img"
+                alt="flor">
         </div>
-
         <button id="btn-cerrar-zoom">Volver al jardín</button>
     </div>
 
     <div id="pantalla-mensaje" class="overlay modal-oculto">
         <div class="hoja-inmersiva-contenedor">
             <img src="assets/hoja.png" class="arte-hoja" alt="Hoja">
-
             <div class="bloque-texto">
                 <p id="texto-regalo"></p>
                 <span class="firma-carta">- Diego</span>
@@ -821,16 +783,13 @@
         const pRamo = document.getElementById('pantalla-jardin');
         const tituloJardin = document.getElementById('titulo-jardin');
         const musica = document.getElementById('musica-fondo');
-
         const flores = document.querySelectorAll('.flor-contenedor');
         const overlay = document.getElementById('pantalla-mensaje');
         const contenedorHoja = document.querySelector('.hoja-inmersiva-contenedor');
         const textoRegalo = document.getElementById('texto-regalo');
-
         const btnVolver = document.getElementById('btn-volver');
         const btnVerFlor = document.getElementById('btn-ver-flor');
         const btnCerrarZoom = document.getElementById('btn-cerrar-zoom');
-
         const capaMagia = document.getElementById('universo-fondo');
         const capaNubes = document.getElementById('atmosfera-nubes');
 
@@ -839,14 +798,10 @@
                 let luz = document.createElement('div');
                 luz.classList.add('luciernaga');
                 let size = Math.random() * 4 + 2;
-                let posX = Math.random() * 100;
-                let duration = Math.random() * 10 + 5;
-                let delay = Math.random() * 5;
-                luz.style.width = `${size}px`;
-                luz.style.height = `${size}px`;
-                luz.style.left = `${posX}vw`;
-                luz.style.animationDuration = `${duration}s`;
-                luz.style.animationDelay = `${delay}s`;
+                luz.style.width = `${size}px`; luz.style.height = `${size}px`;
+                luz.style.left = `${Math.random() * 100}vw`;
+                luz.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                luz.style.animationDelay = `${Math.random() * 5}s`;
                 capaMagia.appendChild(luz);
             }
         }
@@ -854,58 +809,31 @@
         function generarNubesAtmosfera() {
             for (let i = 0; i < 5; i++) {
                 let nube = document.createElement('img');
-                nube.src = 'assets/nube.png';
-                nube.classList.add('nube-deriva');
-                let size = Math.random() * 150 + 150;
-                let posY = Math.random() * 80;
-                let duration = Math.random() * 20 + 25;
-                let delay = Math.random() * -30;
-                nube.style.width = `${size}px`;
-                nube.style.top = `${posY}vh`;
-                nube.style.animationDuration = `${duration}s`;
-                nube.style.animationDelay = `${delay}s`;
+                nube.src = 'assets/nube.png'; nube.classList.add('nube-deriva');
+                nube.style.width = `${Math.random() * 150 + 150}px`;
+                nube.style.top = `${Math.random() * 80}vh`;
+                nube.style.animationDuration = `${Math.random() * 20 + 25}s`;
+                nube.style.animationDelay = `${Math.random() * -30}s`;
                 capaNubes.appendChild(nube);
             }
         }
 
-        setTimeout(() => {
-            generarPolvoMagico();
-            generarNubesAtmosfera();
-        }, 100);
+        setTimeout(() => { generarPolvoMagico(); generarNubesAtmosfera(); }, 100);
 
         btnActivar.addEventListener('click', () => {
             musica.volume = 1.0;
-            musica.currentTime = 0;
-
-            let promesaAudio = musica.play();
-            if (promesaAudio !== undefined) {
-                promesaAudio.then(_ => {
-                    console.log("Transmisión de audio exitosa.");
-                }).catch(error => {
-                    console.warn("Navegador bloqueó el audio automáticamente:", error);
-                });
-            }
-
+            musica.play().catch(e => console.log("Audio block"));
             confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 }, colors: ['#ff9a9e', '#fecfef', '#a1c4fd'] });
-
             pInicio.classList.replace('activa', 'oculta');
             pRamo.classList.replace('oculta', 'activa');
-
-            setTimeout(() => {
-                tituloJardin.classList.add('mostrar-titulo');
-            }, 500);
+            setTimeout(() => tituloJardin.classList.add('mostrar-titulo'), 500);
         });
 
         flores.forEach(flor => {
             flor.addEventListener('click', () => {
                 flores.forEach(f => f.classList.add('opaca'));
-
-                flor.classList.remove('opaca');
-                flor.classList.add('enfocada');
-
-                const id = flor.getAttribute('data-id');
-                textoRegalo.textContent = frasesUnicas[id];
-
+                flor.classList.remove('opaca'); flor.classList.add('enfocada');
+                textoRegalo.textContent = frasesUnicas[flor.getAttribute('data-id')];
                 setTimeout(() => {
                     overlay.classList.replace('modal-oculto', 'modal-activo');
                     contenedorHoja.classList.add('vuelo-espectacular');
@@ -916,36 +844,21 @@
         btnVolver.addEventListener('click', () => {
             overlay.classList.replace('modal-activo', 'modal-oculto');
             contenedorHoja.classList.remove('vuelo-espectacular');
-
-            flores.forEach(flor => {
-                flor.classList.remove('opaca');
-                flor.classList.remove('enfocada');
-                flor.classList.remove('zoom-extremo');
-            });
+            flores.forEach(flor => { flor.classList.remove('opaca', 'enfocada', 'zoom-extremo'); });
         });
 
         btnVerFlor.addEventListener('click', () => {
             overlay.classList.replace('modal-activo', 'modal-oculto');
             contenedorHoja.classList.remove('vuelo-espectacular');
-
             btnCerrarZoom.style.display = 'block';
-
             const florActual = document.querySelector('.flor-contenedor.enfocada');
-            if (florActual) {
-                florActual.classList.add('zoom-extremo');
-            }
+            if (florActual) florActual.classList.add('zoom-extremo');
         });
 
         btnCerrarZoom.addEventListener('click', () => {
             btnCerrarZoom.style.display = 'none';
-
-            flores.forEach(flor => {
-                flor.classList.remove('opaca');
-                flor.classList.remove('enfocada');
-                flor.classList.remove('zoom-extremo');
-            });
+            flores.forEach(flor => { flor.classList.remove('opaca', 'enfocada', 'zoom-extremo'); });
         });
-
     </script>
 </body>
 
