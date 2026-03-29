@@ -4,33 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador Oficial</title>
+    <title>¡Feliz Cumpleaños!</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@300;400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
 
-    <div id="pantalla-busqueda" class="pantalla activa">
-        <h1>
-            <span class="azul">S</span><span class="rojo">u</span><span class="amarillo">e</span><span
-                class="azul">g</span><span class="verde">r</span><span class="rojo">a</span><span
-                class="amarillo">l</span><span class="azul">e</span>
-        </h1>
-        <div class="caja-busqueda">
-            <input type="text" value="¿Por qué mi suegra es la mejor del mundo?" readonly>
+    <section class="portada">
+        <div class="contenido-cristal">
+            <h1>Feliz Cumpleaños</h1>
+            <p class="subtitulo">A la mejor suegra del universo</p>
+            <p class="instruccion">Desliza hacia abajo ⬇️</p>
         </div>
-        <div class="botones">
-            <button id="btn-buscar">Buscar con suerte</button>
-        </div>
-    </div>
+    </section>
 
-    <div id="pantalla-resultados" class="pantalla oculta">
-        <h2>Se encontraron infinitos resultados (0.01 segundos)</h2>
-        <div id="contenedor-tarjetas">
+    <section class="recuerdo oculta">
+        <div class="tarjeta-cristal">
+            <img src="assets/foto1.jpg" alt="Recuerdo 1">
+            <p>Gracias por tu paciencia infinita y por hacerme sentir en casa desde el día uno.</p>
         </div>
-    </div>
+    </section>
 
-    <audio id="musica-fondo" src="assets/musica.mp3"></audio>
+    <section class="recuerdo oculta">
+        <div class="tarjeta-cristal">
+            <img src="assets/foto2.jpg" alt="Recuerdo 2">
+            <p>Por tus comidas de los domingos y esa energía que mantiene a la familia unida.</p>
+        </div>
+    </section>
+
+    <section class="recuerdo oculta">
+        <div class="tarjeta-cristal">
+            <img src="assets/foto3.jpg" alt="Recuerdo 3">
+            <p>Criar a la persona que amo es el acto más grande. ¡Que sean muchísimos más!</p>
+        </div>
+    </section>
+
+    <section class="final oculta">
+        <div class="tarjeta-cristal final-caja">
+            <h2>¡Es tu día!</h2>
+            <button id="btn-sorpresa">Toca aquí para celebrar</button>
+        </div>
+    </section>
+
+    <audio id="musica-fondo" src="assets/musica.mp3" loop></audio>
 
     <script src="script.js"></script>
 </body>

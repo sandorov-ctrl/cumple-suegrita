@@ -1,47 +1,53 @@
-// Definimos nuestra base de datos local usando un Array (una lista ordenada)
-const razones = [
-    "Porque siempre tienes una sonrisa y un consejo sabio cuando más se necesita.",
-    "Por tus comidas increíbles de los domingos que nos unen a todos.",
-    "Porque me has aceptado en la familia como a un hijo más desde el primer día.",
-    "Por la paciencia infinita que tienes con todos nosotros.",
-    "Porque eres un ejemplo de fuerza, trabajo y dedicación constante.",
-    "Por esa energía inagotable que contagia alegría a toda la casa.",
-    "Porque criar a la persona que amo es el mayor regalo que podrías haberme dado.",
-    "¡Por muchísimos cumpleaños más compartiendo juntos! ¡Felices 50 y pico! 🎂"
-];
+// 1. SISTEMA DE AUDIO
+// Reproducimos la música en cuanto ella toque la pantalla por primera vez
+let musicaIniciada = false;
+document.addEventListener('touchstart', () => {
+    if (!musicaIniciada) {
+        document.getElementById('musica-fondo').play();
+        musicaIniciada = true;
+    }
+});
 
-// Capturamos los elementos del DOM (nuestros componentes de hardware virtual)
-const botonBuscar = document.getElementById('btn-buscar');
-const pantallaBusqueda = document.getElementById('pantalla-busqueda');
-const pantallaResultados = document.getElementById('pantalla-resultados');
-const contenedorTarjetas = document.getElementById('contenedor-tarjetas');
-const musica = document.getElementById('musica-fondo');
+document.addEventListener('click', () => {
+    if (!musicaIniciada) {
+        document.getElementById('musica-fondo').play();
+        musicaIniciada = true;
+    }
+});
 
-// Secuencia de ignición: ¿Qué pasa al hacer clic?
-botonBuscar.addEventListener('click', () => {
+// 2. SISTEMA DE SENSORES (Intersection Observer)
+// Configuramos el radar: le decimos que dispare la señal cuando el elemento esté al menos a un 10% visible
+const opcionesDelRadar = {
+    threshold: 0.1
+};
 
-    // 1. Iniciamos el motor de audio (los navegadores requieren que el usuario interactúe primero para reproducir sonido)
-    musica.play();
+// Creamos el observador
+const observador = new IntersectionObserver((entradas) => {
+    entradas.forEach((entrada) => {
+        // Si el elemento ha entrado en el campo de visión...
+        if (entrada.isIntersecting) {
+            // Le añadimos la clase 'mostrar' que creamos en CSS para que aparezca
+            entrada.target.classList.add('mostrar');
+        }
+    });
+}, opcionesDelRadar);
 
-    // 2. Modificamos el estado visual (CSS) para cambiar de interfaz
-    pantallaBusqueda.classList.remove('activa');
-    pantallaBusqueda.classList.add('oculta');
+// Buscamos todas las secciones que tengan la clase 'oculta' y les ponemos el radar
+const elementosOcultos = document.querySelectorAll('.oculta');
+elementosOcultos.forEach((elemento) => {
+    observador.observe(elemento);
+});
 
-    pantallaResultados.classList.remove('oculta');
-    pantallaResultados.classList.add('activa');
+// 3. SISTEMA DE PARTÍCULAS (Carga explosiva de confeti)
+const botonSorpresa = document.getElementById('btn-sorpresa');
 
-    // 3. Bucle Iterativo: Recorremos nuestro Array y creamos elementos HTML al vuelo
-    razones.forEach((razon, index) => {
-        // Creamos un nuevo "nodo" div en la memoria
-        const tarjeta = document.createElement('div');
-        tarjeta.classList.add('tarjeta');
-        tarjeta.innerHTML = `<p>${razon}</p>`;
-
-        // Retrasamos la animación de cada tarjeta multiplicando el índice, 
-        // para que caigan en cascada como estrellas fugaces (0.2s, 0.4s, 0.6s...)
-        tarjeta.style.animationDelay = `${index * 0.2}s`;
-
-        // Inyectamos el nodo en el DOM visible
-        contenedorTarjetas.appendChild(tarjeta);
+botonSorpresa.addEventListener('click', () => {
+    // Usamos la librería externa que importamos en el HTML
+    // Dispara confeti con una física de dispersión específica
+    confetti({
+        particleCount: 150, // Número de partículas
+        spread: 80,         // Ángulo de apertura
+        origin: { y: 0.6 }, // Desde dónde sale (60% de la pantalla hacia abajo)
+        colors: ['#f8c291', '#ffffff', '#4285F4', '#34A853'] // Colores
     });
 });

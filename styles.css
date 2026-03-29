@@ -1,130 +1,129 @@
-/* Reseteo básico para estandarizar márgenes en todos los móviles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
 }
 
 body {
-    background-color: #202124;
-    /* Modo oscuro elegante */
+    /* Un gradiente oscuro y elegante que simula el espacio profundo/cielo nocturno */
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     color: white;
+    font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
-    /* Evita el scroll horizontal indeseado */
 }
 
-/* Clases para cambiar entre pantallas usando display */
-.pantalla {
+/* Configuramos cada sección para que ocupe el 100% de la altura de la pantalla (100vh) */
+section {
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
-    transition: opacity 0.5s ease;
 }
 
-.oculta {
-    display: none !important;
-    opacity: 0;
-}
-
-.activa {
-    opacity: 1;
-}
-
-/* Colores estilo buscador */
-h1 {
-    font-size: 3.5rem;
-    margin-bottom: 20px;
-    letter-spacing: -2px;
-}
-
-.azul {
-    color: #4285F4;
-}
-
-.rojo {
-    color: #EA4335;
-}
-
-.amarillo {
-    color: #FBBC05;
-}
-
-.verde {
-    color: #34A853;
-}
-
-/* Barra de búsqueda */
-.caja-busqueda input {
+/* --- TÉCNICA DE GLASSMORPHISM --- */
+.contenido-cristal,
+.tarjeta-cristal {
+    background: rgba(255, 255, 255, 0.05);
+    /* Blanco casi transparente */
+    backdrop-filter: blur(10px);
+    /* El filtro que desenfoca lo que hay detrás */
+    -webkit-backdrop-filter: blur(10px);
+    /* Soporte para Safari/iPhone */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Borde sutil brillante */
+    border-radius: 20px;
+    padding: 40px 20px;
+    text-align: center;
     width: 100%;
     max-width: 400px;
-    padding: 15px 20px;
-    border-radius: 24px;
-    border: 1px solid #5f6368;
-    background-color: #303134;
-    color: white;
-    font-size: 1rem;
-    text-align: center;
-    outline: none;
-    box-shadow: 0 1px 6px rgba(32, 33, 36, .28);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    /* Sombra para dar profundidad */
 }
 
-/* Botón interactivo */
-.botones {
-    margin-top: 25px;
+/* Tipografías Premium */
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: #f8c291;
+    /* Un tono dorado/oro rosa */
+    margin-bottom: 10px;
 }
 
-button {
-    background-color: #303134;
-    border: 1px solid #303134;
-    color: #e8eaed;
-    padding: 10px 20px;
-    border-radius: 4px;
+.subtitulo {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+.instruccion {
     font-size: 0.9rem;
+    opacity: 0.6;
+    animation: palpitar 2s infinite;
+    /* Animación de pulso */
+}
+
+/* Animación del texto de instrucción */
+@keyframes palpitar {
+    0% {
+        opacity: 0.4;
+        transform: translateY(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(5px);
+    }
+
+    100% {
+        opacity: 0.4;
+        transform: translateY(0);
+    }
+}
+
+/* Diseño de las fotos */
+.tarjeta-cristal img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    /* Recorta la foto sin deformarla */
+    border-radius: 15px;
+    margin-bottom: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.tarjeta-cristal p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Estilo del botón final */
+button {
+    background: #f8c291;
+    color: #0f2027;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50px;
+    margin-top: 20px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: transform 0.2s;
 }
 
 button:hover {
-    border: 1px solid #5f6368;
+    transform: scale(1.05);
 }
 
-/* Estilo de las tarjetas de resultados */
-#pantalla-resultados {
-    justify-content: flex-start;
-    /* Alineamos arriba, no al centro */
-    padding-top: 40px;
-}
-
-h2 {
-    color: #9aa0a6;
-    font-size: 0.9rem;
-    font-weight: normal;
-    margin-bottom: 30px;
-    align-self: flex-start;
-}
-
-.tarjeta {
-    background-color: #303134;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 15px;
-    width: 100%;
-    max-width: 500px;
-    border-left: 5px solid #4285F4;
+/* --- CLASES PARA EL SENSOR DE JAVASCRIPT --- */
+.oculta {
     opacity: 0;
-    transform: translateY(20px);
-    animation: aparecer 0.6s forwards;
-    /* Animación de entrada */
+    transform: translateY(50px);
+    transition: all 1s ease-out;
+    /* Transición suave cuando se vuelven visibles */
 }
 
-/* Física de la animación: de abajo hacia arriba desvaneciéndose */
-@keyframes aparecer {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.mostrar {
+    opacity: 1;
+    transform: translateY(0);
 }
