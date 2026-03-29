@@ -1,7 +1,7 @@
 // --- BASE DE DATOS: TUS FRASES ---
 // Cada frase corresponde a un data-id de las flores (0 al 5)
 // Tienes que editar lo que está entre comillas con tu mensaje real
-const mensajesParaMamá = [
+const mensajesParaSuegra = [
     // Mensaje 1 (data-id="0")
     "Eres la mejor MADRE del mundo. Gracias por tu amor incondicional, tus abrazos que curan todo y por estar siempre ahí, en las buenas y en las malas. Te adoro.",
 
@@ -26,10 +26,10 @@ const mensajesParaMamá = [
 // Nodos del DOM
 const btnActivar = document.getElementById('btn-activar');
 const pInicio = document.getElementById('pantalla-inicio');
-const pJardin = document.getElementById('pantalla-jardin');
+const pRamo = document.getElementById('pantalla-ramo');
 const musica = document.getElementById('musica-fondo');
 
-const tarjetasFlor = document.querySelectorAll('.tarjeta-flor');
+const flores = document.querySelectorAll('.flor-interactiva');
 const overlay = document.getElementById('pantalla-mensaje');
 const contenedorHoja = document.querySelector('.hoja-voladora-contenedor');
 const textoRegalo = document.getElementById('texto-regalo');
@@ -42,29 +42,40 @@ btnActivar.addEventListener('click', () => {
 
     // Transición suave entre pantallas
     pInicio.classList.replace('activa', 'oculta');
-    pJardin.classList.replace('oculta', 'activa');
+    pRamo.classList.replace('oculta', 'activa');
 });
 
-// SECUENCIA 2: Clic en las flores del jardín
-tarjetasFlor.forEach(tarjeta => {
-    tarjeta.addEventListener('click', () => {
-        // Obtenemos el ID del mensaje
-        const id = tarjeta.getAttribute('data-id');
+// SECUENCIA 2: Clic en las flores artesanales
+flores.forEach(flor => {
+    flor.addEventListener('click', () => {
+        // Efecto visual en el ramo
+        flores.forEach(f => f.classList.add('opaca'));
+        flor.classList.remove('opaca');
+        flor.classList.add('seleccionada');
 
-        // Cargamos el texto en el modal
-        textoRegalo.textContent = mensajesParaMamá[id];
+        // Activación de la Hoja Voladora con retraso para drama
+        const id = flor.getAttribute('data-id');
+        textoRegalo.textContent = mensajesParaSuegra[id];
 
-        // Abrimos el modal
-        overlay.classList.replace('modal-oculto', 'modal-activo');
-        // Lanzamos la animación de vuelo de la hoja
-        contenedorHoja.classList.add('volando');
+        setTimeout(() => {
+            // Mostramos el overlay
+            overlay.classList.replace('modal-oculto', 'modal-activo');
+            // Lanzamos la animación de vuelo de la hoja
+            contenedorHoja.classList.add('volando');
+        }, 500); // Retraso de 0.5 segundos
     });
 });
 
 // SECUENCIA 3: Cerrar y Resetear
 btnVolver.addEventListener('click', () => {
-    // Ocultamos el modal
+    // Ocultamos el overlay
     overlay.classList.replace('modal-activo', 'modal-oculto');
     // Quitamos la clase de animación para que pueda volver a volar después
     contenedorHoja.classList.remove('volando');
+
+    // Reseteamos el ramo
+    flores.forEach(flor => {
+        flor.classList.remove('opaca');
+        flor.classList.remove('seleccionada');
+    });
 });

@@ -7,12 +7,15 @@
 }
 
 body {
-    /* FONDO COLORIDO: Un gradiente suave de rosa pastel a crema */
-    background: linear-gradient(135deg, #fff0f3 0%, #fff8f0 100%);
-    font-family: 'Nunito', sans-serif;
+    /* FONDO ARTÍSTICO: Textura de papel de acuarela con iluminación warm */
+    background-color: #fdfcf5;
+    background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
+    /* Textura sutil */
+    font-family: 'Playfair Display', serif;
+    /* Fuente base elegante y legible */
     height: 100vh;
     overflow: hidden;
-    color: #555;
+    color: #4a4a4a;
 }
 
 /* Control de secciones */
@@ -26,7 +29,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    transition: opacity 0.8s ease-out;
+    transition: opacity 1s ease-out;
     /* Transición suave entre pantallas */
 }
 
@@ -43,19 +46,18 @@ body {
 
 /* --- PANTALLA INICIO --- */
 .titulo-bienvenida {
-    font-family: 'Dancing Script', cursive;
-    font-size: 2.8rem;
-    color: #b57a7a;
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    color: #b57c7c;
     margin-bottom: 40px;
     text-align: center;
-    padding: 0 20px;
 }
 
 #btn-activar {
     width: 200px;
     cursor: pointer;
     animation: pulsoSuave 2.5s infinite;
-    /* Animación de palpitar */
+    /* Animación sutil de palpitar */
     filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
 }
 
@@ -68,58 +70,118 @@ body {
     }
 
     50% {
-        transform: scale(1.05);
+        transform: scale(1.03);
         opacity: 1;
     }
 }
 
-/* --- PANTALLA JARDÍN (La solución de interacción) --- */
-.subtitulo-jardin {
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: #888;
-    text-align: center;
-    margin-bottom: 30px;
-    padding: 0 30px;
-}
-
-.cuadrícula-flores {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* 2 columnas en móvil */
-    gap: 20px;
-    /* Espaciado entre flores para que no se pisen */
+/* --- ESCENARIO DEL RAMO (Composición Artística) --- */
+.lienzo-arte {
+    position: relative;
     width: 90vw;
     max-width: 400px;
-    padding: 20px;
-}
-
-.tarjeta-flor {
-    background-color: white;
-    border-radius: 20px;
-    padding: 20px;
+    /* Lienzo de composición */
+    height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-/* Efecto al tocar la flor */
-.tarjeta-flor:active {
-    transform: scale(0.95);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.tarjeta-flor img {
+#fondo-ramo {
+    position: absolute;
     width: 100%;
-    height: 100px;
-    /* Flores grandes y fáciles de pulsar */
-    object-fit: contain;
+    height: auto;
+    z-index: 1;
+    /* Al fondo */
+    filter: sepia(20%) saturate(80%);
+    /* Tono warm artístico */
+    opacity: 0.8;
 }
 
-/* --- LA HOJA MENSAJE (Técnica "Volar de Centro") --- */
+.flor-interactiva {
+    position: absolute;
+    height: 120px;
+    /* Ajusta este tamaño según tus dibujos */
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Movimiento orgánico */
+    z-index: 10;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.1));
+    animation: flotarSuave 4s infinite ease-in-out;
+    /* Animación de flotar */
+}
+
+/* Animación de flotar suavemente en el sitio */
+@keyframes flotarSuave {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(3deg);
+    }
+}
+
+/* --- CALIBRACIÓN DE LA COMPOSICIÓN ARTÍSTICA --- */
+/* (0,0) es la esquina superior izquierda del .lienzo-arte */
+/* Ajusta los grados de rotación y las posiciones left/right para espaciarlas artísticamente */
+#f1 {
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+#f2 {
+    top: 5%;
+    right: 15%;
+    animation-delay: 0.5s;
+}
+
+#f3 {
+    top: 40%;
+    left: 5%;
+    animation-delay: 1s;
+}
+
+#f4 {
+    top: 35%;
+    right: 5%;
+    animation-delay: 1.5s;
+}
+
+#f5 {
+    bottom: 15%;
+    left: 15%;
+    animation-delay: 2s;
+}
+
+#f6 {
+    bottom: 10%;
+    right: 10%;
+    animation-delay: 2.5s;
+}
+
+/* Efecto al seleccionar */
+.flor-interactiva.seleccionada {
+    transform: scale(1.2) !important;
+    filter: drop-shadow(0 0 15px rgba(181, 124, 124, 0.5)) !important;
+    z-index: 100 !important;
+}
+
+.flor-interactiva.opaca {
+    opacity: 0.2;
+}
+
+.consejo-instruccion {
+    margin-top: 20px;
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: #b57c7c;
+}
+
+/* --- LA HOJA VOLADORA (Técnica Inmersiva) --- */
 .overlay {
     position: fixed;
     top: 0;
@@ -148,8 +210,8 @@ body {
 
 .hoja-voladora-contenedor {
     position: relative;
-    width: 85vw;
-    max-width: 350px;
+    width: 90vw;
+    max-width: 400px;
     height: auto;
     display: flex;
     justify-content: center;
@@ -159,10 +221,10 @@ body {
 /* LA ANIMACIÓN DE "VOLAR" */
 /* Esta clase se añade con JS al hacer clic en la flor */
 .hoja-voladora-contenedor.volando {
-    animation: aparecerHoja 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    animation: volarAPantalla 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 
-@keyframes aparecerHoja {
+@keyframes volarAPantalla {
     0% {
         transform: translate(0, 100px) rotate(-15deg) scale(0);
         opacity: 0;
@@ -174,7 +236,7 @@ body {
     }
 }
 
-.hoja-fondo {
+.hoja-dibujo {
     width: 100%;
     height: auto;
     filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
@@ -200,23 +262,22 @@ body {
 }
 
 #texto-regalo {
-    font-family: 'Great Vibes', cursive;
-    font-size: 2rem;
-    color: #4e6b4e;
-    /* Tono verde oscuro hoja */
-    line-height: 1.3;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: #444;
+    line-height: 1.6;
+    text-align: center;
     margin-bottom: 25px;
 }
 
 #btn-volver {
-    background: #b57a7a;
+    background: #b57c7c;
     color: white;
     border: none;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 1rem;
-    font-weight: bold;
     padding: 10px 20px;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(181, 122, 122, 0.3);
+    box-shadow: 0 4px 10px rgba(181, 124, 124, 0.3);
 }
