@@ -4,45 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Para ti, con todo mi amor</title>
+    <title>Para ti, con amor</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
 
-    <div id="polvo-magico"></div>
+    <div id="fondo-animado"></div>
 
     <div id="pantalla-inicio" class="seccion activa">
-        <h1 class="titulo-bienvenida">Toca la flor para tu regalo</h1>
+        <h1 class="titulo-bienvenida">Toca la flor mágica</h1>
         <img src="assets/boton-flor.png" id="btn-activar" alt="Regalo">
     </div>
 
-    <div id="pantalla-ramo" class="seccion oculta">
-        <div class="lienzo-arte">
-            <img src="assets/ramo.png" id="papel-ramo" alt="Cono">
+    <div id="pantalla-jardin" class="seccion oculta">
+        <h2 class="instruccion-arte oculta-inicio" id="titulo-jardin">Elige un pensamiento flotante</h2>
 
-            <div class="interior-ramo">
-                <img src="assets/flor1.png" class="flor-acuarela" id="f1" data-id="0">
-                <img src="assets/flor2.png" class="flor-acuarela" id="f2" data-id="1">
-                <img src="assets/flor3.png" class="flor-acuarela" id="f3" data-id="2">
-                <img src="assets/flor4.png" class="flor-acuarela" id="f4" data-id="3">
-                <img src="assets/flor5.png" class="flor-acuarela" id="f5" data-id="4">
-                <img src="assets/flor6.png" class="flor-acuarela" id="f6" data-id="5">
-            </div>
-        </div>
-        <p class="instruccion-arte">Toca cada flor para leer su pensamiento</p>
+        <div class="flor-nave" id="nave-1" data-id="0"><img src="assets/flor1.png" class="flor-img"></div>
+        <div class="flor-nave" id="nave-2" data-id="1"><img src="assets/flor2.png" class="flor-img"></div>
+        <div class="flor-nave" id="nave-3" data-id="2"><img src="assets/flor3.png" class="flor-img"></div>
+        <div class="flor-nave" id="nave-4" data-id="3"><img src="assets/flor4.png" class="flor-img"></div>
+        <div class="flor-nave" id="nave-5" data-id="4"><img src="assets/flor5.png" class="flor-img"></div>
+        <div class="flor-nave" id="nave-6" data-id="5"><img src="assets/flor6.png" class="flor-img"></div>
     </div>
 
     <div id="pantalla-mensaje" class="overlay modal-oculto">
-        <div class="hoja-horizontal-contenedor">
+        <div class="hoja-pergamino">
             <img src="assets/hoja.png" class="hoja-dibujo" alt="Hoja">
-
             <div class="bloque-texto">
                 <p id="texto-regalo"></p>
-                <button id="btn-volver">Regresar</button>
+                <button id="btn-volver">Soltar flor</button>
             </div>
         </div>
     </div>

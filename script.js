@@ -1,92 +1,100 @@
-// --- BASE DE DATOS: TUS FRASES PERSONALIZADAS ---
-// Cada frase corresponde a un data-id de las flores (0 al 5)
-// Tienes que editar lo que está entre comillas con tu mensaje real
-const mensajesParaSuegra = [
-    // Mensaje 1 (data-id="0")
-    "Gracias por acogerme en tu familia con tanto cariño. Eres una suegra maravillosa.",
-
-    // Mensaje 2 (data-id="1")
-    "Por criar a la persona más increíble del mundo. Eres una madre excepcional.",
-
-    // Mensaje 3 (data-id="2")
-    "Tu alegría y energía nos inspiran a todos. Eres una mujer espectacular.",
-
-    // Mensaje 4 (data-id="3")
-    "Por todas las risas compartidas y las comidas deliciosas de los domingos. ¡Gracias!",
-
-    // Mensaje 5 (data-id="4")
-    "Este 30 de marzo celebramos tu vida. ¡Que se cumplan todos tus sueños!",
-
-    // Mensaje 6 (data-id="5")
-    "¡Feliz cumpleaños, mamá! Te queremos muchísimo hoy y siempre."
+// TUS FRASES (Edita lo que está entre comillas)
+const frasesUnicas = [
+    "Gracias por tu paciencia infinita y por abrazarme como a un hijo más.",
+    "Eres una madre excepcional, mi mayor ejemplo de vida y superación.",
+    "No solo eres familia, eres una amiga incondicional. ¡Te adoro!",
+    "Por esos domingos de comida y risas que nos recargan el alma a todos.",
+    "Este 30 de marzo es para celebrar tu luz. ¡Que seas inmensamente feliz!",
+    "¡Feliz cumpleaños! Que la vida te devuelva toda la belleza que nos das."
 ];
 
-// --- LÓGICA DE CONTROL ---
-
-// Nodos del DOM
+// Nodos del Hardware
 const btnActivar = document.getElementById('btn-activar');
 const pInicio = document.getElementById('pantalla-inicio');
-const pRamo = document.getElementById('pantalla-ramo');
+const pJardin = document.getElementById('pantalla-jardin');
+const tituloJardin = document.getElementById('titulo-jardin');
 const musica = document.getElementById('musica-fondo');
 
-const flores = document.querySelectorAll('.flor-acuarela');
+const naves = document.querySelectorAll('.flor-nave');
 const overlay = document.getElementById('pantalla-mensaje');
-const contenedorHoja = document.querySelector('.hoja-horizontal-contenedor');
 const textoRegalo = document.getElementById('texto-regalo');
 const btnVolver = document.getElementById('btn-volver');
-const capaMagia = document.getElementById('polvo-magico');
+const fondoUniverso = document.getElementById('fondo-animado');
 
-// SISTEMA DE PARTÍCULAS (Luciérnagas de fondo constantes)
-function generarPolvoMagico() {
-    for (let i = 0; i < 30; i++) {
-        let luz = document.createElement('div');
-        luz.classList.add('luciernaga');
+// MOTOR DE UNIVERSO (Flores flotando aleatoriamente en el fondo)
+// Array con todos tus dibujos para el fondo
+const arteFondo = ['flor1.png', 'flor2.png', 'flor3.png', 'flor4.png', 'flor5.png', 'flor6.png', 'boton-flor.png'];
 
-        let size = Math.random() * 4 + 2; // entre 2 y 6 px
-        let posX = Math.random() * 100; // 0 a 100% del ancho
-        let duration = Math.random() * 10 + 5; // 5 a 15 segundos
-        let delay = Math.random() * 5;
+function encenderUniverso() {
+    for (let i = 0; i < 20; i++) {
+        let imgAleatoria = arteFondo[Math.floor(Math.random() * arteFondo.length)];
+        let florFondo = document.createElement('img');
+        florFondo.src = `assets/${imgAleatoria}`;
+        florFondo.classList.add('flor-ambiente');
 
-        luz.style.width = `${size}px`;
-        luz.style.height = `${size}px`;
-        luz.style.left = `${posX}vw`;
-        luz.style.animationDuration = `${duration}s`;
-        luz.style.animationDelay = `${delay}s`;
+        // Matemáticas del caos (aleatoriedad)
+        let size = Math.random() * 40 + 20; // 20px a 60px
+        let posX = Math.random() * 100; // Ancho
+        let duracion = Math.random() * 20 + 15; // Velocidad de deriva
+        let retraso = Math.random() * 10;
 
-        capaMagia.appendChild(luz);
+        florFondo.style.width = `${size}px`;
+        florFondo.style.left = `${posX}vw`;
+        florFondo.style.animationDuration = `${duracion}s`;
+        florFondo.style.animationDelay = `-${retraso}s`; // Para que ya haya flores al iniciar
+
+        fondoUniverso.appendChild(florFondo);
     }
 }
-generarPolvoMagico(); // Lo encendemos desde el principio
+encenderUniverso(); // Iniciamos el fondo desde el primer momento
 
-// SECUENCIA 1: Activación y Comienzo de la Música
+// IGNICIÓN: CONFETI + MÚSICA + EXPANSIÓN
 btnActivar.addEventListener('click', () => {
-    // Play Música
+    // 1. Explosión de Confeti (Motor Canvas)
+    confetti({
+        particleCount: 200,
+        spread: 100,
+        origin: { y: 0.6 },
+        colors: ['#ff9a9e', '#fecfef', '#a1c4fd']
+    });
+
+    // 2. Play Música
     musica.play();
 
-    // Transición suave entre pantallas
+    // 3. Transición de Pantallas
     pInicio.classList.replace('activa', 'oculta');
-    pRamo.classList.replace('oculta', 'activa');
+    pJardin.classList.replace('oculta', 'activa');
+
+    // 4. Desplegar flores desde el centro (Retraso de medio segundo para que pase la explosión)
+    setTimeout(() => {
+        naves.forEach(nave => nave.classList.add('desplegada'));
+        tituloJardin.classList.add('mostrar-titulo');
+    }, 500);
 });
 
-// SECUENCIA 2: Clic en las flores artesanales
-flores.forEach(flor => {
-    flor.addEventListener('click', () => {
-        // Cargamos el mensaje correcto en el pergamino
-        const id = flor.getAttribute('data-id');
-        textoRegalo.textContent = mensajesParaSuegra[id];
+// INTERACCIÓN: LA FLOR VIAJA AL CENTRO
+naves.forEach(nave => {
+    nave.addEventListener('click', () => {
+        // La flor hace "Zoom" al centro de la pantalla
+        nave.classList.add('enfocada');
 
-        // Aparece la capa oscura y borrosa
-        overlay.classList.replace('modal-oculto', 'modal-activo');
+        // Cargamos el mensaje correcto
+        const id = nave.getAttribute('data-id');
+        textoRegalo.textContent = frasesUnicas[id];
 
-        // La hoja vuela hacia la pantalla con efecto 3D
-        contenedorHoja.classList.add('vuelo-espectacular');
+        // Mostramos el modal de la hoja con un pequeño retraso
+        // Esto permite que el usuario vea la flor llegar al centro ANTES de que la hoja la cubra
+        setTimeout(() => {
+            overlay.classList.replace('modal-oculto', 'modal-activo');
+        }, 600);
     });
 });
 
-// SECUENCIA 3: Cerrar y Resetear
+// VOLVER A LA GRAVEDAD CERO
 btnVolver.addEventListener('click', () => {
-    // Ocultamos el overlay
+    // Ocultamos la hoja
     overlay.classList.replace('modal-activo', 'modal-oculto');
-    // Quitamos la clase de animación para que pueda volver a volar después
-    contenedorHoja.classList.remove('vuelo-espectacular');
+
+    // Le decimos a la flor que vuelva a su sitio
+    naves.forEach(nave => nave.classList.remove('enfocada'));
 });
