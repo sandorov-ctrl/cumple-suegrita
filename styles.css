@@ -2,194 +2,240 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
-    background: radial-gradient(circle, #ffe6ea, #ffc0cb);
-    /* Fondo rosa pastel muy suave */
-    font-family: 'Nunito', sans-serif;
+    background-color: #1a1a1a;
+    /* Fondo oscuro elegante */
+    color: white;
+    font-family: 'Poppins', sans-serif;
     height: 100vh;
+    overflow: hidden;
+}
+
+.seccion {
+    height: 100vh;
+    width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    /* Evita que la pantalla se mueva */
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.8s ease;
 }
 
-/* Control de Estados */
-.activo {
-    display: flex;
+.oculta {
+    opacity: 0;
+    z-index: -1;
+    pointer-events: none;
 }
 
-.oculto {
-    display: none !important;
+.activa {
+    opacity: 1;
+    z-index: 10;
 }
 
-/* El Botón Mágico */
-#btn-magico {
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
-    color: white;
-    font-family: 'Dancing Script', cursive;
-    font-size: 2rem;
-    padding: 15px 40px;
-    border: none;
-    border-radius: 50px;
-    box-shadow: 0 10px 20px rgba(255, 117, 140, 0.4);
+/* --- BOTÓN DE INICIO --- */
+.titulo-inicio {
+    font-family: 'Caveat', cursive;
+    font-size: 2.5rem;
+    color: #fdfcf5;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#btn-abrir {
+    width: 200px;
     cursor: pointer;
-    animation: latido 1.5s infinite;
-    /* Simula un corazón latiendo */
-    transition: transform 0.3s;
-}
-
-#btn-magico:active {
-    transform: scale(0.95);
+    animation: latido 2s infinite;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
 }
 
 @keyframes latido {
-    0% {
+
+    0%,
+    100% {
         transform: scale(1);
     }
 
     50% {
         transform: scale(1.05);
     }
-
-    100% {
-        transform: scale(1);
-    }
 }
 
-/* Contenedor del Ramo */
-#contenedor-ramo {
+/* --- EL ESCENARIO DEL RAMO --- */
+.escenario-ramo {
     position: relative;
-    /* Convierte este div en el punto de origen (0,0) de las coordenadas */
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 500px;
+    display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
 }
 
-.centro-ramo {
-    font-size: 8rem;
-    /* Un ramo gigante */
+#base-ramo {
     position: absolute;
+    width: 80%;
+    bottom: 20px;
     z-index: 10;
-    animation: aparecerRamo 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    /* Animación de rebote */
+    /* El ramo de papel va por delante de los tallos */
 }
 
-@keyframes aparecerRamo {
-    0% {
-        transform: scale(0) rotate(-20deg);
-        opacity: 0;
-    }
-
-    100% {
-        transform: scale(1) rotate(0deg);
-        opacity: 1;
-    }
-}
-
-/* Los Regalos (Módulos satélite) */
-.regalo {
-    font-size: 3rem;
+.flor {
     position: absolute;
-    z-index: 5;
+    height: 200px;
+    bottom: 180px;
+    /* Base de nacimiento de las flores (dentro del papel) */
+    transform-origin: bottom center;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
     cursor: pointer;
-    opacity: 0;
-    /* Invisibles hasta que los disparamos */
-    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 5;
+    /* Por detrás del papel frontal */
 }
 
-.regalo:hover {
-    transform: scale(1.2) !important;
-    /* Crece al tocarlo */
-    z-index: 20;
+/* Distribución del ramo (Ajusta estos valores si ves que se pisan mucho) */
+#flor-1 {
+    transform: rotate(-35deg);
+    left: 20px;
 }
 
-/* Coordenadas de despliegue para cada regalo (física de expansión) */
-/* Al añadir la clase .desplegado con JavaScript, viajan a estas posiciones */
-.regalo.desplegado#regalo-1 {
-    transform: translate(-120px, -80px);
-    opacity: 1;
+#flor-2 {
+    transform: rotate(-20deg);
+    left: 60px;
+    z-index: 6;
 }
 
-.regalo.desplegado#regalo-2 {
-    transform: translate(0px, -140px);
-    opacity: 1;
+#flor-3 {
+    transform: rotate(-5deg);
+    left: 110px;
+    z-index: 7;
 }
 
-.regalo.desplegado#regalo-3 {
-    transform: translate(120px, -80px);
-    opacity: 1;
+#flor-4 {
+    transform: rotate(10deg);
+    right: 110px;
+    z-index: 6;
 }
 
-.regalo.desplegado#regalo-4 {
-    transform: translate(-80px, 100px);
-    opacity: 1;
+#flor-5 {
+    transform: rotate(25deg);
+    right: 60px;
+    z-index: 5;
 }
 
-.regalo.desplegado#regalo-5 {
-    transform: translate(80px, 100px);
-    opacity: 1;
+#flor-6 {
+    transform: rotate(40deg);
+    right: 20px;
 }
 
-/* El Modal (La tarjeta que se abre) */
-#modal-mensaje {
+/* Al tocar una flor */
+.flor.levantada {
+    z-index: 20 !important;
+    /* Al frente de todo */
+}
+
+.flor.opaca {
+    opacity: 0.2;
+}
+
+.instruccion {
+    margin-top: 20px;
+    font-family: 'Caveat', cursive;
+    font-size: 2rem;
+    color: #e0e0e0;
+}
+
+/* --- LA HOJA VOLADORA --- */
+.overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.6);
+    background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 100;
+}
+
+.modal-oculto {
+    display: none;
+    opacity: 0;
+}
+
+.modal-activo {
+    display: flex;
+    opacity: 1;
+}
+
+.contenedor-hoja {
+    position: relative;
+    width: 90vw;
+    max-width: 400px;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.contenido-modal {
-    background: white;
-    padding: 40px 30px;
-    border-radius: 20px;
-    text-align: center;
-    max-width: 85%;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    position: relative;
-    border: 3px solid #ff7eb3;
-    animation: entrarModal 0.4s ease-out forwards;
+.hoja-animada {
+    width: 100%;
+    opacity: 0;
 }
 
-@keyframes entrarModal {
-    from {
-        transform: translateY(50px);
+.volar-hoja {
+    animation: vuelo 1.2s forwards;
+}
+
+@keyframes vuelo {
+    0% {
+        transform: translateY(150px) scale(0);
         opacity: 0;
     }
 
-    to {
-        transform: translateY(0);
+    60% {
+        transform: translateY(-20px) scale(1.05);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
         opacity: 1;
     }
 }
 
-#titulo-modal {
-    font-family: 'Dancing Script', cursive;
-    color: #ff758c;
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-}
-
-#texto-modal {
-    font-size: 1.2rem;
-    color: #555;
-    line-height: 1.5;
-}
-
-#cerrar-modal {
+.texto-wrapper {
     position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 1.5rem;
-    color: #aaa;
+    width: 60%;
+    /* Ajustado para que el texto encaje dentro de los bordes de tu dibujo de la hoja */
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease 1s;
+}
+
+.modal-activo .texto-wrapper {
+    opacity: 1;
+}
+
+#texto-final {
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem;
+    color: #1a1a1a;
+    /* Texto oscuro sobre tu hoja clara */
+    line-height: 1.3;
+    margin-bottom: 20px;
+}
+
+#btn-cerrar {
+    background: #1a1a1a;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
     cursor: pointer;
 }

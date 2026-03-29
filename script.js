@@ -1,57 +1,65 @@
-// Base de datos de razones (El Array)
-// Cada posición [0, 1, 2, 3, 4] corresponde a un regalo
-const mensajes = [
-    "Eres la mejor suegra porque me abriste las puertas de tu familia con un amor incondicional desde el primer minuto.",
-    "Eres una madre excepcional. Ver el amor y los valores que has inculcado me confirma lo increíble que eres.",
-    "Eres una amiga maravillosa. Siempre tienes un consejo honesto, una sonrisa sincera y un café listo para compartir.",
-    "Admiro profundamente tu fuerza. Eres un pilar inquebrantable que nos sostiene y nos inspira a ser mejores cada día.",
-    "¡Feliz cumpleaños! Que este año esté lleno de salud, viajes, risas y momentos inolvidables juntos. ¡Te queremos muchísimo!"
+// Base de datos de frases (Ajusta los textos como sientas)
+const frases = [
+    "Porque desde el primer día me hiciste sentir parte de la familia.",
+    "Por ser una madre excepcional y criar a la persona más maravillosa.",
+    "Por tu comida de los domingos que lo cura todo.",
+    "Por esa sonrisa que tienes siempre y que contagia alegría.",
+    "Porque eres un pilar de fuerza e inspiración para todos nosotros.",
+    "¡FELIZ CUMPLEAÑOS! Que este día esté lleno de magia y muchísimo amor."
 ];
 
-// Captura de elementos de hardware
-const btnMagico = document.getElementById('btn-magico');
-const contInicio = document.getElementById('contenedor-inicio');
-const contRamo = document.getElementById('contenedor-ramo');
-const regalos = document.querySelectorAll('.regalo');
+// Nodos del DOM
+const btnAbrir = document.getElementById('btn-abrir');
+const pantallaInicio = document.getElementById('pantalla-inicio');
+const pantallaRamo = document.getElementById('pantalla-ramo');
 const musica = document.getElementById('musica-fondo');
 
-// Elementos del Modal
-const modal = document.getElementById('modal-mensaje');
-const textoModal = document.getElementById('texto-modal');
-const btnCerrar = document.getElementById('cerrar-modal');
+const flores = document.querySelectorAll('.flor');
+const overlay = document.getElementById('pantalla-mensaje');
+const hoja = document.querySelector('.hoja-animada');
+const textoFinal = document.getElementById('texto-final');
+const btnCerrar = document.getElementById('btn-cerrar');
 
-// SECUENCIA 1: Ignición (Click en el botón mágico)
-btnMagico.addEventListener('click', () => {
-    // 1. Música ON
+// Ignición
+btnAbrir.addEventListener('click', () => {
     musica.play();
-
-    // 2. Cambio de estado visual
-    contInicio.classList.replace('activo', 'oculto');
-    contRamo.classList.replace('oculto', 'activo'); // Esto hace que el HTML cambie a display: flex;
-
-    // 3. Disparar regalos con un ligero retraso para que vea el ramo primero
-    setTimeout(() => {
-        regalos.forEach(regalo => {
-            regalo.classList.add('desplegado');
-        });
-    }, 500); // 500 milisegundos de retraso
+    pantallaInicio.classList.replace('activa', 'oculta');
+    pantallaRamo.classList.replace('oculta', 'activa');
 });
 
-// SECUENCIA 2: Interacción con la carga útil (Click en los regalos)
-regalos.forEach(regalo => {
-    regalo.addEventListener('click', () => {
-        // Obtenemos el ID numérico que le pusimos en el HTML (data-id)
-        const idMensaje = regalo.getAttribute('data-id');
+// Interacción con flores
+flores.forEach(flor => {
+    flor.addEventListener('click', () => {
+        const computedStyle = window.getComputedStyle(flor);
+        const originalTransform = computedStyle.transform;
 
-        // Buscamos ese mensaje en nuestro Array
-        textoModal.textContent = mensajes[idMensaje];
+        // Oscurecemos el resto
+        flores.forEach(f => f.classList.add('opaca'));
+        flor.classList.remove('opaca');
 
-        // Mostramos la ventana
-        modal.classList.replace('oculto', 'activo');
+        // La levantamos aplicando el CSS dinámico
+        flor.style.transform = `${originalTransform} translateY(-100px) scale(1.1)`;
+        flor.classList.add('levantada');
+
+        // Mostramos el mensaje
+        const id = flor.getAttribute('data-id');
+        textoFinal.textContent = frases[id];
+
+        setTimeout(() => {
+            overlay.classList.replace('modal-oculto', 'modal-activo');
+            hoja.classList.add('volar-hoja');
+        }, 600);
     });
 });
 
-// SECUENCIA 3: Cerrar la ventana
+// Cerrar y resetear estado
 btnCerrar.addEventListener('click', () => {
-    modal.classList.replace('activo', 'oculto');
+    overlay.classList.replace('modal-activo', 'modal-oculto');
+    hoja.classList.remove('volar-hoja');
+
+    flores.forEach(flor => {
+        flor.classList.remove('opaca');
+        flor.classList.remove('levantada');
+        flor.style.transform = '';
+    });
 });
