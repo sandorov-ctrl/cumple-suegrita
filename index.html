@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para ti, con todo mi amor</title>
 
-    <!-- TIPOGRAFÍAS: Dancing Script (Títulos) y Caveat (Texto a mano súper legible) -->
     <link
         href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap"
         rel="stylesheet">
@@ -273,7 +272,6 @@
            ========================================= */
         .flor-contenedor {
             position: absolute;
-            /* AUMENTO MASIVO DE APERTURA: De 180px a 220px */
             width: 220px;
             height: 220px;
             display: flex;
@@ -295,7 +293,6 @@
             position: relative;
             width: 100%;
             z-index: 2;
-            /* Sombra un poco más pronunciada para resaltar el nuevo tamaño */
             filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.25));
             transition: transform 0.3s ease;
         }
@@ -304,6 +301,7 @@
             transform: scale(1.1) rotate(5deg);
         }
 
+        /* Posiciones en Escritorio (Landscape) */
         #f1 {
             top: 15%;
             left: 5%;
@@ -373,14 +371,12 @@
         .flor-contenedor.enfocada {
             top: 50% !important;
             left: 50% !important;
-            /* Recalibrado a 1.3 porque la flor base ahora es mucho más grande */
             transform: translate(-50%, -50%) scale(1.3) !important;
             animation: pulsoFlorFondo 3s infinite !important;
             z-index: 100 !important;
         }
 
         .flor-contenedor.zoom-extremo {
-            /* Recalibrado a 2.0 para un acercamiento espectacular pero sin desbordar */
             transform: translate(-50%, -50%) scale(2.0) !important;
             z-index: 150 !important;
         }
@@ -518,6 +514,19 @@
             font-weight: 700;
         }
 
+        /* TEXTO GENERADO POR GEMINI */
+        #texto-gemini {
+            font-family: 'Caveat', cursive;
+            font-size: 1.3rem;
+            color: #d84315;
+            margin-bottom: 15px;
+            font-style: italic;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
+            display: none;
+        }
+
         .botones-contenedor {
             display: flex;
             flex-direction: column;
@@ -535,6 +544,7 @@
 
         #btn-volver,
         #btn-ver-flor,
+        #btn-gemini,
         #btn-cerrar-zoom {
             font-family: 'Poppins', sans-serif;
             font-size: 0.95rem;
@@ -565,6 +575,24 @@
             border: 2px solid #b57c7c;
         }
 
+        #btn-gemini {
+            background: linear-gradient(135deg, #fff9c4, #ffecb3);
+            color: #d84315;
+            border: 1px solid #ffca28;
+            padding: 6px 15px;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+
+        #btn-gemini:hover:not(:disabled) {
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        #btn-gemini:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         #btn-cerrar-zoom {
             position: fixed;
             bottom: 8%;
@@ -579,6 +607,134 @@
 
         #btn-cerrar-zoom:hover {
             transform: translateX(-50%) translateY(-3px) scale(1.05);
+        }
+
+        /* =========================================
+           INGENIERÍA RESPONSIVA (RECALIBRACIÓN PARA MÓVILES)
+           ========================================= */
+        @media (max-width: 768px) {
+
+            /* 1. Ajuste de Tipografías en Cofia */
+            .titulo-bienvenida {
+                font-size: 2.2rem;
+                padding: 0 10px;
+            }
+
+            .firma-diego {
+                font-size: 1.6rem;
+            }
+
+            .nube-fondo-inicio {
+                transform: scale(1.2);
+            }
+
+            /* Reducimos la sobre-expansión en móvil */
+            .contenido-nube {
+                width: 95%;
+            }
+
+            /* 2. Ajuste de Instrucción */
+            .instruccion-arte {
+                font-size: 1.5rem;
+                top: 8%;
+                padding: 8px 20px;
+                white-space: normal;
+                /* Evita que el texto rompa los bordes */
+                text-align: center;
+                width: 90%;
+            }
+
+            /* 3. Reordenamiento Espacial de Flores (Patrón de Zigzag Vertical) */
+            .flor-contenedor {
+                width: 100px;
+                /* Reducción de masa estructural */
+                height: 100px;
+            }
+
+            #f1 {
+                top: 18%;
+                left: 5%;
+            }
+
+            #f2 {
+                top: 30%;
+                right: 5%;
+            }
+
+            #f3 {
+                top: 45%;
+                left: 5%;
+            }
+
+            #f4 {
+                top: 58%;
+                right: 5%;
+            }
+
+            #f5 {
+                top: 72%;
+                left: 5%;
+            }
+
+            #f6 {
+                top: 82%;
+                right: 5%;
+            }
+
+            /* Al reducir la masa base a 100px, necesitamos aumentar el multiplicador de enfoque */
+            .flor-contenedor.enfocada {
+                transform: translate(-50%, -50%) scale(1.8) !important;
+            }
+
+            .flor-contenedor.zoom-extremo {
+                transform: translate(-50%, -50%) scale(2.6) !important;
+            }
+
+            /* 4. Compresión de la Hoja de Mensaje */
+            .hoja-inmersiva-contenedor {
+                width: 98vw;
+                height: 60vh;
+            }
+
+            .bloque-texto {
+                width: 85%;
+                padding: 10px;
+            }
+
+            #texto-regalo {
+                font-size: 1.25rem;
+                line-height: 1.3;
+                margin-bottom: 10px;
+            }
+
+            .firma-carta {
+                font-size: 1.2rem;
+                margin-bottom: 5px;
+            }
+
+            #texto-gemini {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+
+            /* 5. Reorganización de Panel de Control (Apilar botones) */
+            .botones-accion {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            #btn-volver,
+            #btn-ver-flor {
+                width: 100%;
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+
+            #btn-cerrar-zoom {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+                bottom: 4%;
+            }
         }
     </style>
 </head>
@@ -645,8 +801,10 @@
 
             <div class="bloque-texto">
                 <p id="texto-regalo"></p>
+                <p id="texto-gemini"></p>
                 <span class="firma-carta">- Diego</span>
                 <div class="botones-contenedor">
+                    <button id="btn-gemini">✨ Susurro estelar (IA)</button>
                     <div class="botones-accion">
                         <button id="btn-volver">Cerrar carta</button>
                         <button id="btn-ver-flor">Ver flor en detalle</button>
@@ -669,6 +827,8 @@
             "Gracias por ser esa persona tan especial que siempre tiene un abrazo listo y una sonrisa sincera. Te quiero mucho."
         ];
 
+        let mensajeActualText = "";
+
         const btnActivar = document.getElementById('btn-activar');
         const pInicio = document.getElementById('pantalla-inicio');
         const pRamo = document.getElementById('pantalla-jardin');
@@ -679,15 +839,71 @@
         const overlay = document.getElementById('pantalla-mensaje');
         const contenedorHoja = document.querySelector('.hoja-inmersiva-contenedor');
         const textoRegalo = document.getElementById('texto-regalo');
+        const textoGemini = document.getElementById('texto-gemini');
 
         const btnVolver = document.getElementById('btn-volver');
         const btnVerFlor = document.getElementById('btn-ver-flor');
         const btnCerrarZoom = document.getElementById('btn-cerrar-zoom');
+        const btnGemini = document.getElementById('btn-gemini');
 
         const capaMagia = document.getElementById('universo-fondo');
         const capaNubes = document.getElementById('atmosfera-nubes');
 
+        // ==========================================
+        // MÓDULO DE IA (GEMINI API)
+        // ==========================================
+        const apiKey = "";
+
+        async function pedirSusurroEstelar(mensaje) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: `Escribe un halago muy dulce y corto (máximo 10 palabras) basado en este mensaje: "${mensaje}"` }] }],
+                systemInstruction: { parts: [{ text: "Eres un asistente romántico. Debes responder solo con una pequeña frase tierna de máximo 10 palabras, sin comillas." }] }
+            };
+
+            let retries = 5;
+            let delay = 1000;
+
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) throw new Error(`Fallo de conexión: ${response.status}`);
+
+                    const data = await response.json();
+                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "Eres luz en el universo.";
+                } catch (error) {
+                    if (i === retries - 1) throw error;
+                    await new Promise(res => setTimeout(res, delay));
+                    delay *= 2;
+                }
+            }
+        }
+
+        btnGemini.addEventListener('click', async () => {
+            btnGemini.disabled = true;
+            btnGemini.textContent = "✨ Conectando con las estrellas...";
+
+            try {
+                const susurro = await pedirSusurroEstelar(mensajeActualText);
+                textoGemini.textContent = `P.D: ${susurro}`;
+                textoGemini.style.display = 'block';
+                setTimeout(() => textoGemini.style.opacity = '1', 100);
+                btnGemini.style.display = 'none'; // Escondemos el botón tras usarlo
+            } catch (err) {
+                console.error("Anomalía en IA", err);
+                btnGemini.textContent = "✨ Intentar de nuevo";
+                btnGemini.disabled = false;
+            }
+        });
+
+        // ==========================================
         // FUNCIONES DE ENTORNO
+        // ==========================================
         function generarPolvoMagico() {
             for (let i = 0; i < 30; i++) {
                 let luz = document.createElement('div');
@@ -710,17 +926,14 @@
                 let nube = document.createElement('img');
                 nube.src = 'assets/nube.png';
                 nube.classList.add('nube-deriva');
-
                 let size = Math.random() * 150 + 150;
                 let posY = Math.random() * 80;
                 let duration = Math.random() * 20 + 25;
                 let delay = Math.random() * -30;
-
                 nube.style.width = `${size}px`;
                 nube.style.top = `${posY}vh`;
                 nube.style.animationDuration = `${duration}s`;
                 nube.style.animationDelay = `${delay}s`;
-
                 capaNubes.appendChild(nube);
             }
         }
@@ -759,7 +972,15 @@
                 flor.classList.add('enfocada');
 
                 const id = flor.getAttribute('data-id');
-                textoRegalo.textContent = frasesUnicas[id];
+                mensajeActualText = frasesUnicas[id];
+                textoRegalo.textContent = mensajeActualText;
+
+                // Resetear estado de Gemini al abrir nueva carta
+                textoGemini.style.opacity = '0';
+                textoGemini.style.display = 'none';
+                btnGemini.style.display = 'block';
+                btnGemini.disabled = false;
+                btnGemini.textContent = "✨ Susurro estelar (IA)";
 
                 setTimeout(() => {
                     overlay.classList.replace('modal-oculto', 'modal-activo');
