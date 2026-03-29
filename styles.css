@@ -6,23 +6,18 @@
 }
 
 body {
-    /* FONDO GLOBAL: Tu imagen colorful calibrada para móvil */
     background-image: url('assets/fondo1.png');
+    /* Actualizado a PNG */
     background-size: cover;
-    /* Ocupa todo el espacio sin deformar */
     background-position: center;
-    /* Centrada */
     background-repeat: no-repeat;
     background-attachment: fixed;
-    /* Parallax sutil */
-
     font-family: 'Poppins', sans-serif;
     height: 100vh;
     overflow: hidden;
     color: #4a4a4a;
 }
 
-/* Polvo Mágico (Luciérnagas constantes) */
 #universo-fondo {
     position: absolute;
     top: 0;
@@ -58,7 +53,6 @@ body {
     }
 }
 
-/* Control de pantallas (Hacemos el fondo transparente para que se vea el global) */
 .seccion {
     height: 100vh;
     width: 100%;
@@ -69,8 +63,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 10;
-    transition: opacity 0.8s ease-out;
+    transition: opacity 1s ease-out;
     background: transparent;
 }
 
@@ -85,30 +78,20 @@ body {
     z-index: 10;
 }
 
-.oculta-inicio {
-    opacity: 0;
-    transition: opacity 2s ease 1.5s;
-}
-
-.mostrar-titulo {
-    opacity: 1 !important;
-}
-
-/* Inicio */
 .titulo-bienvenida {
     font-family: 'Great Vibes', cursive;
-    font-size: 3.5rem;
-    color: #b57c7c;
+    font-size: 3rem;
+    color: #fff;
     margin-bottom: 40px;
     text-align: center;
-    text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
+    text-shadow: 2px 2px 15px rgba(181, 124, 124, 0.9);
 }
 
 #btn-activar {
-    width: 180px;
+    width: 200px;
     cursor: pointer;
     animation: pulsoSuave 2.5s infinite;
-    filter: drop-shadow(0 10px 20px rgba(181, 124, 124, 0.4));
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
 }
 
 @keyframes pulsoSuave {
@@ -116,138 +99,153 @@ body {
     0%,
     100% {
         transform: scale(1);
+        opacity: 0.9;
     }
 
     50% {
         transform: scale(1.05);
+        opacity: 1;
     }
 }
 
-.instruccion-arte {
-    position: absolute;
-    top: 10%;
-    font-family: 'Great Vibes', cursive;
-    font-size: 2.2rem;
-    color: #b57c7c;
-    z-index: 20;
-    text-align: center;
-    width: 100%;
+.escenario-central {
+    position: relative;
+    width: 380px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
-/* Flores Flotantes */
-.flor-nave {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0;
+#papel-ramo {
+    position: absolute;
+    width: 90%;
+    bottom: 10px;
     z-index: 50;
-    cursor: pointer;
-    transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4));
+}
 
-    /* --- TÉCNICA PREMIUM: LA BURBUJA TRASLÚCIDA "LINDA" --- */
-    /* Crea un círculo suave detrás de tu acuarela */
-    background: rgba(255, 255, 255, 0.3);
-    /* Blanco muy traslúcido */
-    padding: 15px;
-    /* Espacio para que respire la flor */
-    border-radius: 50%;
-    /* Circular perfecto */
-
-    /* Efecto Glassmorphism sutil para que el fondo se difumine detrás */
+.interior-nubes {
+    position: absolute;
+    width: 100%;
+    height: 400px;
+    bottom: 150px;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 45% 55% 60% 40% / 50% 60% 40% 50%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), inset 0 0 20px rgba(181, 124, 124, 0.1);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-
-    /* Borde sutil y sombra para dar profundidad 3D */
-    border: 2px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), inset 0 0 15px rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: all 0.5s ease-out;
 }
 
-.flor-img {
-    width: 120px;
-    /* Tamaño de la acuarela */
-    display: block;
-    /* Evita espacios extraños abajo */
-
-    /* Animación de flotar suavemente DENTRO de la burbuja */
-    animation: flotarAire 4s infinite alternate ease-in-out;
-
-    /* Mantenemos el drop-shadow sutil en la imagen PNG */
-    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.2));
+.flor-acuarela {
+    position: absolute;
+    height: 160px;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
 }
 
-@keyframes flotarAire {
-    0% {
-        transform: translateY(0) rotate(-3deg);
+.respira-1 {
+    animation: respirarA 4s infinite alternate ease-in-out;
+}
+
+.respira-2 {
+    animation: respirarB 5s infinite alternate ease-in-out;
+}
+
+@keyframes respirarA {
+    from {
+        transform: translateY(0);
     }
 
-    100% {
-        transform: translateY(-10px) rotate(3deg);
+    to {
+        transform: translateY(-12px) rotate(3deg);
+    }
+}
+
+@keyframes respirarB {
+    from {
+        transform: translateY(0);
     }
 
-    /* Reducimos el movimiento para que no se salga de la burbuja */
+    to {
+        transform: translateY(-8px) rotate(-3deg);
+    }
 }
 
-/* Coordenadas de expansión */
-.flor-nave.desplegada#nave-1 {
-    top: 25%;
-    left: 20%;
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
+#f1 {
+    transform: rotate(-35deg);
+    top: 15%;
+    left: 10px;
+    animation-delay: 0s;
 }
 
-.flor-nave.desplegada#nave-2 {
-    top: 30%;
-    left: 80%;
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
+#f2 {
+    transform: rotate(-20deg);
+    top: 5%;
+    left: 70px;
+    animation-delay: 0.5s;
+    z-index: 11;
 }
 
-.flor-nave.desplegada#nave-3 {
-    top: 50%;
-    left: 15%;
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
+#f3 {
+    transform: rotate(0deg);
+    top: 10%;
+    left: 130px;
+    animation-delay: 1s;
+    z-index: 12;
+    height: 180px;
 }
 
-.flor-nave.desplegada#nave-4 {
-    top: 60%;
-    left: 85%;
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
+#f4 {
+    transform: rotate(15deg);
+    top: 5%;
+    right: 70px;
+    animation-delay: 1.5s;
+    z-index: 11;
 }
 
-.flor-nave.desplegada#nave-5 {
-    top: 75%;
-    left: 35%;
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
+#f5 {
+    transform: rotate(30deg);
+    top: 15%;
+    right: 10px;
+    animation-delay: 2s;
 }
 
-.flor-nave.desplegada#nave-6 {
-    top: 80%;
-    left: 70%;
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
+#f6 {
+    transform: rotate(-10deg);
+    top: 35%;
+    left: 100px;
+    animation-delay: 2.5s;
+    z-index: 5;
 }
 
-/* La flor enfocada viaja al centro y crece */
-.flor-nave.enfocada {
-    top: 45% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) scale(2.2) !important;
-    z-index: 150 !important;
+.flor-acuarela:active {
+    transform: scale(1.1) translateY(-20px) !important;
+    z-index: 100 !important;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
 }
 
-/* Mensaje (Hoja) */
+.consejo-instruccion {
+    margin-top: 30px;
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: #fff;
+    text-shadow: 1px 1px 10px rgba(181, 124, 124, 0.9);
+}
+
 .overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(8px);
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -265,46 +263,62 @@ body {
     transition: opacity 0.5s;
 }
 
-.hoja-pergamino {
+.hoja-inmersiva-contenedor {
     position: relative;
     width: 95vw;
     max-width: 500px;
+    height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: scale(0);
-    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s;
 }
 
-.modal-activo .hoja-pergamino {
-    transform: scale(1);
+.vuelo-espectacular {
+    animation: entrada3D 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-.hoja-dibujo {
+@keyframes entrada3D {
+    0% {
+        transform: translateY(300px) scale(0.2) rotateY(90deg);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0) scale(1) rotateY(0deg);
+        opacity: 1;
+    }
+}
+
+.arte-hoja {
     width: 100%;
-    opacity: 0.95;
-    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
 }
 
 .bloque-texto {
     position: absolute;
-    width: 65%;
+    width: 70%;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    opacity: 0;
+    transition: opacity 0.8s ease 1s;
+}
+
+.modal-activo .bloque-texto {
+    opacity: 1;
 }
 
 #texto-regalo {
     font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     color: #3b2f2f;
-    line-height: 1.4;
-    margin-bottom: 25px;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+    margin-bottom: 30px;
 }
 
-/* Botones */
 .botones-accion {
     display: flex;
     gap: 15px;
@@ -320,9 +334,9 @@ body {
     padding: 10px 20px;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border: none;
+    transition: transform 0.2s;
 }
 
 #btn-volver {
@@ -335,22 +349,6 @@ body {
     background: white;
     color: #b57c7c;
     border: 2px solid #b57c7c;
-}
-
-/* DISEÑO PREMIUM DEL NOMBRE DE LA PLANTA */
-#nombre-planta {
-    position: fixed;
-    top: 15%;
-    /* Por encima de la flor gigante */
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Dancing Script', cursive;
-    font-size: 2.8rem;
-    color: white;
-    /* Blanco sobre el fondo colorful */
-    text-shadow: 2px 2px 15px rgba(181, 124, 124, 0.8);
-    z-index: 160;
-    transition: opacity 0.5s ease;
 }
 
 #btn-cerrar-zoom {
