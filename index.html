@@ -4,27 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Una Obra de Arte para Ti</title>
+    <title>Para ti, con todo mi amor</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Montserrat:wght@300;400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-    <div id="universo-fondo"></div>
+    <div class="marco-pantalla"></div>
 
-    <div class="secreto" id="sec-1" style="top: 15%; left: 10%;">✨</div>
-    <div class="secreto" id="sec-2" style="bottom: 20%; right: 15%;">✨</div>
+    <div id="polvo-magico"></div>
 
     <div id="pantalla-inicio" class="seccion activa">
-        <h1 class="texto-arte">Toca el botón mágico</h1>
+        <div class="halo-luz"></div>
+        <h1 class="texto-espectacular">Para mi persona favorita</h1>
+        <p class="subtitulo-elegante">Toca la flor para descubrir la magia</p>
         <img src="assets/boton-flor.png" id="btn-activar" alt="Inicio">
     </div>
 
     <div id="pantalla-ramo" class="seccion oculta">
-        <div class="composicion-ramo">
+        <div class="composicion-central">
+            <div class="resplandor-ramo"></div>
 
             <div class="interior-ramo">
                 <img src="assets/flor1.png" class="flor-viva" id="f1" data-id="0">
@@ -36,17 +38,16 @@
             </div>
 
             <img src="assets/ramo.png" id="papel-ramo" alt="Cono">
-
         </div>
-        <p class="instruccion-arte">Toca las flores... o busca la magia brillante</p>
+        <h2 class="guia-visual">Toca cada flor...</h2>
     </div>
 
     <div id="pantalla-mensaje" class="overlay modal-oculto">
-        <div class="hoja-voladora">
+        <div class="hoja-gigante-contenedor">
             <img src="assets/hoja.png" class="arte-hoja" alt="Hoja">
-            <div class="texto-centro">
+            <div class="texto-pergamino">
                 <p id="texto-regalo"></p>
-                <button id="btn-volver">Regresar al jardín</button>
+                <button id="btn-volver">Guardar en el corazón</button>
             </div>
         </div>
     </div>
