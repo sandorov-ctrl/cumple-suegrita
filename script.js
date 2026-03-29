@@ -11,7 +11,7 @@ const frasesUnicas = [
 // Nodos del Hardware
 const btnActivar = document.getElementById('btn-activar');
 const pInicio = document.getElementById('pantalla-inicio');
-const pRamo = document.getElementById('pantalla-ramo');
+const pRamo = document.getElementById('pantalla-ramo'); // Ahora sí coinciden
 const musica = document.getElementById('musica-fondo');
 
 const flores = document.querySelectorAll('.flor-acuarela');
@@ -20,7 +20,7 @@ const contenedorHoja = document.querySelector('.hoja-inmersiva-contenedor');
 const textoRegalo = document.getElementById('texto-regalo');
 const btnVolver = document.getElementById('btn-volver');
 const btnVerFlor = document.getElementById('btn-ver-flor');
-const btnCerrarZoom = document.getElementById('btn-cerrar-zoom');
+const btnCerrarZoom = document.getElementById('btn-cerrar-zoom'); // Restaurado
 const nubes = document.querySelector('.interior-nubes');
 const capaMagia = document.getElementById('universo-fondo');
 
