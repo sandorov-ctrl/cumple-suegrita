@@ -13,7 +13,7 @@
 
     <style>
         /* =========================================
-           SISTEMA BASE Y OPTIMIZACIÓN GPU
+           SISTEMA BASE
            ========================================= */
         * {
             margin: 0;
@@ -31,8 +31,6 @@
             height: 100vh;
             overflow: hidden;
             animation: derivaCosmica 45s ease-in-out infinite alternate;
-            will-change: background-position;
-            /* Optimización de hardware */
         }
 
         @keyframes derivaCosmica {
@@ -69,7 +67,6 @@
             opacity: 0.7;
             filter: drop-shadow(0 5px 15px rgba(255, 255, 255, 0.4));
             animation: derivaAtm linear infinite;
-            will-change: transform;
         }
 
         @keyframes derivaAtm {
@@ -88,7 +85,6 @@
             border-radius: 50%;
             box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8);
             animation: flotarLuz linear infinite;
-            will-change: transform, opacity;
         }
 
         @keyframes flotarLuz {
@@ -145,7 +141,6 @@
             align-items: center;
             animation: flotarPlataforma 5s ease-in-out infinite alternate;
             z-index: 20;
-            will-change: transform;
         }
 
         @keyframes flotarPlataforma {
@@ -194,7 +189,6 @@
             animation: pulsoBoton 2s infinite;
             margin: 10px 0;
             border-radius: 50%;
-            will-change: transform, filter;
         }
 
         @keyframes pulsoBoton {
@@ -286,7 +280,6 @@
             cursor: pointer;
             transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             z-index: 20;
-            will-change: transform;
         }
 
         .nube-fondo {
@@ -386,8 +379,6 @@
         .flor-contenedor.zoom-extremo {
             transform: translate(-50%, -50%) scale(2.0) !important;
             z-index: 150 !important;
-            animation: none !important;
-            /* Estabilidad total al hacer zoom */
         }
 
         @keyframes pulsoFlorFondo {
@@ -408,7 +399,7 @@
         }
 
         /* =========================================
-           INTERFAZ DE MENSAJES (CONTENCIÓN ESTRUCTURAL)
+           INTERFAZ DE MENSAJES (LA HOJA)
            ========================================= */
         .overlay {
             position: fixed;
@@ -440,7 +431,6 @@
             width: 95vw;
             max-width: 500px;
             height: 75vh;
-            /* Altura controlada para evitar desbordes verticales en móvil */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -477,17 +467,14 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            /* Mantiene la hoja proporcionada sin deformarse */
             filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
         }
 
-        /* INGENIERÍA: Caja de contención rígida para el texto */
         .bloque-texto {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            /* Restringimos estrictamente al 65% del contenedor para que nunca toque los bordes */
             width: 65%;
             max-width: 320px;
             height: 65%;
@@ -496,14 +483,11 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            /* Evita que se corte por arriba si es muy largo */
             opacity: 0;
             transition: opacity 1s ease 1s;
             z-index: 10;
-            /* Si el texto es muy largo, permite hacer scroll internamente sin romper la hoja */
             overflow-y: auto;
             padding: 10px 5px;
-            /* Ocultar barra de scroll para mantener la estética limpia */
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
@@ -523,7 +507,6 @@
             color: #2b1d1d;
             line-height: 1.4;
             margin-top: auto;
-            /* Ayuda a centrar verticalmente si el texto es corto */
             margin-bottom: 20px;
             letter-spacing: 0.5px;
             text-shadow:
@@ -546,12 +529,10 @@
         .botones-accion {
             display: flex;
             flex-direction: column;
-            /* Apilados por defecto para que quepan bien siempre */
             gap: 12px;
             justify-content: center;
             width: 100%;
             margin-bottom: auto;
-            /* Contrapeso del margin-top de texto-regalo */
         }
 
         #btn-volver,
@@ -567,7 +548,6 @@
             border: none;
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             width: 100%;
-            /* Ocupan todo el ancho disponible del contenedor restringido */
         }
 
         #btn-volver:hover,
@@ -602,31 +582,48 @@
             padding: 12px 25px;
         }
 
-        #btn-cerrar-zoom:hover {
-            transform: translateX(-50%) translateY(-3px) scale(1.02);
-        }
-
         /* =========================================
            INGENIERÍA RESPONSIVA ESTRICTA (MÓVILES)
            ========================================= */
         @media (max-width: 768px) {
-            .titulo-bienvenida {
-                font-size: 2.1rem;
-                padding: 0 10px;
-            }
 
-            .firma-diego {
-                font-size: 1.5rem;
+            /* --- CORRECCIÓN DE LA COFIA DE INICIO (LA NUBE) --- */
+            .plataforma-nube {
+                width: 100vw;
+                /* Toma todo el ancho disponible */
             }
 
             .nube-fondo-inicio {
-                transform: scale(1.3);
+                transform: scale(2.6);
+                /* EXPANSIÓN MASIVA: Da toda la altura vertical necesaria */
             }
 
             .contenido-nube {
-                width: 95%;
+                width: 90%;
+                /* Ajuste perfecto para el centro de la nube expandida */
             }
 
+            .titulo-bienvenida {
+                font-size: 1.8rem;
+                /* Tamaño de título controlado */
+                margin-bottom: 5px;
+                padding: 0 5px;
+                line-height: 1.2;
+            }
+
+            #btn-activar {
+                width: 110px;
+                /* Miniaturización de la flor botón */
+                margin: 5px 0;
+            }
+
+            .firma-diego {
+                font-size: 1.4rem;
+                /* Firma compacta */
+                margin-top: 5px;
+            }
+
+            /* --- MÓDULOS DE FLORES EN EL JARDÍN --- */
             .instruccion-arte {
                 font-size: 1.4rem;
                 top: 8%;
@@ -679,13 +676,12 @@
                 transform: translate(-50%, -50%) scale(2.8) !important;
             }
 
+            /* --- CONTENCIÓN DE LA CARTA (LA HOJA) --- */
             .hoja-inmersiva-contenedor {
                 width: 95vw;
                 height: 70vh;
-                /* Altura controlada */
             }
 
-            /* En móvil aprovechamos un poquitito más de porcentaje porque la imagen se ve más chica */
             .bloque-texto {
                 width: 72%;
                 height: 70%;
@@ -773,7 +769,6 @@
         <div class="hoja-inmersiva-contenedor">
             <img src="assets/hoja.png" class="arte-hoja" alt="Hoja">
 
-            <!-- CAJA ESTRUCTURAL ESTRICTA -->
             <div class="bloque-texto">
                 <p id="texto-regalo"></p>
                 <span class="firma-carta">- Diego</span>
@@ -849,7 +844,6 @@
             }
         }
 
-        // Retrasamos un instante la generación gráfica pesada para priorizar la carga de la pantalla inicial
         setTimeout(() => {
             generarPolvoMagico();
             generarNubesAtmosfera();
