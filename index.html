@@ -6,51 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¡Feliz Cumpleaños!</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@300;400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
 
-    <section class="portada">
-        <div class="contenido-cristal">
-            <h1>Feliz Cumpleaños</h1>
-            <p class="subtitulo">A la mejor suegra del universo</p>
-            <p class="instruccion">Desliza hacia abajo ⬇️</p>
-        </div>
-    </section>
+    <div id="contenedor-inicio" class="activo">
+        <button id="btn-magico">Toca para tu sorpresa ✨</button>
+    </div>
 
-    <section class="recuerdo oculta">
-        <div class="tarjeta-cristal">
-            <img src="assets/foto1.jpg" alt="Recuerdo 1">
-            <p>Gracias por tu paciencia infinita y por hacerme sentir en casa desde el día uno.</p>
-        </div>
-    </section>
+    <div id="contenedor-ramo" class="oculto">
+        <div class="centro-ramo">💐</div>
+        <div class="regalo" id="regalo-1" data-id="0">🎁</div>
+        <div class="regalo" id="regalo-2" data-id="1">🎁</div>
+        <div class="regalo" id="regalo-3" data-id="2">🎁</div>
+        <div class="regalo" id="regalo-4" data-id="3">🎁</div>
+        <div class="regalo" id="regalo-5" data-id="4">🎁</div>
+    </div>
 
-    <section class="recuerdo oculta">
-        <div class="tarjeta-cristal">
-            <img src="assets/foto2.jpg" alt="Recuerdo 2">
-            <p>Por tus comidas de los domingos y esa energía que mantiene a la familia unida.</p>
+    <div id="modal-mensaje" class="oculto">
+        <div class="contenido-modal">
+            <span id="cerrar-modal">✖</span>
+            <h2 id="titulo-modal">Para ti...</h2>
+            <p id="texto-modal">Aquí va el mensaje.</p>
         </div>
-    </section>
+    </div>
 
-    <section class="recuerdo oculta">
-        <div class="tarjeta-cristal">
-            <img src="assets/foto3.jpg" alt="Recuerdo 3">
-            <p>Criar a la persona que amo es el acto más grande. ¡Que sean muchísimos más!</p>
-        </div>
-    </section>
-
-    <section class="final oculta">
-        <div class="tarjeta-cristal final-caja">
-            <h2>¡Es tu día!</h2>
-            <button id="btn-sorpresa">Toca aquí para celebrar</button>
-        </div>
-    </section>
-
-    <audio id="musica-fondo" src="assets/musica.mp3" loop></audio>
+    <audio id="musica-fondo" src="assets/musica.mp3"></audio>
 
     <script src="script.js"></script>
 </body>

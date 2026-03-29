@@ -5,125 +5,191 @@
 }
 
 body {
-    /* Un gradiente oscuro y elegante que simula el espacio profundo/cielo nocturno */
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    overflow-x: hidden;
-}
-
-/* Configuramos cada sección para que ocupe el 100% de la altura de la pantalla (100vh) */
-section {
-    min-height: 100vh;
+    background: radial-gradient(circle, #ffe6ea, #ffc0cb);
+    /* Fondo rosa pastel muy suave */
+    font-family: 'Nunito', sans-serif;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    overflow: hidden;
+    /* Evita que la pantalla se mueva */
 }
 
-/* --- TÉCNICA DE GLASSMORPHISM --- */
-.contenido-cristal,
-.tarjeta-cristal {
-    background: rgba(255, 255, 255, 0.05);
-    /* Blanco casi transparente */
-    backdrop-filter: blur(10px);
-    /* El filtro que desenfoca lo que hay detrás */
-    -webkit-backdrop-filter: blur(10px);
-    /* Soporte para Safari/iPhone */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    /* Borde sutil brillante */
-    border-radius: 20px;
-    padding: 40px 20px;
-    text-align: center;
-    width: 100%;
-    max-width: 400px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    /* Sombra para dar profundidad */
+/* Control de Estados */
+.activo {
+    display: flex;
 }
 
-/* Tipografías Premium */
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    color: #f8c291;
-    /* Un tono dorado/oro rosa */
-    margin-bottom: 10px;
+.oculto {
+    display: none !important;
 }
 
-.subtitulo {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    font-weight: 300;
+/* El Botón Mágico */
+#btn-magico {
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    color: white;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 10px 20px rgba(255, 117, 140, 0.4);
+    cursor: pointer;
+    animation: latido 1.5s infinite;
+    /* Simula un corazón latiendo */
+    transition: transform 0.3s;
 }
 
-.instruccion {
-    font-size: 0.9rem;
-    opacity: 0.6;
-    animation: palpitar 2s infinite;
-    /* Animación de pulso */
+#btn-magico:active {
+    transform: scale(0.95);
 }
 
-/* Animación del texto de instrucción */
-@keyframes palpitar {
+@keyframes latido {
     0% {
-        opacity: 0.4;
-        transform: translateY(0);
+        transform: scale(1);
     }
 
     50% {
-        opacity: 1;
-        transform: translateY(5px);
+        transform: scale(1.05);
     }
 
     100% {
-        opacity: 0.4;
-        transform: translateY(0);
+        transform: scale(1);
     }
 }
 
-/* Diseño de las fotos */
-.tarjeta-cristal img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    /* Recorta la foto sin deformarla */
-    border-radius: 15px;
-    margin-bottom: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+/* Contenedor del Ramo */
+#contenedor-ramo {
+    position: relative;
+    /* Convierte este div en el punto de origen (0,0) de las coordenadas */
+    width: 300px;
+    height: 300px;
+    justify-content: center;
+    align-items: center;
 }
 
-.tarjeta-cristal p {
-    font-size: 1.1rem;
-    line-height: 1.6;
+.centro-ramo {
+    font-size: 8rem;
+    /* Un ramo gigante */
+    position: absolute;
+    z-index: 10;
+    animation: aparecerRamo 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    /* Animación de rebote */
 }
 
-/* Estilo del botón final */
-button {
-    background: #f8c291;
-    color: #0f2027;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border-radius: 50px;
-    margin-top: 20px;
+@keyframes aparecerRamo {
+    0% {
+        transform: scale(0) rotate(-20deg);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* Los Regalos (Módulos satélite) */
+.regalo {
+    font-size: 3rem;
+    position: absolute;
+    z-index: 5;
     cursor: pointer;
-    transition: transform 0.2s;
-}
-
-button:hover {
-    transform: scale(1.05);
-}
-
-/* --- CLASES PARA EL SENSOR DE JAVASCRIPT --- */
-.oculta {
     opacity: 0;
-    transform: translateY(50px);
-    transition: all 1s ease-out;
-    /* Transición suave cuando se vuelven visibles */
+    /* Invisibles hasta que los disparamos */
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.mostrar {
+.regalo:hover {
+    transform: scale(1.2) !important;
+    /* Crece al tocarlo */
+    z-index: 20;
+}
+
+/* Coordenadas de despliegue para cada regalo (física de expansión) */
+/* Al añadir la clase .desplegado con JavaScript, viajan a estas posiciones */
+.regalo.desplegado#regalo-1 {
+    transform: translate(-120px, -80px);
     opacity: 1;
-    transform: translateY(0);
+}
+
+.regalo.desplegado#regalo-2 {
+    transform: translate(0px, -140px);
+    opacity: 1;
+}
+
+.regalo.desplegado#regalo-3 {
+    transform: translate(120px, -80px);
+    opacity: 1;
+}
+
+.regalo.desplegado#regalo-4 {
+    transform: translate(-80px, 100px);
+    opacity: 1;
+}
+
+.regalo.desplegado#regalo-5 {
+    transform: translate(80px, 100px);
+    opacity: 1;
+}
+
+/* El Modal (La tarjeta que se abre) */
+#modal-mensaje {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenido-modal {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 85%;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    position: relative;
+    border: 3px solid #ff7eb3;
+    animation: entrarModal 0.4s ease-out forwards;
+}
+
+@keyframes entrarModal {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+#titulo-modal {
+    font-family: 'Dancing Script', cursive;
+    color: #ff758c;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+#texto-modal {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+#cerrar-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    color: #aaa;
+    cursor: pointer;
 }
