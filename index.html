@@ -253,12 +253,9 @@
         .instruccion-arte {
             position: absolute;
             top: 8%;
-            /* CORRECCIÓN: Órbita alta, situado en la parte superior */
             left: 50%;
-            /* CORRECCIÓN: Solo lo centramos en el eje X para que respete el top: 8% */
             transform: translateX(-50%);
 
-            /* CORRECCIÓN DE CONTENCIÓN: El texto ahora está perfectamente centrado dentro del cuadro */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -267,17 +264,20 @@
             font-family: 'Dancing Script', cursive;
             font-size: 2.5rem;
             color: #5a3d3d;
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            /* CORRECCIÓN: Degradado pastel suave que armoniza con el universo de fondo */
+            background: linear-gradient(135deg, rgba(255, 204, 229, 0.85) 0%, rgba(197, 226, 255, 0.85) 100%);
             padding: 15px 40px;
             border-radius: 50px;
-            box-shadow: 0 10px 25px rgba(246, 211, 101, 0.5);
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+            /* Sombra suave con tono azul/rosado para dar sensación cósmica y ligera */
+            box-shadow: 0 10px 25px rgba(161, 196, 253, 0.4);
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
             white-space: nowrap;
             z-index: 5;
             opacity: 0;
             transition: opacity 1.5s ease 0.5s;
-            /* Transición limpia para que aparezca suavemente */
-            border: 2px solid rgba(255, 255, 255, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            /* Cristal esmerilado para fundirse con el fondo */
         }
 
         .mostrar-titulo {
@@ -285,7 +285,6 @@
             animation: latidoCariñoso 3s ease-in-out infinite alternate;
         }
 
-        /* CORRECCIÓN: La animación ahora respeta la posición en el eje Y */
         @keyframes latidoCariñoso {
             from {
                 transform: translateX(-50%) scale(1);
@@ -643,7 +642,6 @@
             .instruccion-arte {
                 font-size: 1.6rem;
                 top: 8%;
-                /* CORRECCIÓN MÓVIL: Aseguramos que también esté arriba en el celular */
                 width: 90%;
                 padding: 12px 25px;
             }
