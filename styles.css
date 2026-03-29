@@ -6,29 +6,15 @@
 }
 
 body {
-    /* FONDO DE LUJO: Rosa muy pálido en el centro, oscureciéndose a los bordes */
-    background: radial-gradient(circle, #fff5f7 0%, #fce3e7 50%, #e6c8ce 100%);
-    font-family: 'Montserrat', sans-serif;
+    /* FONDO COLORIDO PREMIUM: Gradiente suave y elegante de rosa pálido a crema */
+    background: linear-gradient(135deg, #fff5f7 0%, #fdfbfb 100%);
+    font-family: 'Poppins', sans-serif;
     height: 100vh;
     overflow: hidden;
-    color: #4a3b32;
+    color: #4a4a4a;
 }
 
-/* El Marco que le da categoría de "Obra de Arte" */
-.marco-pantalla {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    right: 15px;
-    bottom: 15px;
-    border: 2px solid rgba(255, 255, 255, 0.6);
-    border-radius: 20px;
-    pointer-events: none;
-    z-index: 999;
-    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
-}
-
-/* Polvo Mágico (Luciérnagas que llenan el vacío) */
+/* Polvo Mágico (Luciérnagas de fondo) */
 #polvo-magico {
     position: absolute;
     top: 0;
@@ -65,219 +51,194 @@ body {
 
 /* Control general de pantallas */
 .seccion {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
     height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: opacity 1.5s ease;
-    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 1s ease-out;
 }
 
 .oculta {
     opacity: 0;
+    z-index: -1;
     pointer-events: none;
 }
 
 .activa {
     opacity: 1;
+    z-index: 10;
 }
 
-/* --- PANTALLA INICIO (Espectacular) --- */
-.halo-luz {
-    position: absolute;
-    width: 250px;
-    height: 250px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
-    border-radius: 50%;
-    z-index: 2;
-    animation: latidoLuz 3s infinite;
-}
-
-.texto-espectacular {
+/* --- PANTALLA INICIO --- */
+.titulo-bienvenida {
     font-family: 'Great Vibes', cursive;
-    font-size: 4rem;
-    color: #b06a7a;
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
-    z-index: 5;
-    text-align: center;
-    margin-bottom: 5px;
-}
-
-.subtitulo-elegante {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-    color: #8a5a6a;
-    z-index: 5;
+    font-size: 3rem;
+    color: #b57c7c;
     margin-bottom: 40px;
+    text-align: center;
 }
 
 #btn-activar {
     width: 200px;
-    z-index: 5;
     cursor: pointer;
-    filter: drop-shadow(0 15px 25px rgba(176, 106, 122, 0.4));
-    transition: transform 0.3s;
+    animation: pulsoSuave 2.5s infinite;
+    filter: drop-shadow(0 5px 15px rgba(181, 124, 124, 0.3));
 }
 
-#btn-activar:active {
-    transform: scale(0.9);
-}
-
-@keyframes latidoLuz {
+@keyframes pulsoSuave {
 
     0%,
     100% {
         transform: scale(1);
-        opacity: 0.6;
+        opacity: 0.9;
     }
 
     50% {
-        transform: scale(1.2);
+        transform: scale(1.05);
         opacity: 1;
     }
 }
 
-/* --- PANTALLA DEL RAMO --- */
-.composicion-central {
+/* --- ESCENARIO DEL RAMO (La Composición Calibrada) --- */
+.lienzo-arte {
     position: relative;
-    width: 350px;
+    width: 380px;
     height: 500px;
+    /* Lienzo de composición */
     display: flex;
     justify-content: center;
     align-items: flex-end;
 }
 
-.resplandor-ramo {
-    position: absolute;
-    bottom: 50px;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
-    border-radius: 50%;
-    z-index: 5;
-}
-
 #papel-ramo {
     position: absolute;
-    width: 95%;
+    width: 90%;
     bottom: 10px;
-    z-index: 20;
-    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.2));
+    z-index: 50;
+    /* Al frente, para tapar los tallos base */
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.2));
 }
 
 .interior-ramo {
     position: absolute;
     width: 100%;
-    height: 300px;
-    bottom: 180px;
+    height: 400px;
+    bottom: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     z-index: 10;
 }
 
-.flor-viva {
+.flor-acuarela {
     position: absolute;
     height: 160px;
+    /* Flores grandes */
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.2));
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.15));
 }
 
-/* Animación de "respirar" de las flores */
-.respira-1 {
-    animation: respirarA 4s ease-in-out infinite alternate;
+/* Animación de flotar suavemente en el sitio (respira) */
+.flor-acuarela {
+    animation: flotarSuave 4s infinite ease-in-out;
 }
 
-.respira-2 {
-    animation: respirarB 5s ease-in-out infinite alternate;
-}
+@keyframes flotarSuave {
 
-@keyframes respirarA {
-    from {
+    0%,
+    100% {
         transform: translateY(0);
     }
 
-    to {
-        transform: translateY(-12px) rotate(3deg);
+    50% {
+        transform: translateY(-10px);
     }
 }
 
-@keyframes respirarB {
-    from {
-        transform: translateY(0);
-    }
-
-    to {
-        transform: translateY(-8px) rotate(-3deg);
-    }
-}
-
-/* Calibración dentro del ramo */
+/* --- CALIBRACIÓN DE ESPACIADO: ARTÍSTICO Y SEPARADO --- */
+/* (0,0) es la esquina superior izquierda del .interior-ramo */
+/* Ajusta los grados de rotación y las posiciones left/right para espaciarlas */
 #f1 {
-    bottom: 0px;
+    transform: rotate(-35deg);
+    top: 15%;
     left: 10px;
-    z-index: 11;
+    animation-delay: 0s;
 }
 
 #f2 {
-    bottom: 40px;
+    transform: rotate(-20deg);
+    top: 5%;
     left: 70px;
-    z-index: 13;
+    animation-delay: 0.5s;
+    z-index: 11;
 }
 
 #f3 {
-    bottom: 20px;
-    left: 140px;
+    transform: rotate(0deg);
+    top: 10%;
+    left: 130px;
+    animation-delay: 1s;
     z-index: 12;
     height: 180px;
 }
 
-/* Flor central más grande */
+/* Central más grande y arriba */
 #f4 {
-    bottom: 50px;
+    transform: rotate(15deg);
+    top: 5%;
     right: 70px;
+    animation-delay: 1.5s;
     z-index: 11;
 }
 
 #f5 {
-    bottom: 15px;
+    transform: rotate(30deg);
+    top: 15%;
     right: 10px;
-    z-index: 10;
+    animation-delay: 2s;
 }
 
 #f6 {
-    bottom: 80px;
+    transform: rotate(-10deg);
+    top: 35%;
     left: 100px;
-    z-index: 14;
+    animation-delay: 2.5s;
+    z-index: 5;
 }
 
-.flor-viva:active {
-    transform: scale(1.2) translateY(-20px) !important;
+/* Una flor central base */
+
+/* Efecto al seleccionar */
+.flor-acuarela:active {
+    transform: scale(1.1) translateY(-20px) !important;
     z-index: 100 !important;
-    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
 }
 
-.guia-visual {
+.instruccion-arte {
     margin-top: 30px;
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.2rem;
-    color: #b06a7a;
-    letter-spacing: 1px;
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    color: #b57c7c;
 }
 
-/* --- PANTALLA MENSAJE (La inmersión espectacular) --- */
+/* --- LA HOJA HORIZONTAL (Inmersión Espectacular) --- */
 .overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(15px);
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Fondo oscuro borroso */
+    backdrop-filter: blur(10px);
+    /* Desenfoque elegante de fondo */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -295,20 +256,22 @@ body {
     transition: opacity 0.5s;
 }
 
-/* La hoja ahora ocupa casi toda la pantalla */
-.hoja-gigante-contenedor {
+/* El Contenedor Premium que ocupa casi toda la pantalla de forma horizontal */
+.hoja-horizontal-contenedor {
     position: relative;
     width: 95vw;
     max-width: 500px;
-    height: 85vh;
+    /* Relleno espectacular */
+    height: 70vh;
+    /* Altura inmersiva */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Animación de Vuelo 3D espectacular */
+/* La animación de vuelo 3D espectacular */
 .vuelo-espectacular {
-    animation: entrada3D 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation: entrada3D 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 @keyframes entrada3D {
@@ -323,48 +286,53 @@ body {
     }
 }
 
-.arte-hoja {
+.hoja-dibujo {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5));
+    /* Ajusta tu dibujo sin deformar */
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
 }
 
 /* El texto dentro de la hoja gigante */
-.texto-pergamino {
+.bloque-texto {
     position: absolute;
     width: 70%;
+    /* Centrado dentro de los bordes de tu dibujo */
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     opacity: 0;
-    transition: opacity 0.8s ease 0.8s;
+    transition: opacity 0.8s ease 1s;
+    /* Retraso de 1 seg para esperar a la hoja */
 }
 
-.modal-activo .texto-pergamino {
+.modal-activo .bloque-texto {
     opacity: 1;
 }
 
+/* --- CALIBRACIÓN DE LEGIBILIDAD EXTREMA (Texto oscuro) --- */
 #texto-regalo {
     font-family: 'Great Vibes', cursive;
-    font-size: 2.8rem;
+    font-size: 2.2rem;
     color: #4a3b32;
+    /* Tono marrón oscuro elegante, muy legible */
     line-height: 1.2;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
     margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+    /* Sutil brillo detrás */
 }
 
 #btn-volver {
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid #b06a7a;
-    color: #b06a7a;
-    font-family: 'Montserrat', sans-serif;
+    background: #b57c7c;
+    color: white;
+    border: none;
+    font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
     font-weight: bold;
-    padding: 12px 25px;
-    border-radius: 30px;
+    padding: 10px 20px;
+    border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 10px rgba(181, 122, 122, 0.3);
 }
