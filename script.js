@@ -1,65 +1,71 @@
-// Base de datos de frases (Ajusta los textos como sientas)
-const frases = [
-    "Porque desde el primer día me hiciste sentir parte de la familia.",
-    "Por ser una madre excepcional y criar a la persona más maravillosa.",
-    "Por tu comida de los domingos que lo cura todo.",
-    "Por esa sonrisa que tienes siempre y que contagia alegría.",
-    "Porque eres un pilar de fuerza e inspiración para todos nosotros.",
-    "¡FELIZ CUMPLEAÑOS! Que este día esté lleno de magia y muchísimo amor."
+// Tus 6 mensajes personalizados
+const frasesParaSuegra = [
+    "Porque desde el primer momento me abriste tu corazón y tu familia.",
+    "Por ser una madre maravillosa y criar a la persona más increíble.",
+    "Por tu alegría infinita, tus abrazos y tus consejos siempre sabios.",
+    "Porque eres un ejemplo inagotable de fuerza, dedicación y ternura.",
+    "Por tus comidas deliciosas y los momentos mágicos compartidos juntos.",
+    "¡FELIZ CUMPLEAÑOS! Que este 30 de marzo sea tan especial como tú."
 ];
 
-// Nodos del DOM
-const btnAbrir = document.getElementById('btn-abrir');
-const pantallaInicio = document.getElementById('pantalla-inicio');
-const pantallaRamo = document.getElementById('pantalla-ramo');
+// Nodos del sistema
+const btnActivar = document.getElementById('btn-activar');
+const pInicio = document.getElementById('pantalla-inicio');
+const pRamo = document.getElementById('pantalla-ramo');
 const musica = document.getElementById('musica-fondo');
 
-const flores = document.querySelectorAll('.flor');
+const flores = document.querySelectorAll('.flor-acuarela');
 const overlay = document.getElementById('pantalla-mensaje');
-const hoja = document.querySelector('.hoja-animada');
-const textoFinal = document.getElementById('texto-final');
-const btnCerrar = document.getElementById('btn-cerrar');
+const tarjeta = document.querySelector('.tarjeta-regalo');
+const texto = document.getElementById('texto-regalo');
+const btnVolver = document.getElementById('btn-volver');
 
-// Ignición
-btnAbrir.addEventListener('click', () => {
+// SECUENCIA 1: Activación y Comienzo de la Música
+btnActivar.addEventListener('click', () => {
     musica.play();
-    pantallaInicio.classList.replace('activa', 'oculta');
-    pantallaRamo.classList.replace('oculta', 'activa');
+
+    // Transición suave entre pantallas
+    pInicio.classList.replace('activa', 'oculta');
+    pRamo.classList.replace('oculta', 'activa');
 });
 
-// Interacción con flores
+// SECUENCIA 2: Selección de Flor
 flores.forEach(flor => {
     flor.addEventListener('click', () => {
+        // Obtenemos la inclinación original de CSS
         const computedStyle = window.getComputedStyle(flor);
         const originalTransform = computedStyle.transform;
 
-        // Oscurecemos el resto
-        flores.forEach(f => f.classList.add('opaca'));
-        flor.classList.remove('opaca');
+        // Efecto Visual en el ramo
+        flores.forEach(f => f.classList.add('desenfocada'));
+        flor.classList.remove('desenfocada');
 
-        // La levantamos aplicando el CSS dinámico
+        // Elevación limpia, manteniendo la rotación original
         flor.style.transform = `${originalTransform} translateY(-100px) scale(1.1)`;
-        flor.classList.add('levantada');
+        flor.classList.add('seleccionada');
 
-        // Mostramos el mensaje
+        // Activación de la Tarjeta Mensaje con retraso para drama
         const id = flor.getAttribute('data-id');
-        textoFinal.textContent = frases[id];
+        texto.textContent = frasesParaSuegra[id];
 
         setTimeout(() => {
+            // Mostramos el overlay
             overlay.classList.replace('modal-oculto', 'modal-activo');
-            hoja.classList.add('volar-hoja');
-        }, 600);
+            // Lanzamos la animación de vuelo de la tarjeta
+            tarjeta.classList.add('volando');
+        }, 500); // Retraso de 0.5 segundos
     });
 });
 
-// Cerrar y resetear estado
-btnCerrar.addEventListener('click', () => {
+// SECUENCIA 3: Cerrar y Resetear
+btnVolver.addEventListener('click', () => {
     overlay.classList.replace('modal-activo', 'modal-oculto');
-    hoja.classList.remove('volar-hoja');
+    tarjeta.classList.remove('volando'); // Quitamos la clase para que pueda volver a volar
 
+    // Reseteamos el ramo
     flores.forEach(flor => {
-        flor.classList.remove('opaca');
-        flor.classList.remove('levantada');
-        flor.style.transform = '';
+        flor.classList.remove('desenfocada');
+        flor.classList.remove('seleccionada');
+        flor.style.transform = ''; // Vuelve al estado CSS original
     });
 });

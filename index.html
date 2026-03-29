@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Para mi suegra</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins:wght@400;600&display=swap"
+    <title>Para mi suegra, con amor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -13,30 +13,33 @@
 <body>
 
     <div id="pantalla-inicio" class="seccion activa">
-        <h1 class="titulo-inicio">Toca la flor para comenzar</h1>
-        <img src="assets/boton-flor.png" id="btn-abrir" alt="Botón Flor">
+        <h1 class="titulo-bienvenida">Toca la flor para tu regalo</h1>
+        <img src="assets/boton-flor.png" id="btn-activar" alt="Regalo">
     </div>
 
     <div id="pantalla-ramo" class="seccion oculta">
-        <div class="escenario-ramo">
-            <img src="assets/ramo.png" id="base-ramo" alt="Ramo">
 
-            <img src="assets/flor1.png" class="flor" id="flor-1" data-id="0">
-            <img src="assets/flor2.png" class="flor" id="flor-2" data-id="1">
-            <img src="assets/flor3.png" class="flor" id="flor-3" data-id="2">
-            <img src="assets/flor4.png" class="flor" id="flor-4" data-id="3">
-            <img src="assets/flor5.png" class="flor" id="flor-5" data-id="4">
-            <img src="assets/flor6.png" class="flor" id="flor-6" data-id="5">
+        <div class="lienzo-arte">
+            <img src="assets/ramo.png" id="papel-ramo" alt="Ramo">
+
+            <img src="assets/flor1.png" class="flor-acuarela" id="f1" data-id="0">
+            <img src="assets/flor2.png" class="flor-acuarela" id="f2" data-id="1">
+            <img src="assets/flor3.png" class="flor-acuarela" id="f3" data-id="2">
+            <img src="assets/flor4.png" class="flor-acuarela" id="f4" data-id="3">
+            <img src="assets/flor5.png" class="flor-acuarela" id="f5" data-id="4">
+            <img src="assets/flor6.png" class="flor-acuarela" id="f6" data-id="5">
         </div>
-        <p class="instruccion">Toca una flor para ver su interior</p>
+
+        <p class="consejo-instruccion">Descubre lo que cada flor guarda para ti</p>
     </div>
 
     <div id="pantalla-mensaje" class="overlay modal-oculto">
-        <div class="contenedor-hoja">
-            <img src="assets/hoja.png" class="hoja-animada" alt="Hoja Mensaje">
-            <div class="texto-wrapper">
-                <p id="texto-final"></p>
-                <span id="btn-cerrar">Volver al ramo</span>
+        <div class="tarjeta-regalo">
+            <img src="assets/hoja.png" class="hoja-decorativa" alt="Hoja">
+
+            <div class="bloque-texto">
+                <p id="texto-regalo"></p>
+                <button id="btn-volver">Cerrar</button>
             </div>
         </div>
     </div>
