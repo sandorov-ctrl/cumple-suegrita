@@ -4,42 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Para mi suegra, con amor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap"
+    <title>Una Obra de Arte para Ti</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
+    <div id="universo-fondo"></div>
+
+    <div class="secreto" id="sec-1" style="top: 15%; left: 10%;">✨</div>
+    <div class="secreto" id="sec-2" style="bottom: 20%; right: 15%;">✨</div>
+
     <div id="pantalla-inicio" class="seccion activa">
-        <h1 class="titulo-bienvenida">Toca la flor para tu regalo</h1>
-        <img src="assets/boton-flor.png" id="btn-activar" alt="Regalo">
+        <h1 class="texto-arte">Toca el botón mágico</h1>
+        <img src="assets/boton-flor.png" id="btn-activar" alt="Inicio">
     </div>
 
     <div id="pantalla-ramo" class="seccion oculta">
+        <div class="composicion-ramo">
 
-        <div class="lienzo-arte">
-            <img src="assets/ramo.png" id="fondo-ramo" alt="Ramo">
+            <div class="interior-ramo">
+                <img src="assets/flor1.png" class="flor-viva" id="f1" data-id="0">
+                <img src="assets/flor2.png" class="flor-viva" id="f2" data-id="1">
+                <img src="assets/flor3.png" class="flor-viva" id="f3" data-id="2">
+                <img src="assets/flor4.png" class="flor-viva" id="f4" data-id="3">
+                <img src="assets/flor5.png" class="flor-viva" id="f5" data-id="4">
+                <img src="assets/flor6.png" class="flor-viva" id="f6" data-id="5">
+            </div>
 
-            <img src="assets/flor1.png" class="flor-interactiva" id="f1" data-id="0">
-            <img src="assets/flor2.png" class="flor-interactiva" id="f2" data-id="1">
-            <img src="assets/flor3.png" class="flor-interactiva" id="f3" data-id="2">
-            <img src="assets/flor4.png" class="flor-interactiva" id="f4" data-id="3">
-            <img src="assets/flor5.png" class="flor-interactiva" id="f5" data-id="4">
-            <img src="assets/flor6.png" class="flor-interactiva" id="f6" data-id="5">
+            <img src="assets/ramo.png" id="papel-ramo" alt="Cono">
+
         </div>
-
-        <p class="consejo-instruccion">Descubre lo que cada flor guarda para ti</p>
+        <p class="instruccion-arte">Toca las flores... o busca la magia brillante</p>
     </div>
 
     <div id="pantalla-mensaje" class="overlay modal-oculto">
-        <div class="hoja-voladora-contenedor">
-            <img src="assets/hoja.png" class="hoja-dibujo" alt="Hoja">
-
-            <div class="bloque-texto">
+        <div class="hoja-voladora">
+            <img src="assets/hoja.png" class="arte-hoja" alt="Hoja">
+            <div class="texto-centro">
                 <p id="texto-regalo"></p>
-                <button id="btn-volver">Cerrar</button>
+                <button id="btn-volver">Regresar al jardín</button>
             </div>
         </div>
     </div>
