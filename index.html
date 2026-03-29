@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para ti, con todo mi amor</title>
 
+    <!-- TIPOGRAFÍAS: Dancing Script (Títulos) y Caveat (Texto a mano súper legible) -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Poppins:wght@400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap"
         rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
@@ -23,26 +24,60 @@
         }
 
         body {
-            /* Asegúrate de que la ruta sea correcta. Si está en 'assets', pon 'assets/fondo1.png' */
             background-image: url('assets/fondo1.png');
-            background-size: cover;
+            background-size: 120% 120%;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
             font-family: 'Poppins', sans-serif;
             height: 100vh;
             overflow: hidden;
+            animation: derivaCosmica 45s ease-in-out infinite alternate;
         }
 
-        #universo-fondo {
+        @keyframes derivaCosmica {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
+        #universo-fondo,
+        #atmosfera-nubes {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
             pointer-events: none;
             overflow: hidden;
+        }
+
+        #universo-fondo {
+            z-index: 1;
+        }
+
+        #atmosfera-nubes {
+            z-index: 2;
+        }
+
+        .nube-deriva {
+            position: absolute;
+            opacity: 0.7;
+            filter: drop-shadow(0 5px 15px rgba(255, 255, 255, 0.4));
+            animation: derivaAtm linear infinite;
+        }
+
+        @keyframes derivaAtm {
+            from {
+                transform: translateX(-150px);
+            }
+
+            to {
+                transform: translateX(110vw);
+            }
         }
 
         .luciernaga {
@@ -61,6 +96,7 @@
 
             50% {
                 opacity: 1;
+                filter: drop-shadow(0 0 10px white);
             }
 
             100% {
@@ -97,58 +133,139 @@
         /* =========================================
            PANTALLA DE INICIO
            ========================================= */
-        .titulo-bienvenida {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3rem;
-            color: #fff;
-            margin-bottom: 40px;
-            text-align: center;
-            text-shadow: 2px 2px 15px rgba(181, 124, 124, 0.9);
+        .plataforma-nube {
+            position: relative;
+            width: 90vw;
+            max-width: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: flotarPlataforma 5s ease-in-out infinite alternate;
             z-index: 20;
+        }
+
+        @keyframes flotarPlataforma {
+            from {
+                transform: translateY(-12px);
+            }
+
+            to {
+                transform: translateY(12px);
+            }
+        }
+
+        .nube-fondo-inicio {
+            width: 100%;
+            height: auto;
+            opacity: 0.95;
+            filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.3));
+            transform: scale(1.8);
+        }
+
+        .contenido-nube {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .titulo-bienvenida {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #b57c7c;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
+            line-height: 1.1;
         }
 
         #btn-activar {
-            width: 200px;
+            width: 160px;
             cursor: pointer;
-            animation: pulsoSuave 2.5s infinite;
-            z-index: 20;
-            /* SE ELIMINÓ MIX-BLEND-MODE PORQUE ES PNG */
+            animation: pulsoBoton 2s infinite;
+            margin: 10px 0;
+            border-radius: 50%;
         }
 
-        @keyframes pulsoSuave {
+        @keyframes pulsoBoton {
 
             0%,
             100% {
                 transform: scale(1);
-                opacity: 0.9;
+                filter: drop-shadow(0 0 10px rgba(181, 124, 124, 0.4));
             }
 
             50% {
-                transform: scale(1.05);
-                opacity: 1;
-                filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+                transform: scale(1.08);
+                filter: drop-shadow(0 0 25px rgba(181, 124, 124, 0.8));
             }
         }
 
-        .instruccion-arte {
-            position: absolute;
-            top: 5%;
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.5rem;
-            color: #fff;
-            text-shadow: 1px 1px 10px rgba(181, 124, 124, 0.9);
-            z-index: 5;
-            text-align: center;
-            width: 100%;
+        .firma-diego {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            color: #5a3d3d;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
+            margin-top: 15px;
+            animation: aparecerFirma 3s ease-in-out infinite alternate;
         }
 
-        .oculta-inicio {
+        @keyframes aparecerFirma {
+            from {
+                opacity: 0.7;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(-3px);
+            }
+        }
+
+        /* =========================================
+           BALIZA DE NAVEGACIÓN (INSTRUCCIÓN FLORES)
+           ========================================= */
+        .instruccion-arte {
+            position: absolute;
+            top: 6%;
+            left: 50%;
+            transform: translate(-50%, -20px);
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #ffffff;
+            background: rgba(181, 124, 124, 0.65);
+            backdrop-filter: blur(8px);
+            padding: 12px 35px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
+            z-index: 5;
             opacity: 0;
-            transition: opacity 2s ease 1s;
+            transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1) 0.5s;
         }
 
         .mostrar-titulo {
             opacity: 1 !important;
+            transform: translate(-50%, 0) !important;
+            animation: latidoCosmico 3.5s ease-in-out infinite alternate 2s;
+        }
+
+        @keyframes latidoCosmico {
+            from {
+                box-shadow: 0 5px 15px rgba(181, 124, 124, 0.3);
+            }
+
+            to {
+                box-shadow: 0 5px 30px rgba(181, 124, 124, 0.8);
+                transform: translate(-50%, -2px);
+            }
         }
 
         /* =========================================
@@ -156,8 +273,9 @@
            ========================================= */
         .flor-contenedor {
             position: absolute;
-            width: 140px;
-            height: 140px;
+            /* AUMENTO MASIVO DE APERTURA: De 180px a 220px */
+            width: 220px;
+            height: 220px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -171,14 +289,19 @@
             width: 160%;
             z-index: 1;
             opacity: 0.85;
-            /* SE ELIMINÓ MIX-BLEND-MODE PORQUE ES PNG */
         }
 
         .flor-img {
             position: relative;
             width: 100%;
             z-index: 2;
-            /* SE ELIMINÓ MIX-BLEND-MODE PORQUE ES PNG */
+            /* Sombra un poco más pronunciada para resaltar el nuevo tamaño */
+            filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.25));
+            transition: transform 0.3s ease;
+        }
+
+        .flor-contenedor:hover .flor-img {
+            transform: scale(1.1) rotate(5deg);
         }
 
         #f1 {
@@ -247,35 +370,40 @@
             }
         }
 
-        /* MEJORA 1: Aura de Resonancia cuando se enfoca la flor */
         .flor-contenedor.enfocada {
             top: 50% !important;
             left: 50% !important;
-            transform: translate(-50%, -50%) scale(2) !important;
-            animation: pulsoMagico 2s infinite !important;
-            /* Nuevo efecto */
+            /* Recalibrado a 1.3 porque la flor base ahora es mucho más grande */
+            transform: translate(-50%, -50%) scale(1.3) !important;
+            animation: pulsoFlorFondo 3s infinite !important;
             z-index: 100 !important;
         }
 
-        @keyframes pulsoMagico {
+        .flor-contenedor.zoom-extremo {
+            /* Recalibrado a 2.0 para un acercamiento espectacular pero sin desbordar */
+            transform: translate(-50%, -50%) scale(2.0) !important;
+            z-index: 150 !important;
+        }
+
+        @keyframes pulsoFlorFondo {
 
             0%,
             100% {
-                filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+                filter: drop-shadow(0 0 15px rgba(255, 220, 220, 0.3));
             }
 
             50% {
-                filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.9));
+                filter: drop-shadow(0 0 30px rgba(255, 200, 200, 0.7));
             }
         }
 
         .flor-contenedor.opaca {
             opacity: 0.15;
-            filter: blur(2px);
+            filter: blur(3px);
         }
 
         /* =========================================
-           INTERFAZ DE MENSAJES
+           INTERFAZ DE MENSAJES (LA HOJA)
            ========================================= */
         .overlay {
             position: fixed;
@@ -283,8 +411,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(12px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -310,6 +438,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            animation: levitacionHoja 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes levitacionHoja {
+            from {
+                transform: translateY(-5px) rotate(-1deg);
+            }
+
+            to {
+                transform: translateY(5px) rotate(1deg);
+            }
         }
 
         .vuelo-espectacular {
@@ -332,21 +471,22 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4));
-            /* SE ELIMINÓ MIX-BLEND-MODE PORQUE ES PNG */
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
         }
 
         .bloque-texto {
             position: absolute;
-            width: 70%;
+            width: 80%;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             opacity: 0;
-            /* MEJORA 2: Retraso de 1.2s para que el texto aparezca mágicamente después de la hoja */
-            transition: opacity 1s ease 1.2s;
+            transition: opacity 1s ease 1s;
             z-index: 10;
+            background: transparent;
+            padding: 40px 25px 30px;
+            border-radius: 50%;
         }
 
         .modal-activo .bloque-texto {
@@ -354,38 +494,64 @@
         }
 
         #texto-regalo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
-            color: #3b2f2f;
-            /* Oscuro, asumiendo que tu hoja PNG es clara */
+            font-family: 'Caveat', cursive;
+            font-size: 1.95rem;
+            font-weight: 700;
+            color: #2b1d1d;
             line-height: 1.5;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 1),
+                0 0 20px rgba(255, 255, 255, 0.9),
+                1px 1px 3px rgba(255, 255, 255, 0.8);
+            transition: opacity 0.5s ease;
+        }
+
+        .firma-carta {
+            font-family: 'Caveat', cursive;
+            font-size: 1.7rem;
+            color: #b57c7c;
+            align-self: flex-end;
+            margin-bottom: 15px;
+            margin-right: 10px;
+            font-weight: 700;
+        }
+
+        .botones-contenedor {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            align-items: center;
         }
 
         .botones-accion {
             display: flex;
             gap: 15px;
             justify-content: center;
+            width: 100%;
         }
 
         #btn-volver,
         #btn-ver-flor,
         #btn-cerrar-zoom {
             font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
-            font-weight: bold;
+            font-size: 0.95rem;
+            font-weight: 600;
             padding: 10px 20px;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             border: none;
-            transition: transform 0.2s, background 0.3s;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         #btn-volver:hover,
         #btn-ver-flor:hover,
         #btn-cerrar-zoom:hover {
-            transform: scale(1.05);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
         #btn-volver {
@@ -408,32 +574,37 @@
             background: white;
             color: #b57c7c;
             border: 2px solid #b57c7c;
+            display: none;
         }
 
-        .oculto {
-            display: none !important;
-            opacity: 0;
-        }
-
-        .activo {
-            display: block !important;
-            opacity: 1 !important;
+        #btn-cerrar-zoom:hover {
+            transform: translateX(-50%) translateY(-3px) scale(1.05);
         }
     </style>
 </head>
 
 <body>
+    <!-- Capas de fondo -->
     <div id="universo-fondo"></div>
+    <div id="atmosfera-nubes"></div>
 
+    <!-- PANTALLA INICIO -->
     <div id="pantalla-inicio" class="seccion activa">
-        <h1 class="titulo-bienvenida">Toca la flor para tu regalo</h1>
-        <img src="assets/boton-flor.png" id="btn-activar" alt="Regalo">
+        <div class="plataforma-nube">
+            <img src="assets/nube.png" class="nube-fondo-inicio" alt="Nube base">
+
+            <div class="contenido-nube">
+                <h1 class="titulo-bienvenida">Toca la flor para tu regalo</h1>
+                <img src="assets/boton-flor.png" id="btn-activar" alt="Regalo">
+                <p class="firma-diego">Con mucho amor,<br>de parte de Diego</p>
+            </div>
+        </div>
     </div>
 
+    <!-- PANTALLA JARDÍN -->
     <div id="pantalla-jardin" class="seccion oculta">
         <h2 class="instruccion-arte oculta-inicio" id="titulo-jardin">Toca cada flor flotante</h2>
 
-        <!-- TODOS LOS SRC AHORA SON .PNG Y APUNTAN A ASSETS/ -->
         <div class="flor-contenedor" id="f1" data-id="0">
             <img src="assets/nube.png" class="nube-fondo" alt="nube">
             <img src="assets/flor1.png" class="flor-img" alt="flor">
@@ -464,24 +635,28 @@
             <img src="assets/flor6.png" class="flor-img" alt="flor">
         </div>
 
-        <button id="btn-cerrar-zoom" class="oculto">Volver al jardín</button>
+        <button id="btn-cerrar-zoom">Volver al jardín</button>
     </div>
 
+    <!-- PANTALLA MENSAJE -->
     <div id="pantalla-mensaje" class="overlay modal-oculto">
         <div class="hoja-inmersiva-contenedor">
             <img src="assets/hoja.png" class="arte-hoja" alt="Hoja">
 
             <div class="bloque-texto">
                 <p id="texto-regalo"></p>
-                <div class="botones-accion">
-                    <button id="btn-volver">Volver</button>
-                    <button id="btn-ver-flor">Ver flor</button>
+                <span class="firma-carta">- Diego</span>
+                <div class="botones-contenedor">
+                    <div class="botones-accion">
+                        <button id="btn-volver">Cerrar carta</button>
+                        <button id="btn-ver-flor">Ver flor en detalle</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Módulo de Audio asegurado -->
+    <!-- Sistema de Audio -->
     <audio id="musica-fondo" src="assets/musica.m4a" loop></audio>
 
     <script>
@@ -504,11 +679,15 @@
         const overlay = document.getElementById('pantalla-mensaje');
         const contenedorHoja = document.querySelector('.hoja-inmersiva-contenedor');
         const textoRegalo = document.getElementById('texto-regalo');
+
         const btnVolver = document.getElementById('btn-volver');
         const btnVerFlor = document.getElementById('btn-ver-flor');
         const btnCerrarZoom = document.getElementById('btn-cerrar-zoom');
-        const capaMagia = document.getElementById('universo-fondo');
 
+        const capaMagia = document.getElementById('universo-fondo');
+        const capaNubes = document.getElementById('atmosfera-nubes');
+
+        // FUNCIONES DE ENTORNO
         function generarPolvoMagico() {
             for (let i = 0; i < 30; i++) {
                 let luz = document.createElement('div');
@@ -525,12 +704,31 @@
                 capaMagia.appendChild(luz);
             }
         }
+
+        function generarNubesAtmosfera() {
+            for (let i = 0; i < 5; i++) {
+                let nube = document.createElement('img');
+                nube.src = 'assets/nube.png';
+                nube.classList.add('nube-deriva');
+
+                let size = Math.random() * 150 + 150;
+                let posY = Math.random() * 80;
+                let duration = Math.random() * 20 + 25;
+                let delay = Math.random() * -30;
+
+                nube.style.width = `${size}px`;
+                nube.style.top = `${posY}vh`;
+                nube.style.animationDuration = `${duration}s`;
+                nube.style.animationDelay = `${delay}s`;
+
+                capaNubes.appendChild(nube);
+            }
+        }
+
         generarPolvoMagico();
+        generarNubesAtmosfera();
 
-        // INGENIERÍA DE AUDIO: Manejo robusto de la promesa de reproducción
         btnActivar.addEventListener('click', () => {
-
-            // Forzamos la configuración del canal de audio antes de transmitir
             musica.volume = 1.0;
             musica.currentTime = 0;
 
@@ -540,7 +738,6 @@
                     console.log("Transmisión de audio exitosa.");
                 }).catch(error => {
                     console.warn("Navegador bloqueó el audio automáticamente:", error);
-                    // Si falla, podrías añadir un botón en el HTML que diga "Encender sonido"
                 });
             }
 
@@ -578,21 +775,29 @@
             flores.forEach(flor => {
                 flor.classList.remove('opaca');
                 flor.classList.remove('enfocada');
+                flor.classList.remove('zoom-extremo');
             });
         });
 
         btnVerFlor.addEventListener('click', () => {
             overlay.classList.replace('modal-activo', 'modal-oculto');
             contenedorHoja.classList.remove('vuelo-espectacular');
-            btnCerrarZoom.classList.replace('oculto', 'activo');
+
+            btnCerrarZoom.style.display = 'block';
+
+            const florActual = document.querySelector('.flor-contenedor.enfocada');
+            if (florActual) {
+                florActual.classList.add('zoom-extremo');
+            }
         });
 
         btnCerrarZoom.addEventListener('click', () => {
-            btnCerrarZoom.classList.replace('activo', 'oculto');
+            btnCerrarZoom.style.display = 'none';
 
             flores.forEach(flor => {
                 flor.classList.remove('opaca');
                 flor.classList.remove('enfocada');
+                flor.classList.remove('zoom-extremo');
             });
         });
 
