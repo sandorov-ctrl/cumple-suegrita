@@ -514,27 +514,6 @@
             font-weight: 700;
         }
 
-        /* TEXTO GENERADO POR GEMINI */
-        #texto-gemini {
-            font-family: 'Caveat', cursive;
-            font-size: 1.3rem;
-            color: #d84315;
-            margin-bottom: 15px;
-            font-style: italic;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
-            display: none;
-        }
-
-        .botones-contenedor {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            width: 100%;
-            align-items: center;
-        }
-
         .botones-accion {
             display: flex;
             gap: 15px;
@@ -544,7 +523,6 @@
 
         #btn-volver,
         #btn-ver-flor,
-        #btn-gemini,
         #btn-cerrar-zoom {
             font-family: 'Poppins', sans-serif;
             font-size: 0.95rem;
@@ -573,24 +551,6 @@
             background: white;
             color: #b57c7c;
             border: 2px solid #b57c7c;
-        }
-
-        #btn-gemini {
-            background: linear-gradient(135deg, #fff9c4, #ffecb3);
-            color: #d84315;
-            border: 1px solid #ffca28;
-            padding: 6px 15px;
-            font-size: 0.8rem;
-            margin-bottom: 5px;
-        }
-
-        #btn-gemini:hover:not(:disabled) {
-            transform: translateY(-2px) scale(1.05);
-        }
-
-        #btn-gemini:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
         }
 
         #btn-cerrar-zoom {
@@ -628,7 +588,6 @@
                 transform: scale(1.2);
             }
 
-            /* Reducimos la sobre-expansión en móvil */
             .contenido-nube {
                 width: 95%;
             }
@@ -639,7 +598,6 @@
                 top: 8%;
                 padding: 8px 20px;
                 white-space: normal;
-                /* Evita que el texto rompa los bordes */
                 text-align: center;
                 width: 90%;
             }
@@ -647,7 +605,6 @@
             /* 3. Reordenamiento Espacial de Flores (Patrón de Zigzag Vertical) */
             .flor-contenedor {
                 width: 100px;
-                /* Reducción de masa estructural */
                 height: 100px;
             }
 
@@ -710,11 +667,6 @@
             .firma-carta {
                 font-size: 1.2rem;
                 margin-bottom: 5px;
-            }
-
-            #texto-gemini {
-                font-size: 1rem;
-                margin-bottom: 8px;
             }
 
             /* 5. Reorganización de Panel de Control (Apilar botones) */
@@ -801,14 +753,10 @@
 
             <div class="bloque-texto">
                 <p id="texto-regalo"></p>
-                <p id="texto-gemini"></p>
                 <span class="firma-carta">- Diego</span>
-                <div class="botones-contenedor">
-                    <button id="btn-gemini">✨ Susurro estelar (IA)</button>
-                    <div class="botones-accion">
-                        <button id="btn-volver">Cerrar carta</button>
-                        <button id="btn-ver-flor">Ver flor en detalle</button>
-                    </div>
+                <div class="botones-accion">
+                    <button id="btn-volver">Cerrar carta</button>
+                    <button id="btn-ver-flor">Ver flor en detalle</button>
                 </div>
             </div>
         </div>
@@ -827,8 +775,6 @@
             "Gracias por ser esa persona tan especial que siempre tiene un abrazo listo y una sonrisa sincera. Te quiero mucho."
         ];
 
-        let mensajeActualText = "";
-
         const btnActivar = document.getElementById('btn-activar');
         const pInicio = document.getElementById('pantalla-inicio');
         const pRamo = document.getElementById('pantalla-jardin');
@@ -839,67 +785,13 @@
         const overlay = document.getElementById('pantalla-mensaje');
         const contenedorHoja = document.querySelector('.hoja-inmersiva-contenedor');
         const textoRegalo = document.getElementById('texto-regalo');
-        const textoGemini = document.getElementById('texto-gemini');
 
         const btnVolver = document.getElementById('btn-volver');
         const btnVerFlor = document.getElementById('btn-ver-flor');
         const btnCerrarZoom = document.getElementById('btn-cerrar-zoom');
-        const btnGemini = document.getElementById('btn-gemini');
 
         const capaMagia = document.getElementById('universo-fondo');
         const capaNubes = document.getElementById('atmosfera-nubes');
-
-        // ==========================================
-        // MÓDULO DE IA (GEMINI API)
-        // ==========================================
-        const apiKey = "";
-
-        async function pedirSusurroEstelar(mensaje) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            const payload = {
-                contents: [{ parts: [{ text: `Escribe un halago muy dulce y corto (máximo 10 palabras) basado en este mensaje: "${mensaje}"` }] }],
-                systemInstruction: { parts: [{ text: "Eres un asistente romántico. Debes responder solo con una pequeña frase tierna de máximo 10 palabras, sin comillas." }] }
-            };
-
-            let retries = 5;
-            let delay = 1000;
-
-            for (let i = 0; i < retries; i++) {
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) throw new Error(`Fallo de conexión: ${response.status}`);
-
-                    const data = await response.json();
-                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "Eres luz en el universo.";
-                } catch (error) {
-                    if (i === retries - 1) throw error;
-                    await new Promise(res => setTimeout(res, delay));
-                    delay *= 2;
-                }
-            }
-        }
-
-        btnGemini.addEventListener('click', async () => {
-            btnGemini.disabled = true;
-            btnGemini.textContent = "✨ Conectando con las estrellas...";
-
-            try {
-                const susurro = await pedirSusurroEstelar(mensajeActualText);
-                textoGemini.textContent = `P.D: ${susurro}`;
-                textoGemini.style.display = 'block';
-                setTimeout(() => textoGemini.style.opacity = '1', 100);
-                btnGemini.style.display = 'none'; // Escondemos el botón tras usarlo
-            } catch (err) {
-                console.error("Anomalía en IA", err);
-                btnGemini.textContent = "✨ Intentar de nuevo";
-                btnGemini.disabled = false;
-            }
-        });
 
         // ==========================================
         // FUNCIONES DE ENTORNO
@@ -972,15 +864,7 @@
                 flor.classList.add('enfocada');
 
                 const id = flor.getAttribute('data-id');
-                mensajeActualText = frasesUnicas[id];
-                textoRegalo.textContent = mensajeActualText;
-
-                // Resetear estado de Gemini al abrir nueva carta
-                textoGemini.style.opacity = '0';
-                textoGemini.style.display = 'none';
-                btnGemini.style.display = 'block';
-                btnGemini.disabled = false;
-                btnGemini.textContent = "✨ Susurro estelar (IA)";
+                textoRegalo.textContent = frasesUnicas[id];
 
                 setTimeout(() => {
                     overlay.classList.replace('modal-oculto', 'modal-activo');
