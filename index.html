@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Título personalizado por el comandante Diego -->
     <title>Para ti, con todo mi cariño OTILIAAAAA🥳​🥳​</title>
 
     <link
@@ -27,10 +28,9 @@
             height: 100vh;
             overflow: hidden;
             background: #000;
-            /* Fondo de seguridad negro */
         }
 
-        /* INGENIERÍA DE FONDO: Capa dedicada para evitar estiramiento */
+        /* INGENIERÍA DE FONDO: Capa dedicada para evitar estiramiento y distorsión */
         body::before {
             content: "";
             position: fixed;
@@ -39,12 +39,10 @@
             width: 120%;
             height: 120%;
             background-image: url('assets/fondo1.png');
-            /* 'cover' asegura que la imagen mantenga su proporción original */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             z-index: -1;
-            /* Usamos transform para un movimiento suave sin lag */
             animation: derivaCosmica 40s ease-in-out infinite alternate;
             will-change: transform;
         }
@@ -153,7 +151,7 @@
         }
 
         /* =========================================
-           PANTALLA DE INICIO
+           PANTALLA DE INICIO (COFIA DE CARGA)
            ========================================= */
         .plataforma-nube {
             position: relative;
@@ -254,39 +252,36 @@
            ========================================= */
         .instruccion-arte {
             position: absolute;
-            top: 6%;
+            top: 50%;
             left: 50%;
-            transform: translate(-50%, -20px);
+            transform: translate(-50%, -50%);
             font-family: 'Dancing Script', cursive;
-            font-size: 2.2rem;
-            color: #ffffff;
-            background: rgba(181, 124, 124, 0.65);
-            backdrop-filter: blur(8px);
-            padding: 12px 35px;
+            font-size: 2.5rem;
+            color: #5a3d3d;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            padding: 15px 40px;
             border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px rgba(246, 211, 101, 0.5);
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
             white-space: nowrap;
             z-index: 5;
             opacity: 0;
             transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1) 0.5s;
+            border: 2px solid rgba(255, 255, 255, 0.6);
         }
 
         .mostrar-titulo {
             opacity: 1 !important;
-            transform: translate(-50%, 0) !important;
-            animation: latidoCosmico 3.5s ease-in-out infinite alternate 2s;
+            animation: latidoCariñoso 3s ease-in-out infinite alternate;
         }
 
-        @keyframes latidoCosmico {
+        @keyframes latidoCariñoso {
             from {
-                box-shadow: 0 5px 15px rgba(181, 124, 124, 0.3);
+                transform: translate(-50%, -50%) scale(1);
             }
 
             to {
-                box-shadow: 0 5px 30px rgba(181, 124, 124, 0.8);
-                transform: translate(-50%, -2px);
+                transform: translate(-50%, -50%) scale(1.05);
             }
         }
 
@@ -419,7 +414,7 @@
         }
 
         /* =========================================
-           INTERFAZ DE MENSAJES (CONTENCIÓN ESTRUCTURAL)
+           INTERFAZ DE MENSAJES (HOJA)
            ========================================= */
         .overlay {
             position: fixed;
@@ -570,13 +565,6 @@
             width: 100%;
         }
 
-        #btn-volver:hover,
-        #btn-ver-flor:hover,
-        #btn-cerrar-zoom:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
         #btn-volver {
             background: #b57c7c;
             color: white;
@@ -635,9 +623,10 @@
             }
 
             .instruccion-arte {
-                font-size: 1.4rem;
-                top: 8%;
-                width: 85%;
+                font-size: 1.6rem;
+                top: 50%;
+                width: 90%;
+                padding: 12px 25px;
             }
 
             .flor-contenedor {
@@ -712,6 +701,7 @@
     <div id="universo-fondo"></div>
     <div id="atmosfera-nubes"></div>
 
+    <!-- PANTALLA INICIO CON TEXTOS PERSONALIZADOS -->
     <div id="pantalla-inicio" class="seccion activa">
         <div class="plataforma-nube">
             <img src="assets/nube.png" class="nube-fondo-inicio" alt="Nube base">
@@ -723,6 +713,7 @@
         </div>
     </div>
 
+    <!-- PANTALLA JARDÍN CON INSTRUCCIÓN CENTRADA Y CARIÑOSA -->
     <div id="pantalla-jardin" class="seccion oculta">
         <h2 class="instruccion-arte oculta-inicio" id="titulo-jardin">Toca cada flor</h2>
         <div class="flor-contenedor" id="f1" data-id="0">
@@ -752,6 +743,7 @@
         <button id="btn-cerrar-zoom">Volver al jardín</button>
     </div>
 
+    <!-- PANTALLA MENSAJE (CARTA) -->
     <div id="pantalla-mensaje" class="overlay modal-oculto">
         <div class="hoja-inmersiva-contenedor">
             <img src="assets/hoja.png" class="arte-hoja" alt="Hoja">
@@ -834,9 +826,13 @@
                 flores.forEach(f => f.classList.add('opaca'));
                 flor.classList.remove('opaca'); flor.classList.add('enfocada');
                 textoRegalo.textContent = frasesUnicas[flor.getAttribute('data-id')];
+                // Desplazamos el scroll del texto al inicio al abrir una nueva flor
+                document.querySelector('.bloque-texto').scrollTop = 0;
                 setTimeout(() => {
                     overlay.classList.replace('modal-oculto', 'modal-activo');
                     contenedorHoja.classList.add('vuelo-espectacular');
+                    // Ocultamos el título central cuando hay una flor enfocada
+                    tituloJardin.classList.remove('mostrar-titulo');
                 }, 600);
             });
         });
@@ -845,6 +841,8 @@
             overlay.classList.replace('modal-activo', 'modal-oculto');
             contenedorHoja.classList.remove('vuelo-espectacular');
             flores.forEach(flor => { flor.classList.remove('opaca', 'enfocada', 'zoom-extremo'); });
+            // Devolvemos el título central al volver al jardín
+            tituloJardin.classList.add('mostrar-titulo');
         });
 
         btnVerFlor.addEventListener('click', () => {
@@ -858,6 +856,7 @@
         btnCerrarZoom.addEventListener('click', () => {
             btnCerrarZoom.style.display = 'none';
             flores.forEach(flor => { flor.classList.remove('opaca', 'enfocada', 'zoom-extremo'); });
+            tituloJardin.classList.add('mostrar-titulo');
         });
     </script>
 </body>
